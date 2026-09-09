@@ -1,0 +1,41 @@
+{
+  "id": "programming-typescript-basics",
+  "title": "Podstawy TypeScript",
+  "summary": "Typowanie statyczne nad JavaScriptem — mniej błędów wykrywanych dopiero w produkcji.",
+  "category": "Web",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "typescript",
+  "estimatedMinutes": 30,
+  "prerequisites": ["programming-javascript-basics"],
+  "tags": ["typescript", "web", "programowanie", "typy"],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Po co typy?",
+      "kind": "info",
+      "content": "## TypeScript = JavaScript + typy\n\n```typescript\nfunction dodaj(a: number, b: number): number {\n  return a + b;\n}\n\ndodaj(2, \"3\"); // błąd wykryty PRZED uruchomieniem kodu!\n```\n\nTypeScript kompiluje się do zwykłego JavaScriptu, ale sprawdza typy już podczas pisania kodu — ta aplikacja sama jest napisana właśnie w TypeScripcie.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Interfejsy",
+      "kind": "question",
+      "content": "## Opisywanie kształtu obiektów\n\n```typescript\ninterface Uzytkownik {\n  imie: string;\n  wiek: number;\n}\n\nconst u: Uzytkownik = { imie: \"Ala\", wiek: 30 };\n```\n\n`interface` opisuje, jakie pola (i jakiego typu) musi mieć obiekt.",
+      "question": "Jakiego słowa kluczowego użyjesz, żeby zdefiniować kształt obiektu w TypeScript (tak jak w przykładzie powyżej)?",
+      "answer": "interface",
+      "hint": "To dosłownie angielskie słowo 'interfejs'.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Typy opcjonalne",
+      "kind": "question",
+      "content": "## Pola opcjonalne\n\n```typescript\ninterface Profil {\n  nazwa: string;\n  bio?: string; // opcjonalne\n}\n```\n\nZnak `?` po nazwie pola oznacza, że pole może, ale nie musi wystąpić w obiekcie.",
+      "question": "Jaki znak stawia się po nazwie pola w interfejsie TypeScript, żeby oznaczyć je jako opcjonalne?",
+      "answer": "?",
+      "hint": "To ten sam znak, co znak zapytania w zdaniu pytającym.",
+      "points": 10
+    }
+  ]
+}
