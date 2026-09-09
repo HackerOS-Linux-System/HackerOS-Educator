@@ -1,0 +1,61 @@
+{
+  "id": "linux-fundamentals",
+  "title": "Podstawy Linuksa dla bezpieczeństwa",
+  "summary": "Nawigacja w terminalu, uprawnienia plików i podstawowe polecenia, których używa się w codziennej pracy specjalisty ds. bezpieczeństwa.",
+  "category": "Systemy operacyjne",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 40,
+  "prerequisites": [
+    "intro-to-cybersecurity"
+  ],
+  "tags": [
+    "linux",
+    "terminal",
+    "hackeros"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Struktura systemu plików",
+      "kind": "info",
+      "content": "## Struktura katalogów w Linuksie\n\n- `/etc` — pliki konfiguracyjne\n- `/var/log` — logi systemowe (kluczowe przy analizie incydentów)\n- `/home` — katalogi domowe użytkowników\n- `/usr/bin` — programy dostępne dla wszystkich użytkowników\n\nW HackerOS znajdziesz też katalogi specyficzne dla trybu cyberbezpieczeństwa z narzędziami edukacyjnymi.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Uprawnienia plików",
+      "kind": "question",
+      "content": "## Uprawnienia (permissions)\n\nPolecenie `ls -l` pokazuje uprawnienia w formacie np. `-rwxr-xr--`.\n\nUprawnienia dzielą się na trzy grupy: właściciel, grupa, pozostali. Każda grupa ma trzy bity: `r` (odczyt), `w` (zapis), `x` (wykonanie).",
+      "question": "Jakim poleceniem zmienisz uprawnienia pliku `skrypt.sh` tak, by właściciel mógł go wykonywać? (podaj samo polecenie, np. 'chmod u+x skrypt.sh')",
+      "answer": "chmod u+x skrypt.sh",
+      "hint": "Użyj chmod z symbolem 'u' (user) i '+x' (dodaj wykonanie).",
+      "walkthrough": "1. Otwórz terminal.\n2. Wpisz `ls -l skrypt.sh`, aby zobaczyć bieżące uprawnienia.\n3. Wpisz `chmod u+x skrypt.sh`.\n4. Sprawdź efekt ponownie poleceniem `ls -l skrypt.sh` — powinieneś zobaczyć `x` w sekcji właściciela.",
+      "walkthroughUnlockAfterAttempts": 3,
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Analiza logów",
+      "kind": "question",
+      "content": "## Szybkie przeszukiwanie logów\n\nPolecenie `grep` pozwala filtrować linie tekstu pasujące do wzorca — nieocenione przy przeglądaniu logów `/var/log/auth.log` w poszukiwaniu nieudanych logowań.",
+      "question": "Jakiego słowa kluczowego w logu auth.log szukałbyś, aby znaleźć nieudane próby logowania SSH? (jedno angielskie słowo)",
+      "answer": "failed",
+      "hint": "Linie logu zwykle zawierają frazę 'Failed password'.",
+      "walkthrough": "1. Wpisz `grep -i failed /var/log/auth.log`.\n2. Przeanalizuj adresy IP i nazwy użytkowników w wynikach — to typowy pierwszy krok analizy prób brute-force.",
+      "walkthroughUnlockAfterAttempts": 3,
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Ćwiczenie praktyczne: nawigacja",
+      "kind": "practical",
+      "content": "## Poćwicz w prawdziwym terminalu\n\nPoniżej masz działający terminal lokalnej powłoki. Spróbuj:\n\n1. `pwd` — sprawdź, gdzie jesteś\n2. `ls -la` — wylistuj zawartość katalogu wraz z ukrytymi plikami\n3. `whoami` — sprawdź, jako kto jesteś zalogowany\n\nTerminal działa na Twojej lokalnej maszynie — dokładnie tak, jak zwykły terminal systemowy.",
+      "question": "Jakie polecenie wypisuje bieżącą ścieżkę roboczą?",
+      "answer": "pwd",
+      "hint": "To trzy litery, skrót od 'print working directory'.",
+      "hasTerminal": true,
+      "points": 15
+    }
+  ]
+}
