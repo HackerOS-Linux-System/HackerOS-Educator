@@ -1,0 +1,43 @@
+{
+  "id": "programming-rust-basics",
+  "title": "Podstawy Rust",
+  "summary": "Własność (ownership), zmienność i podstawowa składnia — język, w którym napisany jest backend tej aplikacji.",
+  "category": "Systemowe",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "rust",
+  "estimatedMinutes": 35,
+  "prerequisites": [],
+  "tags": ["rust", "systemowe", "wydajność"],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest Rust?",
+      "kind": "info",
+      "content": "## Rust w skrócie\n\nRust to język systemowy dający wydajność zbliżoną do C/C++, ale bez typowych błędów pamięci (use-after-free, wyścigi danych) — dzięki systemowi **własności (ownership)** sprawdzanemu w czasie kompilacji.\n\n```rust\nfn main() {\n    let nazwa = String::from(\"HackerOS\");\n    println!(\"Cześć, {}!\", nazwa);\n}\n```\n\nBackend HackerOS Educator (terminal, zapisywanie profili) jest napisany właśnie w Rust + Tauri.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Własność (ownership)",
+      "kind": "question",
+      "content": "## Jedna zmienna, jeden właściciel\n\n```rust\nlet a = String::from(\"hej\");\nlet b = a; // \"a\" traci własność — to się nazywa \"move\"\n// println!(\"{}\", a); // BŁĄD KOMPILACJI!\nprintln!(\"{}\", b); // OK\n```\n\nW danym momencie tylko jedna zmienna może być właścicielem danej wartości na stercie — to eliminuje całą klasę błędów pamięci znanych z C/C++.",
+      "question": "Jak nazywa się operacja przeniesienia własności wartości z jednej zmiennej do drugiej w Rust (jedno angielskie słowo)?",
+      "answer": "move",
+      "hint": "To dosłownie angielskie słowo oznaczające 'przenieść'.",
+      "walkthrough": "Gdy przypisujesz wartość typu nie-Copy (np. String) do nowej zmiennej, oryginalna zmienna 'traci' dostęp do tej wartości — kompilator to wymusza, żeby zapobiec podwójnemu zwolnieniu pamięci.",
+      "walkthroughUnlockAfterAttempts": 3,
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Cargo — menedżer pakietów",
+      "kind": "question",
+      "content": "## Cargo\n\n`cargo` to narzędzie do budowania projektów Rust i zarządzania zależnościami — odpowiednik `npm` w świecie JavaScript.\n\n```bash\ncargo new moj-projekt\ncargo build\ncargo run\n```",
+      "question": "Jakiej komendy cargo użyjesz, żeby skompilować i od razu uruchomić projekt?",
+      "answer": "cargo run",
+      "hint": "To dwa słowa: nazwa narzędzia + angielskie słowo 'uruchom'.",
+      "points": 10
+    }
+  ]
+}
