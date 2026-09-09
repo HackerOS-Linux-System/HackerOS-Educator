@@ -1,0 +1,43 @@
+{
+  "id": "programming-lua-basics",
+  "title": "Podstawy Lua",
+  "summary": "Lekki język skryptowy używany w grach, edytorach (Neovim) i narzędziach takich jak Nmap czy Wireshark.",
+  "category": "Skrypty",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "lua",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "tags": ["lua", "skrypty", "gry"],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest Lua?",
+      "kind": "info",
+      "content": "## Lua w skrócie\n\nLua to malutki, szybki język skryptowy, często osadzany wewnątrz innych programów jako język konfiguracji lub automatyzacji: Neovim, World of Warcraft, a nawet skrypty Nmap (NSE) czy Wireshark (dissectory).\n\n```lua\nlocal nazwa = \"HackerOS\"\nprint(\"Cześć, \" .. nazwa .. \"!\")\n```\n\nZauważ: sklejanie tekstu (konkatenacja) robi się operatorem `..`, nie `+`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Tabele — jedyna struktura danych",
+      "kind": "question",
+      "content": "## Tabele (tables)\n\nLua ma tylko jedną złożoną strukturę danych — tabelę, która działa jednocześnie jak tablica i jak słownik/mapa:\n\n```lua\nlocal osoba = { imie = \"Ala\", wiek = 30 }\nprint(osoba.imie) -- Ala\n\nlocal lista = {10, 20, 30}\nprint(lista[1]) -- 10 (indeksy zaczynają się od 1!)\n```",
+      "question": "Od jakiej liczby zaczyna się indeksowanie tablic w Lua (w przeciwieństwie do większości innych języków)?",
+      "answer": "1",
+      "hint": "To NIE jest 0, jak w większości języków programowania.",
+      "walkthrough": "W Lua pierwszy element tabeli ma indeks 1, a nie 0. To częsta pułapka dla programistów przechodzących z innych języków.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Sklejanie tekstu",
+      "kind": "question",
+      "content": "## Konkatenacja stringów\n\nW wielu językach do sklejania tekstu służy `+`. W Lua jest inaczej — patrz przykład z pierwszego zadania.",
+      "question": "Jakiego operatora (dwóch znaków) używa się w Lua do sklejania (konkatenacji) dwóch tekstów?",
+      "answer": "..",
+      "hint": "To dwie kropki obok siebie.",
+      "points": 10
+    }
+  ]
+}
