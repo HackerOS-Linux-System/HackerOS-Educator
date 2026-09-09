@@ -1,0 +1,44 @@
+{
+  "id": "intro-to-cybersecurity",
+  "title": "Wprowadzenie do cyberbezpieczeństwa",
+  "summary": "Poznaj podstawowe pojęcia: triadę CIA, rodzaje zagrożeń oraz ścieżki kariery w cyberbezpieczeństwie.",
+  "category": "Podstawy",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [],
+  "tags": [
+    "podstawy",
+    "teoria",
+    "kariera"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest cyberbezpieczeństwo?",
+      "kind": "info",
+      "content": "## Czym jest cyberbezpieczeństwo?\n\nCyberbezpieczeństwo to zbiór praktyk chroniących systemy, sieci i dane przed nieautoryzowanym dostępem, uszkodzeniem lub kradzieżą.\n\nGłówne obszary:\n- **Blue Team** — obrona, monitoring, reagowanie na incydenty\n- **Red Team** — testy penetracyjne, symulacja ataków za zgodą właściciela systemu\n- **GRC** — zarządzanie ryzykiem, zgodność i audyt\n\nW tej aplikacji poznasz podstawy każdego z tych obszarów w bezpiecznym, wirtualnym środowisku.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Triada CIA",
+      "kind": "question",
+      "content": "## Triada CIA\n\nTriada **CIA** to fundament bezpieczeństwa informacji:\n\n1. **Confidentiality (Poufność)** — dane widzą tylko uprawnione osoby\n2. **Integrity (Integralność)** — dane nie zostały nieautoryzowanie zmienione\n3. **Availability (Dostępność)** — systemy i dane są dostępne, gdy są potrzebne\n\nAtak typu DDoS uderza przede wszystkim w jeden z tych trzech filarów.",
+      "question": "Który element triady CIA jest głównym celem ataku DDoS? (podaj po polsku, np. 'poufność')",
+      "answer": "dostępność",
+      "hint": "Atak DDoS zalewa serwer ruchem, przez co usługa przestaje odpowiadać prawowitym użytkownikom.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Etyka i prawo",
+      "kind": "question",
+      "content": "## Zasady etycznego hakowania\n\nTestowanie bezpieczeństwa systemu **bez pisemnej zgody właściciela jest przestępstwem** w większości krajów, w tym w Polsce (art. 267–269b Kodeksu karnego).\n\nZanim przetestujesz jakikolwiek system, upewnij się, że masz:\n- pisemną zgodę (Rules of Engagement),\n- jasno określony zakres testów,\n- ustalony czas trwania testów.\n\nHackerOS Educator uczy wyłącznie na kontrolowanych, lokalnych laboratoriach — nigdy na cudzych systemach bez zgody.",
+      "question": "Jak nazywa się dokument określający zakres i zasady legalnego testu penetracyjnego? (odpowiedz skrótem, 3 słowa po angielsku)",
+      "answer": "rules of engagement",
+      "hint": "To skrót RoE.",
+      "points": 10
+    }
+  ]
+}
