@@ -1,0 +1,43 @@
+{
+  "id": "programming-javascript-basics",
+  "title": "Podstawy JavaScript",
+  "summary": "Zmienne, funkcje i tablice — język, który ożywia strony internetowe.",
+  "category": "Web",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "javascript",
+  "estimatedMinutes": 30,
+  "prerequisites": ["programming-html-basics"],
+  "tags": ["javascript", "web", "programowanie"],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Zmienne: let, const, var",
+      "kind": "info",
+      "content": "## Deklarowanie zmiennych\n\n```javascript\nconst nazwa = \"HackerOS\"; // nie można nadpisać\nlet wiek = 5;             // można zmieniać\nwiek = 6;\n```\n\nWspółcześnie unika się `var` — `let` i `const` mają lepiej zdefiniowany zasięg (block scope).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Funkcje",
+      "kind": "question",
+      "content": "## Funkcje strzałkowe\n\n```javascript\nconst dodaj = (a, b) => a + b;\nconsole.log(dodaj(2, 3)); // 5\n```\n\nFunkcje strzałkowe (`=>`) to zwięzły sposób definiowania funkcji, popularny we współczesnym JS.",
+      "question": "Jakiego słowa kluczowego używasz, żeby zadeklarować stałą (wartość, której nie da się nadpisać) w JavaScript?",
+      "answer": "const",
+      "hint": "To przeciwieństwo 'let' pod względem możliwości zmiany wartości.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Tablice i metody",
+      "kind": "question",
+      "content": "## Praca z tablicami\n\n```javascript\nconst liczby = [1, 2, 3];\nconst podwojone = liczby.map(n => n * 2); // [2, 4, 6]\n```\n\n`.map()` tworzy nową tablicę, przekształcając każdy element — nie modyfikuje oryginału.",
+      "question": "Jakiej metody tablicy użyjesz, żeby przekształcić każdy element i zwrócić nową tablicę wyników?",
+      "answer": "map",
+      "hint": "Trzy litery, kojarzy się z 'mapowaniem' wartości na nowe wartości.",
+      "walkthrough": "`array.map(fn)` wywołuje `fn` dla każdego elementu i zwraca nową tablicę z wynikami. Nie myl z `.forEach()` (nic nie zwraca) ani `.filter()` (usuwa elementy niespełniające warunku).",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 10
+    }
+  ]
+}
