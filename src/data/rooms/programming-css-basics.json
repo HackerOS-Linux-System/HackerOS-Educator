@@ -1,0 +1,43 @@
+{
+  "id": "programming-css-basics",
+  "title": "Podstawy CSS",
+  "summary": "Selektory, model pudełkowy (box model) i Flexbox — jak nadawać stronom wygląd.",
+  "category": "Web",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "css",
+  "estimatedMinutes": 25,
+  "prerequisites": ["programming-html-basics"],
+  "tags": ["css", "web", "frontend", "stylowanie"],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Selektory CSS",
+      "kind": "info",
+      "content": "## Jak wybrać element do ostylowania\n\n```css\np { color: navy; }          /* wszystkie <p> */\n.card { padding: 12px; }     /* elementy z class=\"card\" */\n#main { width: 100%; }       /* element z id=\"main\" */\n```\n\nSpecyficzność rośnie: znacznik < klasa < id.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Model pudełkowy (box model)",
+      "kind": "question",
+      "content": "## Box model\n\nKażdy element to prostokąt złożony z (od środka): `content` → `padding` → `border` → `margin`.\n\n`padding` to odstęp *wewnątrz* elementu, `margin` to odstęp *na zewnątrz*, między elementami.",
+      "question": "Jak nazywa się odstęp WEWNĄTRZ elementu, między jego zawartością a krawędzią (border)?",
+      "answer": "padding",
+      "hint": "Po polsku czasem tłumaczone jako 'wyściółka'.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Flexbox",
+      "kind": "question",
+      "content": "## Flexbox — układanie elementów w rzędzie/kolumnie\n\n```css\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n```\n\n`justify-content` steruje wyrównaniem wzdłuż głównej osi, `align-items` — w poprzek.",
+      "question": "Jaką właściwość CSS trzeba ustawić na kontenerze, żeby aktywować Flexbox?",
+      "answer": "display: flex",
+      "hint": "To ta sama właściwość, która może też przyjąć wartość 'block' albo 'grid'.",
+      "walkthrough": "Ustaw `display: flex;` na elemencie-rodzicu. Wszystkie jego bezpośrednie dzieci staną się elementami flex i można nimi sterować przez justify-content/align-items/gap.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 10
+    }
+  ]
+}
