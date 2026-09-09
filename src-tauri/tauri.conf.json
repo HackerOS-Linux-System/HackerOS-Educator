@@ -1,1 +1,40 @@
-
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "HackerOS Educator",
+  "version": "0.1.0",
+  "identifier": "org.hackeros.educator",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "HackerOS Educator",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 960,
+        "minHeight": 640,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "rpm", "appimage"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.png"
+    ],
+    "category": "Education",
+    "shortDescription": "Darmowa nauka cyberbezpieczeństwa dla ekosystemu HackerOS",
+    "longDescription": "HackerOS Educator to open-source'owa aplikacja edukacyjna inspirowana platformami typu TryHackMe, tworzona natywnie dla dystrybucji HackerOS i jej ekosystemu. Bez limitów, bez konta w chmurze."
+  }
+}
