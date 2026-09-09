@@ -1,0 +1,36 @@
+{
+  "id": "network-basics",
+  "title": "Podstawy sieci komputerowych",
+  "summary": "Model OSI, adresacja IP i podstawowe protokoły — fundament do dalszej nauki o bezpieczeństwie sieci.",
+  "category": "Sieci",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 45,
+  "prerequisites": [
+    "intro-to-cybersecurity"
+  ],
+  "tags": [
+    "sieci",
+    "tcp/ip",
+    "osi"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Model OSI",
+      "kind": "info",
+      "content": "## Model OSI — 7 warstw\n\n1. Fizyczna\n2. Łącza danych\n3. Sieciowa\n4. Transportowa\n5. Sesji\n6. Prezentacji\n7. Aplikacji\n\nWiększość narzędzi bezpieczeństwa (np. skanery portów) działa na warstwie transportowej i sieciowej.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Porty i protokoły",
+      "kind": "question",
+      "content": "## Popularne porty\n\nZnajomość domyślnych portów usług pomaga szybko interpretować wyniki skanowania sieci.\n\n- 22 — SSH\n- 80 — HTTP\n- 443 — HTTPS\n- 21 — FTP",
+      "question": "Jaki domyślny numer portu wykorzystuje protokół SSH?",
+      "answer": "22",
+      "hint": "To ten sam port, którego używasz do bezpiecznego zdalnego logowania na serwer Linux.",
+      "points": 10
+    }
+  ]
+}
