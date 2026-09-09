@@ -1,0 +1,42 @@
+{
+  "id": "programming-shell-basics",
+  "title": "Podstawy Shell (Bash)",
+  "summary": "Skrypty powłoki — zmienne, pętle i pierwszy własny skrypt, ćwiczony w prawdziwym terminalu.",
+  "category": "Skrypty",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "shell",
+  "estimatedMinutes": 25,
+  "prerequisites": [],
+  "tags": ["shell", "bash", "skrypty", "automatyzacja"],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest skrypt powłoki?",
+      "kind": "info",
+      "content": "## Skrypt Bash w skrócie\n\nSkrypt powłoki to po prostu plik z sekwencją poleceń, które normalnie wpisałbyś ręcznie w terminalu:\n\n```bash\n#!/bin/bash\nimie=\"HackerOS\"\necho \"Cześć, $imie!\"\n```\n\nPierwsza linia (`#!/bin/bash`) to tzw. shebang — mówi systemowi, jakim interpreterem uruchomić plik.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Zmienne i podstawianie",
+      "kind": "question",
+      "content": "## Odczyt zmiennej\n\nW Bashu zmienną odczytuje się, poprzedzając jej nazwę znakiem dolara:\n\n```bash\nimie=\"Ala\"\necho $imie\n```",
+      "question": "Jakiego znaku używa się w Bashu, żeby odczytać (podstawić) wartość zmiennej?",
+      "answer": "$",
+      "hint": "To symbol dolara.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Ćwiczenie: pętla for w terminalu",
+      "kind": "practical",
+      "content": "## Poćwicz pętlę w prawdziwym terminalu\n\nW terminalu poniżej wpisz i uruchom:\n\n```bash\nfor i in 1 2 3; do echo \"Numer: $i\"; done\n```\n\nZobacz, jak pętla wypisuje kolejne wartości. Spróbuj też zmienić zakres liczb albo dodać własny tekst.",
+      "question": "Jakiego słowa kluczowego Bash używa do zakończenia bloku pętli `for ... do ... `?",
+      "answer": "done",
+      "hint": "To angielskie słowo oznaczające 'zrobione/zakończone' — dokładnie jak w przykładzie powyżej.",
+      "hasTerminal": true,
+      "points": 15
+    }
+  ]
+}
