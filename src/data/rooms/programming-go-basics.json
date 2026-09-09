@@ -1,0 +1,43 @@
+{
+  "id": "programming-go-basics",
+  "title": "Podstawy Go",
+  "summary": "Prosty, szybko kompilujący się język od Google — popularny w narzędziach sieciowych i cyberbezpieczeństwie.",
+  "category": "Systemowe",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "go",
+  "estimatedMinutes": 25,
+  "prerequisites": [],
+  "tags": ["go", "golang", "sieci", "systemowe"],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest Go?",
+      "kind": "info",
+      "content": "## Go w skrócie\n\nGo (Golang) to prosty, statycznie typowany język od Google, znany z szybkiej kompilacji i wbudowanego wsparcia dla współbieżności. Mnóstwo narzędzi bezpieczeństwa (np. skanery, boty C2 w testach red-teamowych, Nuclei, Gobuster) jest napisanych w Go.\n\n```go\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Cześć, HackerOS!\")\n}\n```",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Pakiet main i funkcja main",
+      "kind": "question",
+      "content": "## Punkt wejścia programu\n\nKażdy uruchamialny program w Go musi mieć pakiet `main` oraz funkcję `main()` bez argumentów i bez wartości zwracanej — to od niej zaczyna się wykonanie.",
+      "question": "Jak nazywa się funkcja, od której zaczyna się wykonanie każdego programu w Go?",
+      "answer": "main",
+      "hint": "To dokładnie ta sama nazwa co nazwa pakietu w przykładzie powyżej.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Goroutines — lekka współbieżność",
+      "kind": "question",
+      "content": "## Uruchamianie kodu współbieżnie\n\n```go\ngo zrobCos() // uruchamia zrobCos() jako goroutine, w tle\n```\n\nSłowo kluczowe `go` przed wywołaniem funkcji uruchamia ją jako **goroutine** — lekki wątek zarządzany przez runtime Go. To dzięki temu narzędzia takie jak skanery portów pisane w Go potrafią sprawdzać tysiące hostów jednocześnie.",
+      "question": "Jakiego pojedynczego słowa kluczowego używa się przed wywołaniem funkcji, żeby uruchomić ją jako goroutine?",
+      "answer": "go",
+      "hint": "To ta sama nazwa co sam język.",
+      "walkthrough": "Wstawienie słowa `go` przed wywołaniem funkcji (np. `go fetchURL(url)`) sprawia, że funkcja wykonuje się asynchronicznie, a program nie czeka na jej zakończenie w tym miejscu.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 10
+    }
+  ]
+}
