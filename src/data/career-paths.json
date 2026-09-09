@@ -1,0 +1,59 @@
+{
+  "paths": [
+    {
+      "id": "junior-pentester",
+      "title": "Junior Penetration Tester",
+      "description": "Ścieżka wprowadzająca w ofensywne bezpieczeństwo: od podstaw teoretycznych, przez system operacyjny i sieci, po pierwsze ćwiczenia praktyczne.",
+      "icon": "🗡️",
+      "track": "cybersecurity",
+      "steps": [
+        {
+          "roomId": "intro-to-cybersecurity",
+          "note": "Fundamenty i etyka"
+        },
+        {
+          "roomId": "linux-fundamentals",
+          "note": "Terminal to Twoje podstawowe narzędzie"
+        },
+        {
+          "roomId": "network-basics",
+          "note": "Bez sieci nie ma pentestów"
+        }
+      ]
+    },
+    {
+      "id": "soc-analyst",
+      "title": "SOC Analyst (Blue Team)",
+      "description": "Ścieżka defensywna — analiza logów, wykrywanie incydentów i podstawy monitoringu bezpieczeństwa.",
+      "icon": "🛡️",
+      "track": "cybersecurity",
+      "steps": [
+        {
+          "roomId": "intro-to-cybersecurity",
+          "note": "Triada CIA to Twój kompas"
+        },
+        {
+          "roomId": "linux-fundamentals",
+          "note": "Analiza logów w /var/log"
+        },
+        {
+          "roomId": "network-basics",
+          "note": "Rozpoznawanie ruchu sieciowego"
+        }
+      ]
+    },
+    {
+      "id": "web-developer",
+      "title": "Web Developer (Frontend)",
+      "description": "Klasyczna ścieżka frontendowa: struktura strony, stylowanie, interaktywność i typowanie.",
+      "icon": "🌐",
+      "track": "programming",
+      "steps": [
+        { "roomId": "programming-html-basics", "note": "Struktura każdej strony" },
+        { "roomId": "programming-css-basics", "note": "Wygląd i układ" },
+        { "roomId": "programming-javascript-basics", "note": "Interaktywność" },
+        { "roomId": "programming-typescript-basics", "note": "Bezpieczniejszy, typowany kod" }
+      ]
+    }
+  ]
+}
