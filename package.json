@@ -1,1 +1,28 @@
-
+{
+  "name": "hackeros-educator",
+  "private": true,
+  "version": "0.1.0",
+  "description": "HackerOS Educator — darmowa, open-source platforma do nauki cyberbezpieczeństwa (GUI), inspirowana TryHackMe. Część ekosystemu dystrybucji HackerOS.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "solid-js": "^1.9.3",
+    "@tauri-apps/api": "^2.1.1",
+    "@tauri-apps/plugin-dialog": "^2.0.3",
+    "@tauri-apps/plugin-notification": "^2.0.1",
+    "marked": "^14.1.3",
+    "@xterm/xterm": "^6.0.0",
+    "@xterm/addon-fit": "^0.11.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.1.0",
+    "vite": "^5.4.11",
+    "vite-plugin-solid": "^2.11.0",
+    "typescript": "^5.6.3"
+  }
+}
