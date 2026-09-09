@@ -1,0 +1,43 @@
+{
+  "id": "programming-html-basics",
+  "title": "Podstawy HTML",
+  "summary": "Struktura dokumentu, najważniejsze znaczniki i atrybuty — fundament każdej strony internetowej.",
+  "category": "Web",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "html",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "tags": ["html", "web", "frontend"],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Szkielet dokumentu HTML",
+      "kind": "info",
+      "content": "## Minimalny dokument HTML\n\n```html\n<!doctype html>\n<html>\n  <head>\n    <title>Moja strona</title>\n  </head>\n  <body>\n    <h1>Witaj!</h1>\n  </body>\n</html>\n```\n\n- `<!doctype html>` mówi przeglądarce, że to HTML5\n- `<head>` zawiera metadane (tytuł, style, meta)\n- `<body>` zawiera widoczną zawartość strony",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Znaczniki semantyczne",
+      "kind": "question",
+      "content": "## Semantyka ma znaczenie\n\nHTML5 wprowadził znaczniki opisujące *rolę* treści, a nie tylko jej wygląd:\n\n- `<header>`, `<nav>`, `<main>`, `<footer>`\n- `<article>`, `<section>`\n\nUżywanie ich zamiast samych `<div>` poprawia dostępność (screen readery) i SEO.",
+      "question": "Jakiego znacznika użyjesz do oznaczenia głównej, unikalnej zawartości strony (bez nagłówka i stopki)?",
+      "answer": "main",
+      "hint": "To krótkie słowo, dosłownie znaczy 'główny'.",
+      "walkthrough": "Znacznik `<main>` powinien wystąpić dokładnie raz na stronie i opasywać treść unikalną dla tej podstrony (w odróżnieniu od nagłówka/stopki, które się powtarzają).",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Atrybuty i linki",
+      "kind": "question",
+      "content": "## Atrybuty znaczników\n\nZnacznik `<a>` tworzy link. Docelowy adres podaje się w atrybucie `href`:\n\n```html\n<a href=\"https://example.com\">Odwiedź stronę</a>\n```",
+      "question": "Jakiego atrybutu użyjesz w znaczniku <img>, żeby podać opis alternatywny obrazka (ważne dla dostępności)?",
+      "answer": "alt",
+      "hint": "Trzy litery, od słowa 'alternative'.",
+      "points": 10
+    }
+  ]
+}
