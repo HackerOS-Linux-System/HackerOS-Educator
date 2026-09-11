@@ -1,0 +1,67 @@
+{
+  "id": "linux-monitoring-stack",
+  "title": "Nowoczesny monitoring: metryki, Prometheus i Grafana",
+  "summary": "Różnica między logami a metrykami, model 'pull' Prometheusa oraz wizualizacja danych w Grafanie.",
+  "category": "Monitoring",
+  "difficulty": "Trudny",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-logs-monitoring"
+  ],
+  "tags": [
+    "linux",
+    "monitoring",
+    "prometheus",
+    "grafana"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Logi vs metryki",
+      "kind": "info",
+      "content": "## Dwa różne rodzaje danych obserwowalności\n\n**Logi** to dyskretne zdarzenia z kontekstem tekstowym (\"o 10:32 użytkownik X się zalogował\"). **Metryki** to liczbowe wartości mierzone CYKLICZNIE w czasie (np. użycie CPU co 15 sekund) — świetnie nadają się do wykresów, trendów i alarmów progowych.\n\nNowoczesny monitoring produkcyjny łączy oba: metryki do szybkiego wykrywania ANOMALII ('CPU skoczyło do 95%'), logi do zrozumienia PRZYCZYNY ('dlaczego?').",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Model 'pull' Prometheusa",
+      "kind": "question",
+      "content": "## Kto o co pyta?\n\nW przeciwieństwie do wielu starszych systemów, gdzie aplikacje WYSYŁAJĄ metryki do centralnego serwera (model 'push'), **Prometheus** działa odwrotnie: sam CYKLICZNIE ODPYTUJE (scrape'uje) skonfigurowane endpointy HTTP aplikacji o aktualne wartości metryk. To upraszcza wykrywanie, czy monitorowana usługa w ogóle żyje (brak odpowiedzi na zapytanie = alarm).",
+      "question": "Jak (jednym angielskim słowem) nazywa się model, w którym system monitorujący sam AKTYWNIE POBIERA dane z monitorowanych usług, zamiast na nie czekać?",
+      "answer": "pull",
+      "hint": "To przeciwieństwo modelu 'push'.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Grafana — wizualizacja",
+      "kind": "question",
+      "content": "## Dashboardy zamiast surowych liczb\n\n**Grafana** to narzędzie do TWORZENIA DASHBOARDÓW — wizualnych paneli z wykresami metryk pobieranych z różnych źródeł danych (Prometheus, bazy danych, logi). Sama Grafana NIE przechowuje metryk — jest 'warstwą wizualizacji' ponad innymi systemami.",
+      "question": "Czy Grafana sama PRZECHOWUJE dane metryk, czy tylko je WIZUALIZUJE, pobierając z innych źródeł jak Prometheus? (odpowiedz jednym słowem: 'wizualizuje')",
+      "answer": "wizualizuje",
+      "hint": "Grafana to warstwa prezentacji, nie baza danych.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Alertowanie progowe",
+      "kind": "question",
+      "content": "## Kiedy budzić administratora w nocy?\n\nDobrze skonfigurowany monitoring wysyła **alert**, gdy metryka przekroczy zdefiniowany PRÓG przez określony czas (np. 'użycie CPU > 90% przez ponad 5 minut'), a nie przy pojedynczym, chwilowym skoku — to zapobiega tzw. 'alert fatigue' (zmęczeniu fałszywymi alarmami), które prowadzi do ignorowania nawet ważnych powiadomień.",
+      "question": "Jak (po angielsku, dwa słowa: 'alert ...') nazywa się zjawisko, w którym administratorzy zaczynają IGNOROWAĆ powiadomienia z powodu ich nadmiernej liczby lub fałszywych alarmów?",
+      "answer": "alert fatigue",
+      "hint": "Drugie słowo oznacza 'zmęczenie'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "SLI, SLO i SLA",
+      "kind": "question",
+      "content": "## Mierzenie jakości usługi\n\n- **SLI** (Service Level Indicator) — konkretna, mierzalna metryka jakości (np. 'czas odpowiedzi p99').\n- **SLO** (Service Level Objective) — WEWNĘTRZNY cel dla SLI (np. 'p99 < 200ms przez 99.9% czasu').\n- **SLA** (Service Level Agreement) — FORMALNA, kontraktowa umowa z klientem, często z konsekwencjami finansowymi za niedotrzymanie.",
+      "question": "Jakim skrótem (3 litery) określa się FORMALNĄ, kontraktową umowę z klientem dotyczącą poziomu dostępności/jakości usługi?",
+      "answer": "SLA",
+      "hint": "To skrót od Service Level Agreement.",
+      "points": 15
+    }
+  ]
+}
