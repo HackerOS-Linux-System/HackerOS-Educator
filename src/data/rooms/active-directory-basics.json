@@ -1,0 +1,67 @@
+{
+  "id": "active-directory-basics",
+  "title": "Bezpieczeństwo Active Directory — podstawy",
+  "summary": "Struktura domeny Windows: kontrolery domeny, obiekty, grupy i najczęstsze błędy konfiguracji uprawnień.",
+  "category": "Bezpieczeństwo systemów",
+  "difficulty": "Trudny",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "intro-to-cybersecurity",
+    "linux-users-permissions"
+  ],
+  "tags": [
+    "active-directory",
+    "windows",
+    "domena"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest Active Directory?",
+      "kind": "info",
+      "content": "## Centralne zarządzanie tożsamością\n\n**Active Directory (AD)** to usługa katalogowa firmy Microsoft, centralizująca zarządzanie użytkownikami, komputerami i uprawnieniami w sieci firmowej opartej na Windows. Zamiast lokalnego konta na KAŻDYM komputerze, użytkownik loguje się RAZ do domeny i ma dostęp do zasobów wg przypisanych uprawnień.\n\nAD jest niezwykle częstym celem atakujących, ponieważ przejęcie kontrolera domeny (Domain Controller, DC) często oznacza przejęcie całej sieci firmowej.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Kontroler domeny",
+      "kind": "question",
+      "content": "## Domain Controller (DC)\n\n**Kontroler domeny** to serwer przechowujący bazę danych AD i obsługujący żądania uwierzytelniania (logowania) w całej domenie. To najcenniejszy cel w sieci opartej na AD — jego przejęcie zwykle oznacza pełną kompromitację (tzw. 'Domain Admin').",
+      "question": "Jak (skrót, 2 litery) nazywa się serwer przechowujący bazę Active Directory i obsługujący logowania w domenie?",
+      "answer": "DC",
+      "hint": "To skrót od Domain Controller.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Grupy i dziedziczenie uprawnień",
+      "kind": "question",
+      "content": "## Uprawnienia przez grupy, nie indywidualnie\n\nDobra praktyka AD to nadawanie uprawnień GRUPOM (np. 'Dział księgowości'), a nie pojedynczym kontom — ułatwia to zarządzanie (dodanie nowego pracownika = dodanie do grupy) i audyt. Częsty błąd konfiguracji: zbyt wiele kont w uprzywilejowanej grupie 'Domain Admins', co zwiększa 'powierzchnię ataku' na najcenniejsze uprawnienia.",
+      "question": "Jak nazywa się (po angielsku, dwa słowa: 'Domain ...') najbardziej uprzywilejowana grupa w Active Directory, dająca pełną kontrolę nad domeną?",
+      "answer": "Domain Admins",
+      "hint": "Drugie słowo to liczba mnoga od 'administrator'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Kerberoasting — koncepcja obronna",
+      "kind": "question",
+      "content": "## Dlaczego konta usług potrzebują silnych haseł\n\n**Kerberoasting** to technika, w której atakujący żąda biletów Kerberos dla kont usług (Service Accounts) i próbuje złamać ich hasła offline. Konta usług często mają SŁABE, rzadko zmieniane hasła (bo 'nikt się nimi nie loguje ręcznie'), co czyni je atrakcyjnym celem. Obrona: długie, losowe hasła dla kont usług oraz nowoczesne konta zarządzane (gMSA), których hasła są automatycznie rotowane.",
+      "question": "Jaki typ konta AD (skrót, 4 litery) automatycznie rotuje swoje hasło, eliminując ryzyko ataku Kerberoasting związanego ze słabym, statycznym hasłem?",
+      "answer": "gMSA",
+      "hint": "To skrót od group Managed Service Account.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Zasada najmniejszych uprawnień w AD",
+      "kind": "question",
+      "content": "## Tier model\n\nDojrzałe organizacje wdrażają tzw. **model warstwowy (tiering)** — administratorzy kontrolerów domeny NIGDY nie logują się tym samym kontem na zwykłych stacjach roboczych użytkowników, co ograniczałoby wpływ przejęcia jednej stacji na całą domenę.",
+      "question": "Jak (po polsku, jednym słowem) nazywa się fundamentalna zasada bezpieczeństwa mówiąca, że konto powinno mieć tylko uprawnienia niezbędne do jego roli?",
+      "answer": "minimalizm",
+      "hint": "Chodzi o tę samą zasadę co 'najmniejsze uprawnienia', jednym słowem-kluczem.",
+      "points": 15
+    }
+  ]
+}
