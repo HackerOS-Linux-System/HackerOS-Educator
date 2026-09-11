@@ -1,0 +1,66 @@
+{
+  "id": "mobile-security-basics",
+  "title": "Bezpieczeństwo aplikacji mobilnych",
+  "summary": "Bezpieczne przechowywanie danych na urządzeniu, certificate pinning i uprawnienia aplikacji mobilnych.",
+  "category": "Bezpieczeństwo aplikacji",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "web-security-fundamentals"
+  ],
+  "tags": [
+    "mobile",
+    "android",
+    "ios"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Urządzenie mobilne to wrogie środowisko",
+      "kind": "info",
+      "content": "## Kod działa na urządzeniu atakującego\n\nW przeciwieństwie do serwera (kontrolowanego przez organizację), aplikacja mobilna działa na urządzeniu, nad którym UŻYTKOWNIK (potencjalnie atakujący) ma pełną kontrolę fizyczną — może odinstalować, zdekompilować kod, przechwycić ruch sieciowy przez proxy. Zasada: nigdy nie polegaj wyłącznie na zabezpieczeniach po stronie klienta mobilnego.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Przechowywanie sekretów na urządzeniu",
+      "kind": "question",
+      "content": "## Nie hardkoduj kluczy API w aplikacji\n\nKlucze API czy sekrety zaszyte bezpośrednio w kodzie aplikacji mobilnej można ODZYSKAĆ przez dekompilację pliku APK/IPA — to nie jest bezpieczne przechowywanie. Wrażliwe dane (np. tokeny sesji) powinny trafiać do dedykowanych, szyfrowanych magazynów systemowych: Keystore (Android) lub Keychain (iOS).",
+      "question": "Jak nazywa się dedykowany, bezpieczny magazyn danych systemu iOS do przechowywania sekretów (haseł, tokenów) aplikacji?",
+      "answer": "Keychain",
+      "hint": "Nazwa dosłownie oznacza 'pęk kluczy'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Certificate pinning",
+      "kind": "question",
+      "content": "## Ochrona przed atakiem man-in-the-middle\n\n**Certificate pinning** to technika, w której aplikacja mobilna 'zapamiętuje' (przypina) OCZEKIWANY certyfikat serwera, z którym się komunikuje, i odrzuca połączenie, jeśli certyfikat się różni — nawet jeśli formalnie jest 'zaufany' przez system. Chroni to przed atakami, w których ktoś przechwytuje ruch przez fałszywy, ale poprawnie podpisany certyfikat (np. wstrzyknięty przez złośliwe oprogramowanie na urządzeniu).",
+      "question": "Jak (po angielsku, dwa słowa: 'certificate ...') nazywa się technika 'przypinania' oczekiwanego certyfikatu serwera w aplikacji mobilnej?",
+      "answer": "certificate pinning",
+      "hint": "Drugie słowo oznacza 'przypinanie'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Zasada minimalnych uprawnień aplikacji",
+      "kind": "question",
+      "content": "## Po co latarce dostęp do kontaktów?\n\nDobra aplikacja prosi TYLKO o uprawnienia (kontakty, lokalizacja, aparat) faktycznie niezbędne do jej działania, i to najlepiej w momencie, gdy funkcja jest rzeczywiście używana (tzw. 'just-in-time permissions'), a nie wszystkie naraz przy pierwszym uruchomieniu. Nadmierne uprawnienia to zarówno ryzyko prywatności, jak i większa 'powierzchnia ataku' w razie przejęcia aplikacji.",
+      "question": "Jak (po polsku) nazywa się fundamentalna zasada bezpieczeństwa mówiąca, że aplikacja powinna prosić tylko o uprawnienia niezbędne do jej działania?",
+      "answer": "zasada najmniejszych uprawnień",
+      "hint": "To ta sama uniwersalna zasada, poznana już w innych pokojach.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Reverse engineering aplikacji",
+      "kind": "question",
+      "content": "## Dekompilacja jako zagrożenie\n\nPliki APK (Android) można stosunkowo łatwo zdekompilować narzędziami jak `jadx`, odzyskując logikę biznesową, a czasem nawet zapomniane sekrety. Deweloperzy stosują **obfuskację** kodu (celowe utrudnienie odczytania zdekompilowanego kodu przez zmianę nazw zmiennych/funkcji na bezsensowne ciągi) jako dodatkową (nie jedyną!) warstwę utrudnienia.",
+      "question": "Jak (jednym słowem) nazywa się technika celowego 'zaciemniania' kodu, by utrudnić jego zrozumienie po dekompilacji?",
+      "answer": "obfuskacja",
+      "hint": "Po angielsku to 'obfuscation'.",
+      "points": 15
+    }
+  ]
+}
