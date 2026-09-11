@@ -1,0 +1,66 @@
+{
+  "id": "linux-privilege-escalation-concepts",
+  "title": "Eskalacja uprawnień w Linuksie — koncepcje obronne",
+  "summary": "Jak rozpoznać i naprawić najczęstsze błędy konfiguracji (SUID, sudo, cron) prowadzące do przejęcia uprawnień roota.",
+  "category": "Bezpieczeństwo systemów",
+  "difficulty": "Trudny",
+  "track": "cybersecurity",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "linux-users-permissions",
+    "linux-fundamentals"
+  ],
+  "tags": [
+    "eskalacja-uprawnień",
+    "linux",
+    "hardening"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Dlaczego eskalacja uprawnień to ważny temat obronny?",
+      "kind": "info",
+      "content": "## Perspektywa obrońcy\n\nZrozumienie, jak atakujący próbują podnieść swoje uprawnienia z 'zwykłego użytkownika' do 'roota', pozwala administratorowi **wcześniej znaleźć i naprawić** te same błędy konfiguracji w swoich systemach (tzw. hardening). Ten pokój skupia się na rozpoznawaniu i eliminowaniu ryzykownych konfiguracji, a nie na tworzeniu narzędzi ofensywnych.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Bit SUID",
+      "kind": "question",
+      "content": "## Czym jest SUID?\n\nBit SUID (Set User ID) sprawia, że program uruchamia się z uprawnieniami WŁAŚCICIELA pliku, a nie użytkownika, który go uruchamia. Jeśli plik z SUID należy do roota i ma lukę (lub pozwala na wykonanie dowolnej komendy, np. edytor tekstu z opcją zapisu do pliku), zwykły użytkownik może przez niego zdobyć uprawnienia roota.\n\nAdministrator powinien okresowo audytować, jakie pliki mają ustawiony SUID:\n\n```bash\nfind / -perm -4000 -type f 2>/dev/null\n```",
+      "question": "Jakim poleceniem `find` (podaj samą flagę, np. -perm -XXXX) wyszukuje się pliki z ustawionym bitem SUID?",
+      "answer": "-perm -4000",
+      "hint": "SUID w zapisie liczbowym to 4000.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Praktyka: audyt SUID",
+      "kind": "practical",
+      "content": "## Przeprowadź audyt swojego systemu\n\nSpróbuj (może potrwać kilka sekund):\n\n```bash\nfind / -perm -4000 -type f 2>/dev/null | head -n 15\n```\n\nZwykle znajdziesz tam standardowe, bezpieczne programy jak `passwd` czy `sudo` — same w sobie wymagają SUID, by działać. Problem pojawia się, gdy SUID ma dodatkowo ustawiony niestandardowy, niezabezpieczony skrypt lub rzadko używany program administracyjny.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Niebezpieczna konfiguracja sudo",
+      "kind": "question",
+      "content": "## sudo -l i wpisy NOPASSWD\n\nAdministrator powinien uważać na wpisy w `/etc/sudoers` pozwalające uruchamiać PEWNE programy jako root BEZ hasła (`NOPASSWD`). Jeśli takim programem jest coś potężnego (np. edytor plików, interpreter), staje się to furtką do pełnych uprawnień roota. Sprawdza się to poleceniem `sudo -l`, które pokazuje, co bieżący użytkownik może uruchomić przez sudo.",
+      "question": "Jakim poleceniem sprawdza się, JAKIE polecenia bieżący użytkownik może uruchomić przez sudo (bez faktycznego ich uruchamiania)?",
+      "answer": "sudo -l",
+      "hint": "Flaga 'l' jak 'list'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Zasada najmniejszych uprawnień",
+      "kind": "question",
+      "content": "## Principle of Least Privilege\n\nNajlepsza obrona przed eskalacją uprawnień to zasada **najmniejszych uprawnień** — każdy użytkownik i proces powinien mieć DOKŁADNIE tyle uprawnień, ile potrzebuje do swojej pracy, ani grama więcej. Regularne audyty SUID, sudoers i uprawnień plików to standardowa praktyka hardeningu.",
+      "question": "Jak (po polsku) nazywa się zasada bezpieczeństwa mówiąca, że użytkownik/proces powinien mieć tylko minimalne, niezbędne uprawnienia? ('zasada najmniejszych ...')",
+      "answer": "zasada najmniejszych uprawnień",
+      "hint": "To bardzo fundamentalna zasada bezpieczeństwa systemów.",
+      "points": 15
+    }
+  ]
+}
