@@ -1,0 +1,67 @@
+{
+  "id": "programming-hackerscript-basics",
+  "title": "Podstawy HackerScript",
+  "summary": "Poznaj HackerScript — nowoczesny język HackerOS z systemem pakietów Virus.hk i przejrzystą składnią blokową.",
+  "category": "Języki HackerOS",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "hackerscript",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "programming-javascript-basics"
+  ],
+  "tags": [
+    "hackerscript",
+    "hackeros",
+    "pakiety"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest HackerScript?",
+      "kind": "info",
+      "content": "## HackerScript i Virus.hk\n\n**HackerScript** to język programowania ogólnego przeznaczenia z ekosystemu HackerOS. Każdy projekt HackerScript ma plik manifestu `Virus.hk` (odpowiednik `package.json` czy `Cargo.toml`), opisujący nazwę, wersję i zależności projektu:\n\n```toml\n[package]\nname = \"hello-world\"\nversion = \"0.0.1\"\nusing = \"1.2\"\nedition = \"2026\"\n\n[build]\nentry = \"cmd/main.hcs\"\n```\n\nKod źródłowy (pliki `.hcs`) zaczyna się od deklaracji wersji języka: `using <1.2>`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Funkcje w HackerScript",
+      "kind": "question",
+      "content": "## fun i nawiasy kwadratowe\n\nHackerScript, w odróżnieniu od wielu języków, używa nawiasów KWADRATOWYCH `[ ]` do oznaczania bloków kodu, zamiast klamer:\n\n```hcs\nfun add(a: Int, b: Int) -> Int [\n    end a + b\n]\n```\n\nZwrócenie wartości z funkcji odbywa się słowem `end` (nie `return`!).",
+      "question": "Jakiego słowa kluczowego HackerScript używa się do ZWRÓCENIA wartości z funkcji (zamiast typowego 'return')?",
+      "answer": "end",
+      "hint": "To krótkie, angielskie słowo oznaczające 'koniec'.",
+      "walkthrough": "W HackerScript funkcję kończy się i zwraca wartość słowem `end`, np. `fun kwadrat(x: Int) -> Int [ end x * x ]`.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Komentarze",
+      "kind": "question",
+      "content": "## ! i !!\n\nHackerScript oznacza komentarze wykrzyknikiem:\n\n```hcs\n! To jest zwykły komentarz.\n!! To jest komentarz dokumentacyjny funkcji.\nfun main() [\n    end\n]\n```",
+      "question": "Jakiego pojedynczego znaku używa się w HackerScript do rozpoczęcia komentarza w linii?",
+      "answer": "!",
+      "hint": "To wykrzyknik.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Pętle i warunki",
+      "kind": "question",
+      "content": "## while, for...in, if...else\n\nSkładnia sterowania przepływem w HackerScript również używa nawiasów kwadratowych:\n\n```hcs\nlet i = 0\nwhile i < 5 [\n    log(\"i =\", i)\n    i = i + 1\n]\n\nfor jezyk in [\"Python\", \"HackerScript\"] [\n    if jezyk == \"HackerScript\" [\n        log(\"To my!\")\n    ] else [\n        log(\"Inspiracja\")\n    ]\n]\n```\n\n`log(...)` to wbudowana funkcja do wypisywania wartości na terminal (odpowiednik `console.log`/`print`).",
+      "question": "Jakiej wbudowanej funkcji HackerScript używa się do wypisania wartości na terminal?",
+      "answer": "log",
+      "hint": "To krótkie, angielskie słowo — tak samo jak w JavaScript (console.log).",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: manifest i program",
+      "kind": "practical",
+      "content": "## Struktura projektu HackerScript\n\nKażdy projekt HackerScript ma dwa kluczowe pliki: manifest `Virus.hk` i kod źródłowy (np. `cmd/main.hcs`). Spróbuj odtworzyć minimalny projekt w terminalu:\n\n```bash\nmkdir -p moj-projekt/cmd\ncat > moj-projekt/Virus.hk << 'EOF'\n[package]\nname = \"moj-projekt\"\nversion = \"0.0.1\"\nusing = \"1.2\"\n\n[build]\nentry = \"cmd/main.hcs\"\nEOF\ncat > moj-projekt/cmd/main.hcs << 'EOF'\nusing <1.2>\nfun main() [\n    log(\"Dziala!\")\n    end\n]\nEOF\ncat moj-projekt/Virus.hk\n```\n\nTo dokładnie ten sam układ, jaki znajdziesz w oficjalnym repozytorium HackerScript (`docs/hello-world/`).",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
