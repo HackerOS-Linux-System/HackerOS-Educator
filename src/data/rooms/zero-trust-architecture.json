@@ -1,0 +1,67 @@
+{
+  "id": "zero-trust-architecture",
+  "title": "Architektura Zero Trust",
+  "summary": "Dlaczego 'nigdy nie ufaj, zawsze weryfikuj' zastępuje klasyczny model obrony obwodowej sieci firmowej.",
+  "category": "Bezpieczeństwo systemów",
+  "difficulty": "Trudny",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "network-basics",
+    "linux-users-permissions"
+  ],
+  "tags": [
+    "zero-trust",
+    "architektura",
+    "dostęp"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Koniec 'twardej skorupy, miękkiego wnętrza'",
+      "kind": "info",
+      "content": "## Model zamku vs Zero Trust\n\nKlasyczny model bezpieczeństwa sieci przypominał zamek: silny mur obronny (firewall) na granicy sieci firmowej, ale PEŁNE zaufanie do wszystkiego wewnątrz. Problem: gdy atakujący raz PRZEŁAMIE ten mur (np. przez phishing jednego pracownika), może swobodnie poruszać się po całej sieci wewnętrznej.\n\n**Zero Trust** odwraca to podejście: 'Nigdy nie ufaj, zawsze weryfikuj' (Never trust, always verify) — KAŻDE żądanie dostępu jest weryfikowane, niezależnie od tego, czy pochodzi z 'wewnątrz' czy 'na zewnątrz' sieci.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Weryfikacja przy każdym żądaniu",
+      "kind": "question",
+      "content": "## Nie ma 'zaufanej strefy'\n\nW architekturze Zero Trust NIE istnieje pojęcie 'zaufanej sieci wewnętrznej' — nawet żądanie z komputera fizycznie podłączonego do sieci biurowej musi przejść pełną weryfikację tożsamości i uprawnień, tak samo jak żądanie z internetu.",
+      "question": "Jakie hasło-zasadę (po angielsku, cztery słowa: 'Never trust, always ...') podsumowuje filozofię Zero Trust?",
+      "answer": "Never trust, always verify",
+      "hint": "Ostatnie słowo oznacza 'weryfikuj'.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Mikrosegmentacja",
+      "kind": "question",
+      "content": "## Bardzo drobne segmenty\n\nZero Trust idzie dalej niż tradycyjna segmentacja VLAN — stosuje **mikrosegmentację**: każda usługa/aplikacja jest izolowana OSOBNO, z jawnie zdefiniowanymi regułami, KTO i CO może się z nią komunikować. Nawet dwa serwery w tej samej 'sieci' nie ufają sobie automatycznie.",
+      "question": "Jak (jednym słowem, z przedrostkiem 'mikro-') nazywa się bardzo drobnoziarnista segmentacja sieci stosowana w Zero Trust, izolująca pojedyncze usługi?",
+      "answer": "mikrosegmentacja",
+      "hint": "To bardziej precyzyjna wersja zwykłej 'segmentacji'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Tożsamość jako nowy obwód",
+      "kind": "question",
+      "content": "## Identity is the new perimeter\n\nW modelu Zero Trust to nie lokalizacja sieciowa, ale ZWERYFIKOWANA TOŻSAMOŚĆ (użytkownika, urządzenia, usługi) staje się głównym punktem kontroli dostępu — stąd popularne hasło branżowe 'Identity is the new perimeter' (Tożsamość to nowy obwód obronny).",
+      "question": "Zgodnie z filozofią Zero Trust, co ZASTĘPUJE tradycyjny 'obwód sieciowy' jako główny punkt kontroli dostępu? (jedno słowo po polsku)",
+      "answer": "tożsamość",
+      "hint": "To kluczowe słowo z hasła 'Identity is the new perimeter'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Ciągła weryfikacja, nie jednorazowe logowanie",
+      "kind": "question",
+      "content": "## Kontekst ma znaczenie\n\nZero Trust uwzględnia dodatkowy KONTEKST przy każdej decyzji o dostępie: czy urządzenie ma aktualne łatki bezpieczeństwa, czy lokalizacja logowania jest typowa dla danego użytkownika, czy pora dnia jest normalna. Nagłe logowanie z nietypowego kraju o 3 w nocy może wymagać dodatkowej weryfikacji (MFA), nawet jeśli hasło było poprawne.",
+      "question": "Jaki mechanizm (skrót, 3 litery, poznany w pokoju o bezpieczeństwie haseł) często dodatkowo wymusza Zero Trust przy podejrzanym kontekście logowania?",
+      "answer": "MFA",
+      "hint": "To skrót od uwierzytelniania wieloskładnikowego.",
+      "points": 15
+    }
+  ]
+}
