@@ -1,0 +1,66 @@
+{
+  "id": "threat-modeling-basics",
+  "title": "Modelowanie zagrożeń",
+  "summary": "Systematyczne przewidywanie zagrożeń przed napisaniem kodu: metodyka STRIDE i drzewa ataków.",
+  "category": "Bezpieczeństwo aplikacji",
+  "difficulty": "Trudny",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "secure-coding-practices"
+  ],
+  "tags": [
+    "threat-modeling",
+    "stride",
+    "projektowanie"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Bezpieczeństwo od fazy projektowania",
+      "kind": "info",
+      "content": "## Threat modeling\n\n**Modelowanie zagrożeń** (threat modeling) to systematyczny proces zadawania pytania 'co może pójść źle?' JESZCZE PRZED napisaniem kodu — analizując architekturę systemu, przepływ danych i punkty zaufania, żeby zaprojektować zabezpieczenia proaktywnie, zamiast łatać dziury po fakcie.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Metodyka STRIDE",
+      "kind": "question",
+      "content": "## Sześć kategorii zagrożeń Microsoftu\n\n**STRIDE** to akronim sześciu kategorii zagrożeń stworzony przez Microsoft:\n\n- **S**poofing (podszywanie się)\n- **T**ampering (manipulacja danymi)\n- **R**epudiation (zaprzeczanie działaniu)\n- **I**nformation disclosure (ujawnienie informacji)\n- **D**enial of service (odmowa usługi)\n- **E**levation of privilege (eskalacja uprawnień)\n\nDla każdego elementu systemu (np. formularza logowania) analityk systematycznie sprawdza, czy dana kategoria zagrożenia go dotyczy.",
+      "question": "Jaką literę akronimu STRIDE reprezentuje zagrożenie 'Podszywanie się pod innego użytkownika lub system'?",
+      "answer": "S",
+      "hint": "To pierwsza litera akronimu, od słowa 'Spoofing'.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Drzewa ataków",
+      "kind": "question",
+      "content": "## Wizualizacja ścieżek ataku\n\n**Drzewo ataku** (attack tree) to diagram, w którego korzeniu znajduje się CEL atakującego (np. 'przejąć konto administratora'), a gałęzie reprezentują RÓŻNE możliwe drogi osiągnięcia tego celu (np. 'phishing', 'brute-force hasła', 'wykorzystanie luki w kodzie'). Pomaga to priorytetyzować, które ścieżki ataku są najbardziej realne i wymagają najpilniejszej obrony.",
+      "question": "Co znajduje się w KORZENIU (na samej górze) drzewa ataku?",
+      "answer": "cel atakującego",
+      "hint": "To ostateczny cel, który atakujący próbuje osiągnąć.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Diagram przepływu danych",
+      "kind": "question",
+      "content": "## DFD jako punkt wyjścia\n\nModelowanie zagrożeń zwykle zaczyna się od narysowania **diagramu przepływu danych** (Data Flow Diagram, DFD) — pokazującego, jak dane przepływają między użytkownikiem, aplikacją, bazą danych i zewnętrznymi systemami, oraz gdzie znajdują się GRANICE ZAUFANIA (trust boundaries) — miejsca, gdzie poziom zaufania do danych się zmienia (np. dane wchodzące z internetu do wewnętrznej sieci firmowej).",
+      "question": "Jak (po angielsku, dwa słowa: 'trust ...') nazywa się miejsce w systemie, gdzie zmienia się poziom zaufania do przepływających danych?",
+      "answer": "trust boundary",
+      "hint": "Drugie słowo oznacza 'granica'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Kiedy modelować zagrożenia?",
+      "kind": "question",
+      "content": "## Nie tylko raz\n\nModelowanie zagrożeń NIE jest jednorazowym ćwiczeniem wykonanym na początku projektu i zapomnianym — powinno być AKTUALIZOWANE za każdym razem, gdy architektura systemu się znacząco zmienia (nowa integracja, nowy typ użytkownika, nowa funkcja przetwarzająca wrażliwe dane).",
+      "question": "Czy modelowanie zagrożeń powinno być procesem JEDNORAZOWYM czy CIĄGŁYM, aktualizowanym wraz ze zmianami w systemie? (odpowiedz jednym słowem: 'ciągłym')",
+      "answer": "ciągłym",
+      "hint": "System się zmienia, więc model zagrożeń też musi.",
+      "points": 15
+    }
+  ]
+}
