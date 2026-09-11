@@ -1,0 +1,102 @@
+{
+  "id": "capstone-hackeros-cli-tool",
+  "title": "Kapsztat: własne narzędzie CLI w ekosystemie HackerOS",
+  "summary": "Pokój podsumowujący programowanie — zaprojektuj prosty menedżer zadań łączący bash i wiedzę o rodzimych językach HackerOS.",
+  "category": "Języki HackerOS",
+  "difficulty": "Ekspert",
+  "track": "programming",
+  "language": "shell",
+  "estimatedMinutes": 45,
+  "prerequisites": [
+    "programming-shell-intermediate",
+    "programming-hackerlang-advanced"
+  ],
+  "tags": [
+    "capstone",
+    "cli",
+    "hackeros"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Cel: menedżer zadań w terminalu",
+      "kind": "info",
+      "content": "## Projekt końcowy\n\nTen pokój łączy wiedzę z wielu poprzednich pokoi programistycznych: zbudujesz krok po kroku prosty, tekstowy menedżer zadań (todo-list) — najpierw na PRAWDZIWYM terminalu swojego systemu, a następnie przeanalizujesz gotowy prototyp tego samego narzędzia napisany w Hacker Lang na symulowanej maszynie deweloperskiej.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Krok 1: przechowywanie danych w pliku",
+      "kind": "practical",
+      "content": "## Prosta baza danych — zwykły plik tekstowy (Twój prawdziwy terminal)\n\nSpróbuj w terminalu:\n\n```bash\nZADANIA_PLIK=\"$HOME/.zadania.txt\"\ntouch \"$ZADANIA_PLIK\"\n\ndodaj_zadanie() {\n    echo \"$1\" >> \"$ZADANIA_PLIK\"\n    echo \"Dodano: $1\"\n}\n\nwypisz_zadania() {\n    nl \"$ZADANIA_PLIK\"\n}\n\ndodaj_zadanie \"Ukończyć pokój capstone\"\ndodaj_zadanie \"Przejrzeć ścieżkę Linux Sysadmin\"\nwypisz_zadania\n```\n\n`nl` numeruje linie pliku — przydatne do wyświetlenia listy zadań z numerami.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Krok 2: usuwanie zadania po numerze",
+      "kind": "question",
+      "content": "## sed do usuwania konkretnej linii\n\nAby usunąć trzecią linię z pliku (trzecie zadanie), można użyć `sed`:\n\n```bash\nsed -i '3d' \"$ZADANIA_PLIK\"\n```\n\n`-i` modyfikuje plik 'w miejscu' (in-place), a `3d` oznacza 'usuń linię 3' (delete).",
+      "question": "Jakiej litery (polecenia sed) używa się po numerze linii, aby ją USUNĄĆ z pliku, np. w 'sed -i \"3d\" plik'?",
+      "answer": "d",
+      "hint": "To pierwsza litera angielskiego słowa 'delete'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Krok 3: zbadaj gotowy prototyp w Hacker Lang",
+      "kind": "question",
+      "content": "## Symulowana maszyna deweloperska\n\nKtoś z zespołu HackerOS zaczął już pisać wersję tego narzędzia w Hacker Lang — natywnym języku instalatorów systemowych. Połącz się z symulowaną maszyną poniżej, wejdź do katalogu projektu i przejrzyj plik `todo.hl` poleceniem `cat`, aby odpowiedzieć na pytanie o użyty operator.",
+      "question": "Jakiego operatora Hacker Lang (poznanego w pokoju 'Hacker Lang: pętle, warunki i potoki') użyto w pliku todo.hl do przekierowania wyniku polecenia systemowego do zmiennej @_wynik?",
+      "answer": "|>",
+      "hint": "Wejdź do katalogu ~/projekt-todo i uruchom 'cat todo.hl'. Szukaj operatora PipeToVar.",
+      "walkthrough": "W pliku `todo.hl` linia `>> echo \"@tresc\" >> ~/.zadania.txt |> @_wynik` używa operatora `|>` (PipeToVar) do przechwycenia wyniku polecenia systemowego.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "dev-hackeros-01",
+        "user": "deweloper",
+        "banner": "Połączono z symulowaną maszyną deweloperską. Projekt: menedżer zadań w Hacker Lang.",
+        "startPath": "/home/deweloper",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "deweloper": {
+                  "type": "dir",
+                  "children": {
+                    "projekt-todo": {
+                      "type": "dir",
+                      "children": {
+                        "todo.hl": {
+                          "type": "file",
+                          "content": "using <gen 2>\n\nfn dodaj_zadanie(tresc)\n    >> echo \"@tresc\" >> ~/.zadania.txt |> @_wynik\n    ~> Dodano: @tresc\nend\n\ncall dodaj_zadanie(\"Nauczyc sie Hacker Lang\")\n"
+                        },
+                        "README.txt": {
+                          "type": "file",
+                          "content": "Prototyp menedzera zadan w Hacker Lang.\nZobacz todo.hl.\n"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "points": 25
+    },
+    {
+      "id": "task-5",
+      "title": "Krok 4: dlaczego warto znać wiele języków ekosystemu",
+      "kind": "question",
+      "content": "## Właściwe narzędzie do właściwego zadania\n\nMenedżer HackerOS mógłby napisać instalator w Hacker Lang (bo to jego naturalne środowisko integracji z systemem paczek), a bardziej złożoną logikę biznesową aplikacji w H# (dla bezpieczeństwa typów) lub HackerScript (dla czytelnej struktury modułowej). Znajomość WSZYSTKICH trzech języków rodzimych HackerOS pozwala dobierać najlepsze narzędzie do konkretnego zadania, zamiast na siłę używać jednego języka wszędzie.",
+      "question": "Jak (po polsku) nazywa się odznaka, którą zdobywasz w tej aplikacji za ukończenie choć jednego pokoju w KAŻDYM z trzech rodzimych języków HackerOS?",
+      "answer": "Rodowity programista HackerOS",
+      "hint": "To dokładna nazwa odznaki widoczna w sekcji Odznaki.",
+      "points": 20
+    }
+  ]
+}
