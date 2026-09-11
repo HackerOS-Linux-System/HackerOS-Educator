@@ -1,0 +1,67 @@
+{
+  "id": "linux-config-management-ansible",
+  "title": "Zarządzanie konfiguracją: Ansible",
+  "summary": "Automatyzacja konfiguracji wielu serwerów naraz: playbooki, idempotencja i podejście bezagentowe Ansible.",
+  "category": "Automatyzacja",
+  "difficulty": "Trudny",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-shell-scripting-admin"
+  ],
+  "tags": [
+    "linux",
+    "ansible",
+    "automatyzacja",
+    "iac"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Dlaczego skrypty bash to za mało dla 100 serwerów?",
+      "kind": "info",
+      "content": "## Zarządzanie konfiguracją\n\nRęczne wdrażanie zmian na dziesiątkach czy setkach serwerów przez SSH i skrypty bash szybko staje się chaotyczne i podatne na błędy (np. jeden serwer 'zapomniany'). **Narzędzia zarządzania konfiguracją** (Ansible, Puppet, Chef, SaltStack) opisują POŻĄDANY stan systemu deklaratywnie i automatycznie doprowadzają do niego wszystkie maszyny.\n\nAnsible wyróżnia się tym, że jest **bezagentowy** (agentless) — łączy się przez zwykłe SSH, bez konieczności instalowania dodatkowego oprogramowania na zarządzanych maszynach.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Playbook — przepis na konfigurację",
+      "kind": "question",
+      "content": "## YAML jako opis pożądanego stanu\n\n**Playbook** Ansible to plik YAML opisujący, jakie zadania (tasks) mają zostać wykonane na jakich hostach:\n\n```yaml\n- hosts: serwery_web\n  tasks:\n    - name: Zainstaluj nginx\n      apt:\n        name: nginx\n        state: present\n```",
+      "question": "W jakim formacie plików (rozszerzenie, bez kropki) zwykle pisze się playbooki Ansible?",
+      "answer": "yaml",
+      "hint": "To ten sam format co pliki docker-compose czy GitHub Actions.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Idempotencja",
+      "kind": "question",
+      "content": "## Uruchom wielokrotnie, bez skutków ubocznych\n\n**Idempotencja** to kluczowa cecha dobrych playbooków: uruchomienie tego samego playbooka WIELOKROTNIE daje ten sam rezultat co uruchomienie raz — jeśli pakiet jest już zainstalowany, Ansible nic nie robi (zamiast np. zgłosić błąd czy zainstalować go ponownie). To pozwala bezpiecznie uruchamiać playbooki cyklicznie, bez obawy o efekty uboczne.",
+      "question": "Jak (jednym słowem) nazywa się właściwość operacji, dzięki której jej wielokrotne wykonanie daje TEN SAM efekt co jednokrotne?",
+      "answer": "idempotencja",
+      "hint": "To termin matematyczny zapożyczony do informatyki.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Inventory — lista zarządzanych hostów",
+      "kind": "question",
+      "content": "## Kim zarządzamy?\n\nAnsible potrzebuje listy hostów, tzw. **inventory**, np.:\n\n```ini\n[serwery_web]\nweb1.example.com\nweb2.example.com\n\n[bazy_danych]\ndb1.example.com\n```\n\nGrupy w inventory (`[serwery_web]`) pozwalają kierować playbooki tylko do WYBRANEJ grupy maszyn, np. zainstalować nginx tylko na serwerach web, a PostgreSQL tylko na serwerach baz danych.",
+      "question": "Jak (jednym angielskim słowem) nazywa się plik/lista definiująca, jakimi hostami zarządza Ansible?",
+      "answer": "inventory",
+      "hint": "Dosłownie oznacza 'spis', 'inwentarz'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Bezagentowość Ansible",
+      "kind": "question",
+      "content": "## Dlaczego SSH wystarczy?\n\nW przeciwieństwie do Puppeta czy Chefa (które wymagają zainstalowanego agenta na każdej zarządzanej maszynie), Ansible łączy się WYŁĄCZNIE przez standardowe SSH i wykonuje zadania zdalnie, nie zostawiając trwale zainstalowanego oprogramowania. To upraszcza wdrożenie — jeśli masz dostęp SSH, masz też dostęp Ansible.",
+      "question": "Jakim (angielskim) słowem określa się narzędzie zarządzania konfiguracją, które NIE wymaga instalowania dodatkowego oprogramowania na zarządzanych maszynach?",
+      "answer": "agentless",
+      "hint": "To złożenie słowa 'agent' z przyrostkiem oznaczającym brak czegoś.",
+      "points": 20
+    }
+  ]
+}
