@@ -1,0 +1,111 @@
+{
+  "id": "digital-forensics-basics",
+  "title": "Podstawy informatyki śledczej",
+  "summary": "Zasada zachowania łańcucha dowodowego, analiza metadanych i logów jako materiału dowodowego po incydencie.",
+  "category": "Forensyka",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-fundamentals",
+    "cryptography-basics"
+  ],
+  "tags": [
+    "forensyka",
+    "dowody",
+    "incydenty"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest informatyka śledcza?",
+      "kind": "info",
+      "content": "## Digital forensics\n\nInformatyka śledcza (digital forensics) to dyscyplina zajmująca się identyfikacją, zabezpieczaniem, analizą i prezentacją dowodów cyfrowych w sposób, który zachowuje ich wiarygodność prawną. Kluczowa zasada: **nigdy nie modyfikuj oryginalnego dowodu** — pracuje się zawsze na kopii binarnej (image), a oryginał zabezpiecza się z sumą kontrolną potwierdzającą jego niezmienność.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Łańcuch dowodowy",
+      "kind": "question",
+      "content": "## Chain of custody\n\n**Łańcuch dowodowy** (chain of custody) to udokumentowana historia: kto, kiedy i w jaki sposób miał kontakt z dowodem, od momentu zabezpieczenia do prezentacji w sądzie/raporcie. Przerwanie łańcucha (np. brak zapisu, kto skopiował dysk) może podważyć wiarygodność całego dowodu.",
+      "question": "Jak (dwa słowa po angielsku: 'chain of ...') nazywa się udokumentowana historia posiadania i obchodzenia się z dowodem cyfrowym?",
+      "answer": "chain of custody",
+      "hint": "Pierwsze słowo to 'łańcuch'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Praktyka: suma kontrolna dowodu",
+      "kind": "practical",
+      "content": "## Weryfikacja integralności\n\nZanim jakikolwiek plik dowodowy zostanie przeanalizowany, oblicza się jego sumę kontrolną (hash), żeby móc później udowodnić, że nie został zmodyfikowany:\n\n```bash\necho \"przykladowy log serwera\" > dowod.log\nsha256sum dowod.log\n# ... praca analityczna nie zmienia pliku ...\nsha256sum dowod.log   # ten sam hash = integralność zachowana\n```\n\nJeśli hash po analizie się różni, oznacza to, że plik został (przypadkowo lub celowo) zmieniony.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Analiza pamięci ulotnej",
+      "kind": "question",
+      "content": "## Order of volatility\n\nPrzy zabezpieczaniu dowodów obowiązuje zasada **kolejności ulotności** (order of volatility) — najpierw zabezpiecza się dane, które najszybciej znikają: zawartość pamięci RAM i aktywne połączenia sieciowe, DOPIERO POTEM dane na dysku, które są trwałe i mogą poczekać.",
+      "question": "Który typ pamięci komputera znika NATYCHMIAST po wyłączeniu zasilania i dlatego powinien być zabezpieczony jako pierwszy? (skrót, 3 litery)",
+      "answer": "RAM",
+      "hint": "To pamięć operacyjna komputera.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Kopia binarna (image) dysku",
+      "kind": "question",
+      "content": "## dd i narzędzia do imagingu\n\nZamiast analizować oryginalny nośnik, śledczy tworzą jego dokładną kopię bit-po-bicie (image), np. narzędziem `dd` lub specjalistycznym `dcfldd`/`FTK Imager`. Cała dalsza analiza odbywa się na kopii — oryginał trafia do bezpiecznego przechowania jako materiał referencyjny.",
+      "question": "Jak nazywa się dokładna kopia dysku 'bit po bicie', używana do analizy zamiast oryginalnego nośnika? (jedno słowo po angielsku)",
+      "answer": "image",
+      "hint": "To słowo w kontekście dysków oznacza 'obraz'.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: znajdź ślady włamania",
+      "kind": "question",
+      "content": "## Symulowany przejęty serwer\n\nPoniższa symulowana maszyna udaje serwer, na którym doszło do incydentu. Zbadaj katalog domowy i katalog `/tmp`, poszukując podejrzanych plików pozostawionych przez atakującego (np. nietypowo nazwanych skryptów). Użyj `ls -la`, `cat` i `find`, aby zlokalizować dowód.",
+      "question": "Podaj DOKŁADNĄ nazwę podejrzanego pliku znalezionego w /tmp.",
+      "answer": "backdoor.sh",
+      "hint": "Sprawdź zawartość katalogu /tmp poleceniem 'ls -la /tmp'.",
+      "walkthrough": "Polecenie `ls -la /tmp` ujawnia plik `backdoor.sh` — nietypowa nazwa i lokalizacja (katalog `/tmp` jest zwykle używany na dane tymczasowe, nie skrypty administracyjne) to klasyczny sygnał ostrzegawczy wart dalszej analizy.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "web-prod-03",
+        "user": "analityk",
+        "banner": "Połączono z symulowanym serwerem 'web-prod-03' (zgłoszony incydent bezpieczeństwa).",
+        "startPath": "/home/analityk",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "analityk": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            },
+            "tmp": {
+              "type": "dir",
+              "children": {
+                "backdoor.sh": {
+                  "type": "file",
+                  "content": "#!/bin/bash\n# Nieautoryzowany skrypt pozostawiony przez atakującego (przykład edukacyjny)\n# Ten plik reprezentuje DOWÓD w symulacji, nie prawdziwe złośliwe oprogramowanie.\necho \"To jest fikcyjny, edukacyjny ślad na potrzeby cwiczenia forensycznego.\"\n",
+                  "permissions": "-rwxr-xr-x"
+                },
+                "session.log": {
+                  "type": "file",
+                  "content": "2026-03-01 02:14:03 połączenie z nieznanego adresu 203.0.113.77\n2026-03-01 02:14:09 utworzono plik /tmp/backdoor.sh\n"
+                }
+              }
+            }
+          }
+        }
+      },
+      "points": 25
+    }
+  ]
+}
