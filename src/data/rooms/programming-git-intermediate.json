@@ -1,0 +1,74 @@
+{
+  "id": "programming-git-intermediate",
+  "title": "Git: scalanie, konflikty i cofanie zmian",
+  "summary": "Scalanie gałęzi (merge), rozwiązywanie konfliktów, .gitignore oraz bezpieczne cofanie niechcianych zmian.",
+  "category": "Narzędzia programisty",
+  "difficulty": "Średni",
+  "track": "programming",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "programming-git-basics"
+  ],
+  "tags": [
+    "git",
+    "merge",
+    "konflikty"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Scalanie gałęzi (merge)",
+      "kind": "info",
+      "content": "## Łączenie równoległej pracy\n\nGdy praca na osobnej gałęzi jest gotowa, scala się ją z powrotem do głównej gałęzi poleceniem `git merge`:\n\n```bash\ngit checkout main\ngit merge nowa-funkcja\n```\n\nJeśli obie gałęzie zmieniały RÓŻNE fragmenty kodu, Git scali je automatycznie. Problem pojawia się, gdy OBIE gałęzie zmieniły TĘ SAMĄ linię tego samego pliku — wtedy powstaje **konflikt**.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Anatomia konfliktu",
+      "kind": "question",
+      "content": "## Znaczniki konfliktu\n\nGdy Git nie może automatycznie scalić zmian, oznacza konfliktujący fragment w pliku specjalnymi znacznikami:\n\n```\n<<<<<<< HEAD\nWersja z Twojej bieżącej gałęzi\n=======\nWersja z gałęzi, którą scalasz\n>>>>>>> nowa-funkcja\n```\n\nMusisz RĘCZNIE zdecydować, którą wersję zachować (lub połączyć obie), usunąć znaczniki, a następnie zatwierdzić rozwiązanie przez `git add` i `git commit`.",
+      "question": "Ile znaków 'mniejszości' (<) pojawia się na początku znacznika `HEAD` w konflikcie Gita (np. `<<<<<<< HEAD`)?",
+      "answer": "7",
+      "hint": "Policz dokładnie znaki '<' w przykładzie z treści.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": ".gitignore — pliki wykluczone z repozytorium",
+      "kind": "question",
+      "content": "## Nie wszystko powinno trafić do Git\n\nPlik `.gitignore` wskazuje, KTÓRYCH plików/katalogów Git ma NIE śledzić — np. plików z sekretami, folderów `node_modules/` czy skompilowanych plików binarnych:\n\n```\n# .gitignore\nnode_modules/\n.env\n*.log\n```",
+      "question": "Jak (dokładna nazwa pliku, z kropką na początku) nazywa się plik wskazujący Gitowi, których plików NIE śledzić?",
+      "answer": ".gitignore",
+      "hint": "Nazwa dosłownie mówi 'ignoruj w Git'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Cofanie zmian: reset vs revert",
+      "kind": "question",
+      "content": "## Dwa różne sposoby 'cofnięcia'\n\n**`git revert <commit>`** tworzy NOWY commit, który odwraca zmiany z podanego commita — BEZPIECZNE, bo zachowuje pełną historię (idealne dla kodu już wypchniętego na serwer wspólny).\n\n**`git reset <commit>`** faktycznie PRZESUWA wskaźnik gałęzi wstecz, USUWAJĄC commity z historii — ryzykowne na współdzielonych gałęziach, bo 'kasuje' historię, którą inni mogli już pobrać.",
+      "question": "Które polecenie Git (revert/reset) jest BEZPIECZNIEJSZE do użycia na gałęzi współdzielonej z innymi, bo NIE usuwa historii, tylko dodaje nowy, odwracający commit?",
+      "answer": "revert",
+      "hint": "To polecenie DODAJE nowy commit, zamiast usuwać stare.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "git stash — schowek na zmiany",
+      "kind": "question",
+      "content": "## Tymczasowe odłożenie niedokończonej pracy\n\nGdy musisz szybko przełączyć się na inną gałąź, ale masz niedokończone, niezacommitowane zmiany, `git stash` chowa je 'na bok', przywracając czysty stan working directory. Później, poleceniem `git stash pop`, przywracasz odłożone zmiany.",
+      "question": "Jakiego polecenia Git użyjesz, aby TYMCZASOWO odłożyć niezacommitowane zmiany bez tworzenia commita?",
+      "answer": "git stash",
+      "hint": "Nazwa dosłownie oznacza 'schowek'.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: scalanie gałęzi bez konfliktu",
+      "kind": "practical",
+      "content": "## Pełny cykl: gałąź, zmiana, scalenie\n\nSpróbuj w terminalu:\n\n```bash\nmkdir git-cwiczenie && cd git-cwiczenie\ngit init\necho \"Linia 1\" > plik.txt\ngit add plik.txt && git commit -m \"Pierwszy commit\"\n\ngit checkout -b nowa-galaz\necho \"Linia 2 z nowej galezi\" >> plik.txt\ngit add plik.txt && git commit -m \"Dodaj linie 2\"\n\ngit checkout main\ngit merge nowa-galaz\ncat plik.txt\n```\n\nPonieważ zmiana dotyczyła TEGO SAMEGO pliku, ale innej częsci (dopisanej linii), Git powinien scalić to automatycznie, bez konfliktu.",
+      "hasTerminal": true,
+      "points": 25
+    }
+  ]
+}
