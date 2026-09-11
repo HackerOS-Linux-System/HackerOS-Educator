@@ -1,0 +1,67 @@
+{
+  "id": "programming-rust-intermediate",
+  "title": "Rust: własność, pożyczanie i Option",
+  "summary": "System własności (ownership), pożyczanie referencji oraz bezpieczna obsługa braku wartości przez Option<T>.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Trudny",
+  "track": "programming",
+  "language": "rust",
+  "estimatedMinutes": 40,
+  "prerequisites": [
+    "programming-rust-basics"
+  ],
+  "tags": [
+    "rust",
+    "ownership",
+    "borrowing"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "System własności (ownership)",
+      "kind": "info",
+      "content": "## Unikalna cecha Rusta\n\nRust zarządza pamięcią BEZ garbage collectora, dzięki systemowi **własności** (ownership) sprawdzanemu w czasie KOMPILACJI:\n\n```rust\nlet s1 = String::from(\"hello\");\nlet s2 = s1; // s1 zostaje 'przeniesione' (moved) do s2\n// println!(\"{}\", s1); // BŁĄD KOMPILACJI: s1 już nie jest właścicielem danych\n```\n\nKażda wartość ma dokładnie JEDNEGO właściciela, a gdy właściciel wychodzi poza zasięg (scope), pamięć jest automatycznie zwalniana — bez potrzeby ręcznego `free()` czy garbage collectora.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Move semantics",
+      "kind": "question",
+      "content": "## Przeniesienie własności\n\nGdy przypisujesz wartość typu `String` (przechowywaną na stercie) do nowej zmiennej, Rust domyślnie PRZENOSI własność (move), a nie kopiuje. Stara zmienna staje się nieważna — próba jej użycia to błąd kompilacji, co eliminuje całą klasę błędów typu 'use after free' znanych z C/C++.",
+      "question": "Jak (po angielsku, jedno słowo) nazywa się operacja PRZENIESIENIA własności wartości z jednej zmiennej do drugiej w Ruście?",
+      "answer": "move",
+      "hint": "To dosłownie angielskie słowo 'przenieś'.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Pożyczanie (borrowing) referencji",
+      "kind": "question",
+      "content": "## & — pożyczka bez przenoszenia własności\n\n```rust\nfn dlugosc(s: &String) -> usize {\n    s.len()\n}\n\nfn main() {\n    let tekst = String::from(\"HackerOS\");\n    let dl = dlugosc(&tekst); // 'pożyczamy' referencję, tekst nadal jest ważny\n    println!(\"{} ma {} znaków\", tekst, dl);\n}\n```\n\nZnak `&` tworzy REFERENCJĘ (pożyczkę) do wartości, bez przenoszenia jej własności — oryginalna zmienna pozostaje użyteczna po wywołaniu funkcji.",
+      "question": "Jakiego znaku (symbolu) używa się w Ruście do utworzenia referencji ('pożyczki') do wartości, zamiast przenoszenia jej własności?",
+      "answer": "&",
+      "hint": "To ampersand.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Option<T> zamiast null",
+      "kind": "question",
+      "content": "## Bezpieczna obsługa braku wartości\n\nRust NIE MA `null`. Zamiast tego, wartość, która może nie istnieć, ma typ `Option<T>` z dwoma wariantami: `Some(T)` (wartość istnieje) i `None` (brak wartości). Kompilator WYMUSZA obsłużenie obu przypadków, eliminując cały problem tzw. 'null pointer exception'.\n\n```rust\nfn znajdz(lista: &[i32], szukana: i32) -> Option<usize> {\n    for (i, &x) in lista.iter().enumerate() {\n        if x == szukana { return Some(i); }\n    }\n    None\n}\n```",
+      "question": "Jaki wariant Option<T> reprezentuje BRAK wartości w Ruście (odpowiednik null)?",
+      "answer": "None",
+      "hint": "To przeciwieństwo wariantu Some(T).",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Reguła jednego mutowalnego pożyczenia",
+      "kind": "question",
+      "content": "## Zasada borrow checkera\n\nRust pozwala na DOWOLNĄ liczbę NIEMUTOWALNYCH referencji (`&T`) jednocześnie, ALE tylko JEDNĄ mutowalną referencję (`&mut T`) na raz — i nigdy obu typów naraz do tej samej wartości. To eliminuje race conditions (wyścigi danych) już na etapie kompilacji, bez kosztu w czasie działania programu.",
+      "question": "Ile mutowalnych referencji (&mut T) do tej samej wartości Rust pozwala mieć JEDNOCZEŚNIE?",
+      "answer": "1",
+      "hint": "To bardzo restrykcyjna zasada — jedna, nie zero, nie wiele.",
+      "points": 20
+    }
+  ]
+}
