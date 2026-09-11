@@ -1,0 +1,63 @@
+{
+  "id": "programming-python-basics",
+  "title": "Podstawy Pythona",
+  "summary": "Wprowadzenie do Pythona — jednego z najpopularniejszych języków w cyberbezpieczeństwie i automatyzacji.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "python",
+  "estimatedMinutes": 25,
+  "prerequisites": [],
+  "tags": [
+    "python",
+    "automatyzacja",
+    "skrypty"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Dlaczego Python?",
+      "kind": "info",
+      "content": "## Python w cyberbezpieczeństwie i administracji\n\nPython jest niezwykle popularny wśród specjalistów cyberbezpieczeństwa i administratorów dzięki czytelnej składni i ogromnej bibliotece narzędzi (np. `requests`, `scapy`, `paramiko`).\n\n```python\nnazwa = \"HackerOS\"\nprint(f\"Cześć, {nazwa}!\")\n```\n\nZauważ: Python używa WCIĘĆ (indentacji) zamiast nawiasów klamrowych do oznaczania bloków kodu — to część jego filozofii czytelności.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Wcięcia zamiast klamer",
+      "kind": "question",
+      "content": "## Bloki kodu przez wcięcia\n\n```python\nif 5 > 3:\n    print(\"Prawda\")\nelse:\n    print(\"Fałsz\")\n```\n\nBrak lub błędne wcięcie powoduje błąd składniowy — w Pythonie wcięcie NIE jest kosmetyczne, jest częścią składni języka.",
+      "question": "Czego (jakiego elementu składni) Python używa zamiast nawiasów klamrowych { } do oznaczenia bloku kodu?",
+      "answer": "wcięć",
+      "hint": "Chodzi o spacje/taby na początku linii.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Listy i pętle",
+      "kind": "question",
+      "content": "## for x in lista\n\n```python\njezyki = [\"Python\", \"Rust\", \"Lua\"]\nfor jezyk in jezyki:\n    print(jezyk)\n```\n\nTo wypisze każdy element listy w osobnej linii.",
+      "question": "Jakiego słowa kluczowego Pythona używa się do iteracji po elementach listy (np. 'for x ... lista')?",
+      "answer": "in",
+      "hint": "To krótkie, dwuliterowe słowo używane w pętli for.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "f-stringi",
+      "kind": "question",
+      "content": "## Formatowanie tekstu\n\nNowoczesny Python (3.6+) oferuje f-stringi do wstawiania wartości zmiennych bezpośrednio w tekst:\n\n```python\nwiek = 25\nprint(f\"Mam {wiek} lat\")\n```",
+      "question": "Jaki prefiks (jedna litera) trzeba dodać przed cudzysłowem, aby utworzyć f-string w Pythonie?",
+      "answer": "f",
+      "hint": "To pierwsza litera słowa 'format'.",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: pierwszy skrypt",
+      "kind": "practical",
+      "content": "## Uruchom Pythona w terminalu\n\nSpróbuj:\n\n```bash\npython3 -c \"print('Hello from Python!')\"\npython3 -c \"\nfor i in range(5):\n    print(f'Liczba: {i}')\n\"\n```\n\n`range(5)` generuje liczby od 0 do 4 (5 liczb, bez 5).",
+      "hasTerminal": true,
+      "points": 15
+    }
+  ]
+}
