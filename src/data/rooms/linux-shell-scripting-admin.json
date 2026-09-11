@@ -1,0 +1,66 @@
+{
+  "id": "linux-shell-scripting-admin",
+  "title": "Skrypty powłoki dla administratorów",
+  "summary": "Automatyzacja zadań administracyjnych za pomocą skryptów bash: zmienne, warunki, pętle i harmonogram.",
+  "category": "Automatyzacja",
+  "difficulty": "Trudny",
+  "track": "linux-admin",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "linux-users-permissions",
+    "linux-cron-automation"
+  ],
+  "tags": [
+    "linux",
+    "bash",
+    "skrypty",
+    "automatyzacja"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Anatomia skryptu administracyjnego",
+      "kind": "info",
+      "content": "## Dobry skrypt admina\n\n```bash\n#!/usr/bin/env bash\nset -euo pipefail   # przerwij przy pierwszym błędzie, niezdefiniowanej zmiennej lub błędzie w potoku\n\nLOG_FILE=\"/var/log/moj-skrypt.log\"\n\nif [ ! -w \"$(dirname \"$LOG_FILE\")\" ]; then\n    echo \"Brak uprawnień do zapisu logów!\" >&2\n    exit 1\nfi\n\necho \"$(date): start zadania\" >> \"$LOG_FILE\"\n```\n\nZauważ `set -euo pipefail` — to standard w skryptach produkcyjnych, bo domyślnie bash *ignoruje* błędy i kontynuuje, co bywa niebezpieczne przy operacjach administracyjnych.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Praktyka: pierwszy skrypt",
+      "kind": "practical",
+      "content": "## Napisz i uruchom prosty skrypt\n\nSpróbuj w terminalu:\n\n```bash\ncat > sprawdz-dysk.sh << 'EOF'\n#!/usr/bin/env bash\nset -euo pipefail\nUZYCIE=$(df -h / | tail -1 | awk '{print $5}')\necho \"Zajętość partycji root: $UZYCIE\"\nEOF\nchmod +x sprawdz-dysk.sh\n./sprawdz-dysk.sh\n```\n\nTen skrypt sprawdza procentowe zajęcie partycji root — typowe zadanie monitoringu, które można później podpiąć pod cron.",
+      "hasTerminal": true,
+      "points": 25
+    },
+    {
+      "id": "task-3",
+      "title": "set -euo pipefail",
+      "kind": "question",
+      "content": "## Bezpieczny tryb bash\n\n`set -e` przerywa skrypt przy pierwszym błędzie, `set -u` traktuje użycie niezdefiniowanej zmiennej jako błąd, a `set -o pipefail` sprawia, że potok (`|`) zwraca błąd, jeśli którykolwiek z jego elementów zawiedzie (nie tylko ostatni).",
+      "question": "Jaka flaga `set` sprawia, że skrypt bash natychmiast kończy działanie po napotkaniu jakiegokolwiek błędu?",
+      "answer": "-e",
+      "hint": "To pojedyncza litera, pierwsza litera słowa 'errexit'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Pętla po plikach",
+      "kind": "question",
+      "content": "## Iteracja w bashu\n\nCzęste zadanie administracyjne: przetworzenie wielu plików, np.:\n\n```bash\nfor plik in /var/log/*.log; do\n    echo \"Przetwarzam: $plik\"\ndone\n```",
+      "question": "Jakiego słowa kluczowego bash używa się do ROZPOCZĘCIA pętli iterującej po liście elementów (jak w przykładzie 'for plik in ...')?",
+      "answer": "for",
+      "hint": "To pierwsze słowo w przykładzie z treści zadania.",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Bezpieczne cudzysłowy",
+      "kind": "question",
+      "content": "## Dlaczego cytować zmienne?\n\nBrak cudzysłowów wokół zmiennych (`$PLIK` zamiast `\"$PLIK\"`) to jeden z najczęstszych błędów w skryptach administracyjnych — nazwa pliku ze spacją potrafi rozbić skrypt lub, w gorszym wypadku, spowodować wykonanie niezamierzonego polecenia.",
+      "question": "Jakiego znaku używa się do 'cytowania' (otoczenia) zmiennej w bashu, aby bezpiecznie obsłużyć spacje w jej wartości, np. \"$PLIK\"? (podaj sam znak)",
+      "answer": "\"",
+      "hint": "To standardowy cudzysłów podwójny.",
+      "points": 15
+    }
+  ]
+}
