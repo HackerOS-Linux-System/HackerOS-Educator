@@ -1,0 +1,72 @@
+{
+  "id": "programming-git-basics",
+  "title": "Podstawy Git: kontrola wersji",
+  "summary": "Śledzenie historii zmian w kodzie: commity, gałęzie i podstawowy cykl pracy add-commit-push.",
+  "category": "Narzędzia programisty",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "estimatedMinutes": 30,
+  "prerequisites": [],
+  "tags": [
+    "git",
+    "kontrola-wersji",
+    "narzędzia"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Po co kontrola wersji?",
+      "kind": "info",
+      "content": "## Historia zmian, którą można cofnąć\n\n**Git** to system kontroli wersji — śledzi KAŻDĄ zmianę w kodzie projektu, pozwalając wrócić do dowolnego wcześniejszego stanu, zobaczyć KTO i KIEDY coś zmienił, oraz bezpiecznie pracować nad różnymi funkcjami RÓWNOLEGLE (przez gałęzie), bez nadpisywania cudzej pracy.\n\nBez Gita, praca zespołowa nad kodem oznaczałaby ręczne wysyłanie plików ZIP mailem i modlenie się, żeby nikt nie nadpisał czyichś zmian.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Trzy obszary Gita",
+      "kind": "question",
+      "content": "## Working directory → staging → repozytorium\n\nGit ma trzy 'obszary': **working directory** (pliki, które edytujesz), **staging area** (pliki OZNACZONE do zapisania w następnym commicie, przez `git add`) i **repozytorium** (historia zapisanych commitów).\n\n```bash\ngit add plik.txt        # dodaje plik do staging area\ngit commit -m \"Opis\"     # zapisuje staging area jako nowy commit w historii\n```",
+      "question": "Jakiego polecenia Git używa się, aby dodać zmieniony plik do 'staging area' (przygotować go do zapisania)?",
+      "answer": "git add",
+      "hint": "Drugie słowo oznacza 'dodaj'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Commit — migawka zmian",
+      "kind": "question",
+      "content": "## git commit\n\n**Commit** to zapisana 'migawka' stanu projektu w danym momencie, wraz z opisem (message) wyjaśniającym CO i DLACZEGO się zmieniło:\n\n```bash\ngit commit -m \"Napraw błąd w logowaniu\"\n```\n\nDobra wiadomość commita jest KRÓTKA, konkretna i w trybie rozkazującym ('Dodaj', nie 'Dodano') — ułatwia to przeglądanie historii projektu w przyszłości.",
+      "question": "Jakiej flagi `git commit` używa się, aby podać WIADOMOŚĆ opisującą commit bezpośrednio w linii poleceń?",
+      "answer": "-m",
+      "hint": "To pierwsza litera słowa 'message'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Gałęzie (branches)",
+      "kind": "question",
+      "content": "## Równoległa praca bez konfliktów\n\n**Gałąź** (branch) to niezależna linia rozwoju kodu. Domyślna gałąź nazywa się zwykle `main` (lub historycznie `master`). Tworząc nową gałąź do pracy nad funkcją, NIE ryzykujesz zepsucia głównej, stabilnej wersji kodu:\n\n```bash\ngit branch nowa-funkcja       # utwórz gałąź\ngit checkout nowa-funkcja     # przełącz się na nią\n# lub jednym poleceniem:\ngit checkout -b nowa-funkcja\n```",
+      "question": "Jakiego polecenia Git używa się do PRZEŁĄCZENIA się między istniejącymi gałęziami?",
+      "answer": "git checkout",
+      "hint": "Drugie słowo dosłownie oznacza 'wymelduj się'/'przełącz'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Zdalne repozytorium: push i pull",
+      "kind": "question",
+      "content": "## Synchronizacja z GitHub/GitLab\n\nLokalne repozytorium Git można zsynchronizować ze ZDALNYM (np. na GitHub):\n\n```bash\ngit push origin main    # wyślij lokalne commity na serwer zdalny\ngit pull origin main    # pobierz i połącz zmiany z serwera zdalnego\n```",
+      "question": "Jakiego polecenia Git użyjesz, aby WYSŁAĆ swoje lokalne commity do zdalnego repozytorium?",
+      "answer": "git push",
+      "hint": "Drugie słowo oznacza 'wypchnij'.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: pierwszy cykl pracy z Gitem",
+      "kind": "practical",
+      "content": "## Zainicjuj repozytorium i zrób pierwszy commit\n\nSpróbuj w terminalu:\n\n```bash\nmkdir moj-projekt && cd moj-projekt\ngit init\necho \"# Mój projekt\" > README.md\ngit add README.md\ngit commit -m \"Pierwszy commit: dodaj README\"\ngit log --oneline\n```\n\n`git init` tworzy nowe, puste repozytorium Git w bieżącym katalogu, a `git log --oneline` pokazuje skróconą historię commitów.",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
