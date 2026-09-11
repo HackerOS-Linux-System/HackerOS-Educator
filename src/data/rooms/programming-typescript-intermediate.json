@@ -1,0 +1,65 @@
+{
+  "id": "programming-typescript-intermediate",
+  "title": "TypeScript: interfejsy, generyki i typy narzędziowe",
+  "summary": "Definiowanie kształtu danych przez interface, funkcje generyczne oraz wbudowane typy narzędziowe jak Partial i Pick.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Trudny",
+  "track": "programming",
+  "language": "typescript",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "programming-typescript-basics"
+  ],
+  "tags": [
+    "typescript",
+    "generyki",
+    "interfejsy"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Interfejsy — kształt obiektu",
+      "kind": "info",
+      "content": "## interface\n\n```typescript\ninterface Uzytkownik {\n  imie: string;\n  wiek: number;\n  email?: string; // pole opcjonalne\n}\n\nfunction powitaj(u: Uzytkownik): string {\n  return `Cześć, ${u.imie}!`;\n}\n```\n\n`interface` opisuje OCZEKIWANY kształt obiektu — kompilator sprawdzi, czy każdy obiekt przekazywany jako `Uzytkownik` faktycznie ma wymagane pola o poprawnych typach.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Pola opcjonalne",
+      "kind": "question",
+      "content": "## Znak zapytania w interfejsie\n\nW przykładzie `email?: string` znak `?` oznacza, że pole `email` jest OPCJONALNE — obiekt może, ale nie musi, go zawierać.",
+      "question": "Jakiego znaku (symbolu) używa się w TypeScript po nazwie pola interfejsu, aby oznaczyć je jako OPCJONALNE?",
+      "answer": "?",
+      "hint": "To znak zapytania.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Funkcje generyczne",
+      "kind": "question",
+      "content": "## <T> w TypeScript\n\n```typescript\nfunction pierwszy<T>(lista: T[]): T {\n  return lista[0];\n}\n\nconst a = pierwszy([1, 2, 3]);        // typ: number\nconst b = pierwszy([\"a\", \"b\"]);       // typ: string\n```\n\nFunkcja generyczna działa poprawnie dla RÓŻNYCH typów, zachowując pełne bezpieczeństwo typów — kompilator 'wie', że `pierwszy([1,2,3])` zwróci `number`, a nie ogólny `any`.",
+      "question": "Jakiego symbolu (nawiasów) używa się w TypeScript do zadeklarowania parametru typu generycznego przy nazwie funkcji, np. `pierwszy<T>`?",
+      "answer": "<>",
+      "hint": "To nawiasy kątowe (mniejszości i większości).",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Typ narzędziowy Partial<T>",
+      "kind": "question",
+      "content": "## Wszystkie pola opcjonalne naraz\n\nTypeScript oferuje wbudowane 'typy narzędziowe' (utility types) transformujące istniejące typy:\n\n```typescript\ninterface Uzytkownik {\n  imie: string;\n  wiek: number;\n}\n\nfunction aktualizuj(u: Uzytkownik, zmiany: Partial<Uzytkownik>) {\n  return { ...u, ...zmiany };\n}\n\naktualizuj(uzytkownik, { wiek: 26 }); // OK, mimo braku pola 'imie'\n```\n\n`Partial<Uzytkownik>` tworzy WERSJĘ typu `Uzytkownik`, w której WSZYSTKIE pola są opcjonalne — idealne do funkcji aktualizujących tylko część obiektu.",
+      "question": "Jakiego typu narzędziowego TypeScript użyjesz, aby uczynić WSZYSTKIE pola istniejącego interfejsu opcjonalnymi?",
+      "answer": "Partial",
+      "hint": "Nazwa dosłownie oznacza 'częściowy'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: interfejs i funkcja generyczna",
+      "kind": "practical",
+      "content": "## Połącz interfejs z generykiem\n\nSpróbuj w terminalu (Node.js z ts-node lub sama analiza kodu):\n\n```bash\ncat > przyklad.ts << 'EOF'\ninterface Produkt {\n  nazwa: string;\n  cena: number;\n}\n\nfunction najdrozszy<T extends { cena: number }>(lista: T[]): T {\n  return lista.reduce((a, b) => (a.cena > b.cena ? a : b));\n}\n\nconst produkty: Produkt[] = [\n  { nazwa: \"Klawiatura\", cena: 150 },\n  { nazwa: \"Monitor\", cena: 900 },\n];\n\nconsole.log(najdrozszy(produkty));\nEOF\ncat przyklad.ts\n```\n\n`T extends { cena: number }` to OGRANICZENIE generyka — funkcja działa dla DOWOLNEGO typu, o ile ma pole `cena` typu `number`.",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
