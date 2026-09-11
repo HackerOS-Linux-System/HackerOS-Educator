@@ -1,0 +1,67 @@
+{
+  "id": "privacy-compliance-basics",
+  "title": "Prywatność danych i zgodność (RODO)",
+  "summary": "Podstawowe zasady RODO/GDPR, klasyfikacja danych osobowych i obowiązki organizacji przy naruszeniach danych.",
+  "category": "Zgodność i prywatność",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "intro-to-cybersecurity"
+  ],
+  "tags": [
+    "rodo",
+    "gdpr",
+    "prywatność",
+    "zgodność"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest RODO?",
+      "kind": "info",
+      "content": "## RODO / GDPR\n\n**RODO** (Rozporządzenie o Ochronie Danych Osobowych, ang. GDPR) to unijne prawo regulujące, jak organizacje mogą zbierać, przetwarzać i przechowywać dane osobowe obywateli UE. Naruszenia mogą skutkować karami sięgającymi milionów euro. Kluczowe zasady: **minimalizacja danych** (zbieraj tylko to, co niezbędne), **ograniczenie celu** (używaj danych tylko do zadeklarowanego celu) i **prawo do bycia zapomnianym** (użytkownik może zażądać usunięcia swoich danych).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Dane osobowe vs dane wrażliwe",
+      "kind": "question",
+      "content": "## Wyższy poziom ochrony\n\nRODO wyróżnia zwykłe **dane osobowe** (imię, e-mail) oraz **dane szczególnej kategorii** (dawniej 'wrażliwe'): pochodzenie etniczne, poglądy polityczne, dane o zdrowiu, orientacja seksualna. Te drugie wymagają ZNACZNIE wyższego poziomu ochrony i zwykle jawnej, dodatkowej zgody na przetwarzanie.",
+      "question": "Jak (po polsku) nazywa się kategoria danych osobowych (np. o zdrowiu, orientacji seksualnej) wymagająca szczególnie wysokiego poziomu ochrony wg RODO?",
+      "answer": "dane wrażliwe",
+      "hint": "To określenie potoczne, choć RODO formalnie używa terminu 'dane szczególnej kategorii'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Zgłaszanie naruszeń danych",
+      "kind": "question",
+      "content": "## 72 godziny\n\nOrganizacja, która wykryje naruszenie ochrony danych osobowych (np. wyciek bazy klientów), ma zgodnie z RODO obowiązek zgłosić to odpowiedniemu organowi nadzorczemu (w Polsce: UODO) w ciągu ściśle określonego czasu od wykrycia.",
+      "question": "W ciągu ilu GODZIN od wykrycia naruszenia danych organizacja musi zgłosić je organowi nadzorczemu wg RODO?",
+      "answer": "72",
+      "hint": "To trzy pełne dni.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Privacy by design",
+      "kind": "question",
+      "content": "## Prywatność zaprojektowana od początku\n\nZasada **privacy by design** (prywatność w fazie projektowania) mówi, że ochrona danych osobowych powinna być brana pod uwagę OD SAMEGO POCZĄTKU projektowania systemu, a nie doklejana jako 'łatka' na końcu, gdy system jest już gotowy.",
+      "question": "Jak (po angielsku, trzy słowa: 'privacy by ...') nazywa się zasada uwzględniania ochrony danych już na etapie projektowania systemu?",
+      "answer": "privacy by design",
+      "hint": "Ostatnie słowo oznacza 'projekt'/'projektowanie'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Rola specjalisty bezpieczeństwa a compliance",
+      "kind": "question",
+      "content": "## Bezpieczeństwo techniczne wspiera zgodność prawną\n\nZespoły bezpieczeństwa IT i działy prawne/compliance współpracują — techniczne zabezpieczenia (szyfrowanie, kontrola dostępu, logowanie) są NARZĘDZIEM realizującym wymogi prawne takie jak RODO. Bez solidnych zabezpieczeń technicznych, formalna zgodność 'na papierze' niewiele znaczy w razie realnego wycieku.",
+      "question": "Jakim polskim skrótem (4 litery) określa się Urząd Ochrony Danych Osobowych — organ nadzorczy ds. RODO w Polsce?",
+      "answer": "UODO",
+      "hint": "To skrót od Urząd Ochrony Danych Osobowych.",
+      "points": 15
+    }
+  ]
+}
