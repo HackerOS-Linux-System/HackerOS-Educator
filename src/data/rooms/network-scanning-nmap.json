@@ -1,0 +1,101 @@
+{
+  "id": "network-scanning-nmap",
+  "title": "Skanowanie sieci: podstawy Nmap",
+  "summary": "Jak legalnie mapować hosty i usługi w sieci: typy skanów, interpretacja wyników i etyka skanowania.",
+  "category": "Rekonesans",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "network-basics"
+  ],
+  "tags": [
+    "nmap",
+    "skanowanie",
+    "rekonesans"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest Nmap?",
+      "kind": "info",
+      "content": "## Network Mapper\n\n**Nmap** to standardowe, otwartoźródłowe narzędzie do skanowania sieci — pozwala odkryć, jakie hosty są aktywne, jakie porty mają otwarte i jakie usługi na nich nasłuchują. Używane jest zarówno przez pentesterów (rekonesans), jak i administratorów (audyt własnej sieci).\n\n**WAŻNE**: skanowanie sieci/hostów bez wyraźnej zgody właściciela jest w wielu jurysdykcjach NIELEGALNE. Ten pokój omawia Nmap wyłącznie w kontekście autoryzowanych testów (własna sieć domowa/laboratoryjna lub pentest za pisemną zgodą klienta).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Skan TCP SYN ('half-open')",
+      "kind": "question",
+      "content": "## -sS — najpopularniejszy typ skanu\n\nSkan SYN wysyła pakiet SYN (pierwszy krok trójstronnego uzgadniania TCP) i analizuje odpowiedź, NIE dokańczając pełnego połączenia — stąd nazwa 'half-open'. Jest szybszy i mniej zauważalny niż pełne połączenie TCP.\n\n```bash\nnmap -sS 192.168.1.10\n```",
+      "question": "Jakiej flagi Nmap (dwuznakowej) używa się do wykonania skanu typu SYN ('half-open')?",
+      "answer": "-sS",
+      "hint": "Duża litera S powtórzona dwukrotnie po myślniku.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Skanowanie wersji usług",
+      "kind": "question",
+      "content": "## -sV — identyfikacja wersji\n\nSamo wykrycie, że port 80 jest otwarty, to za mało — administrator chce wiedzieć, JAKI serwer web (i w jakiej wersji) tam nasłuchuje, żeby ocenić, czy jest podatny na znane luki:\n\n```bash\nnmap -sV -p 80,443 192.168.1.10\n```",
+      "question": "Jakiej flagi Nmap używa się, aby wykryć WERSJE usług nasłuchujących na otwartych portach?",
+      "answer": "-sV",
+      "hint": "Duże V jak 'version'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Interpretacja stanów portów",
+      "kind": "question",
+      "content": "## open, closed, filtered\n\nNmap klasyfikuje porty w trzy główne stany:\n\n- **open** — usługa aktywnie nasłuchuje i odpowiada.\n- **closed** — port dostępny, ale żadna usługa nie nasłuchuje (host odpowiada 'nie ma tu nikogo').\n- **filtered** — firewall blokuje pakiety, Nmap nie może stwierdzić stanu portu (brak odpowiedzi).",
+      "question": "Jaki stan portu Nmap oznacza, że firewall BLOKUJE pakiety i nie da się jednoznacznie ustalić, czy port jest otwarty?",
+      "answer": "filtered",
+      "hint": "To NIE jest 'closed' — closed oznacza wyraźną odpowiedź odmowną.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Etyka skanowania",
+      "kind": "question",
+      "content": "## Zawsze pytaj o zgodę\n\nNawet skanowanie 'tylko sprawdzające' bez wykorzystywania luk może zostać potraktowane jako przygotowanie do ataku i naruszać prawo (np. w Polsce art. 267 KK). Profesjonalny pentester zawsze działa na podstawie pisemnej umowy określającej zakres testów (scope) — to dokument zwany 'Rules of Engagement'.",
+      "question": "Jak (po angielsku, trzy słowa: 'Rules of ...') nazywa się dokument określający dozwolony zakres i zasady legalnego testu penetracyjnego?",
+      "answer": "Rules of Engagement",
+      "hint": "Ostatnie słowo oznacza 'zaangażowanie'/'starcie'.",
+      "points": 20
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: przeanalizuj wynik skanu Nmap",
+      "kind": "question",
+      "content": "## Symulowany skan\n\nPoniższa symulowana maszyna udaje wynik polecenia `nmap -sV target.hackeros.lab` wykonanego w ramach autoryzowanego testu laboratoryjnego. Wpisz to polecenie w terminalu poniżej, a następnie przeanalizuj wynik, aby odpowiedzieć na pytanie: **jaka usługa (nazwa) nasłuchuje na porcie 21?**",
+      "question": "Podaj nazwę usługi nasłuchującej na porcie 21 według wyniku skanu.",
+      "answer": "ftp",
+      "hint": "Port 21 to standardowy port protokołu transferu plików.",
+      "walkthrough": "W wyniku `nmap -sV target.hackeros.lab` linia `21/tcp open ftp vsftpd 3.0.3` pokazuje, że na porcie 21 nasłuchuje usługa FTP (konkretnie vsftpd).",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "attackbox",
+        "user": "kursant",
+        "banner": "Połączono z symulowanym AttackBoxem. Cel testu: target.hackeros.lab (środowisko laboratoryjne).",
+        "startPath": "/home/kursant",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "kursant": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            }
+          }
+        },
+        "cannedCommands": {
+          "nmap -sV target.hackeros.lab": "Starting Nmap 7.94 ( https://nmap.org )\nNmap scan report for target.hackeros.lab (10.10.10.42)\nHost is up (0.012s latency).\n\nPORT     STATE SERVICE  VERSION\n21/tcp   open  ftp      vsftpd 3.0.3\n22/tcp   open  ssh      OpenSSH 8.9p1\n80/tcp   open  http     nginx 1.24.0\n3306/tcp open  mysql    MySQL 8.0.34\n\nNmap done: 1 IP address (1 host up) scanned in 4.21 seconds"
+        }
+      },
+      "points": 25
+    }
+  ]
+}
