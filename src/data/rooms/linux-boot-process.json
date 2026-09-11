@@ -1,0 +1,67 @@
+{
+  "id": "linux-boot-process",
+  "title": "Proces rozruchu Linuksa",
+  "summary": "Od włączenia zasilania do zalogowania: BIOS/UEFI, bootloader GRUB, initramfs i przejęcie kontroli przez systemd.",
+  "category": "Podstawy administracji",
+  "difficulty": "Trudny",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-systemd-services"
+  ],
+  "tags": [
+    "linux",
+    "boot",
+    "grub",
+    "kernel"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Etapy rozruchu",
+      "kind": "info",
+      "content": "## Od zasilania do loginu\n\n1. **UEFI/BIOS** — firmware płyty głównej inicjalizuje sprzęt i szuka bootloadera.\n2. **GRUB** (bootloader) — pokazuje menu wyboru systemu/jądra i ładuje wybrane jądro do pamięci.\n3. **Jądro (kernel)** + **initramfs** — tymczasowy system plików w pamięci RAM, zawierający sterowniki potrzebne, by zamontować właściwy dysk root.\n4. **systemd (PID 1)** — pierwszy prawdziwy proces, uruchamia resztę systemu wg jednostek `.target` (odpowiednik dawnych 'runlevels').\n5. **Login** — użytkownik może się zalogować.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "GRUB — bootloader",
+      "kind": "question",
+      "content": "## Menu startowe\n\nGRUB (GRand Unified Bootloader) to najpopularniejszy bootloader Linuksa. Jego konfiguracja znajduje się w `/etc/default/grub`, a wygenerowany plik menu w `/boot/grub/grub.cfg`. Po zmianie konfiguracji trzeba wygenerować menu ponownie poleceniem `update-grub` (Debian/Ubuntu) lub `grub2-mkconfig`.",
+      "question": "Jak (jednym słowem, nazwa własna) nazywa się najpopularniejszy bootloader używany w większości dystrybucji Linuksa?",
+      "answer": "GRUB",
+      "hint": "To skrót od GRand Unified Bootloader.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "initramfs — tymczasowy system plików",
+      "kind": "question",
+      "content": "## Dlaczego jądro potrzebuje 'tymczasowego' systemu plików?\n\nJądro musi zamontować właściwy dysk root, ale sterowniki do tego (np. do kontrolera RAID czy dysku zaszyfrowanego LUKS) same muszą skądś pochodzić. **initramfs** to mały, tymczasowy system plików załadowany do RAM, zawierający MINIMALNY zestaw sterowników i narzędzi potrzebnych do znalezienia i zamontowania właściwego dysku root — po czym oddaje kontrolę właściwemu systemowi.",
+      "question": "Jak (jednym słowem, skrót od 'initial ram filesystem') nazywa się tymczasowy system plików ładowany do RAM podczas rozruchu, zawierający sterowniki potrzebne do zamontowania dysku root?",
+      "answer": "initramfs",
+      "hint": "Nazwa dosłownie mówi 'początkowy system plików w RAM'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Cele systemd (targets)",
+      "kind": "question",
+      "content": "## Zamiennik runlevels\n\nStare dystrybucje (SysV init) używały numerowanych 'runlevels' (0-6). systemd zastępuje to jednostkami `.target`, np. `multi-user.target` (system wieloużytkownikowy bez GUI, odpowiednik dawnego runlevel 3) czy `graphical.target` (z GUI, odpowiednik runlevel 5). Domyślny cel sprawdza się poleceniem `systemctl get-default`.",
+      "question": "Jakim poleceniem systemctl sprawdza się DOMYŚLNY cel (target), do którego uruchamia się system?",
+      "answer": "systemctl get-default",
+      "hint": "Drugie słowo to 'get-default'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Kernel panic",
+      "kind": "question",
+      "content": "## Gdy jądro nie może kontynuować\n\n**Kernel panic** to sytuacja, w której jądro napotyka błąd na tyle poważny (np. brak dysku root), że nie może bezpiecznie kontynuować działania i zatrzymuje cały system, wypisując diagnostykę na ekran. To ostatnia linia obrony przed dalszym uszkodzeniem danych.",
+      "question": "Jak (dwa słowa po angielsku: 'kernel ...') nazywa się krytyczny błąd jądra powodujący całkowite zatrzymanie systemu podczas rozruchu lub pracy?",
+      "answer": "kernel panic",
+      "hint": "Drugie słowo oznacza 'panika'.",
+      "points": 15
+    }
+  ]
+}
