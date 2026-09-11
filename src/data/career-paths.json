@@ -3,7 +3,7 @@
     {
       "id": "junior-pentester",
       "title": "Junior Penetration Tester",
-      "description": "Ścieżka wprowadzająca w ofensywne bezpieczeństwo: od podstaw teoretycznych, przez system operacyjny i sieci, po pierwsze ćwiczenia praktyczne.",
+      "description": "Ścieżka wprowadzająca w ofensywne bezpieczeństwo: od podstaw teoretycznych, przez system operacyjny i sieci, po web security i eskalację uprawnień.",
       "icon": "🗡️",
       "track": "cybersecurity",
       "steps": [
@@ -12,19 +12,63 @@
           "note": "Fundamenty i etyka"
         },
         {
+          "roomId": "computer-fundamentals-inside-a-computer",
+          "note": "Zanim zaczniesz hackować, poznaj sprzęt"
+        },
+        {
+          "roomId": "operating-systems-fundamentals",
+          "note": "Jak systemy operacyjne zarządzają sprzętem"
+        },
+        {
+          "roomId": "how-the-web-works",
+          "note": "DNS i HTTP zanim zaczniesz szukać podatności"
+        },
+        {
           "roomId": "linux-fundamentals",
           "note": "Terminal to Twoje podstawowe narzędzie"
         },
         {
           "roomId": "network-basics",
           "note": "Bez sieci nie ma pentestów"
+        },
+        {
+          "roomId": "web-security-fundamentals",
+          "note": "OWASP Top 10 od podszewki"
+        },
+        {
+          "roomId": "linux-privilege-escalation-concepts",
+          "note": "Jak systemy tracą uprawnienia"
+        },
+        {
+          "roomId": "network-scanning-nmap",
+          "note": "Mapowanie hostów i usług"
+        },
+        {
+          "roomId": "active-directory-basics",
+          "note": "Najczęstszy cel w sieciach firmowych"
+        },
+        {
+          "roomId": "api-security-basics",
+          "note": "Bezpieczeństwo interfejsów API"
+        },
+        {
+          "roomId": "threat-modeling-basics",
+          "note": "Myśl jak atakujący, zanim on pomyśli"
+        },
+        {
+          "roomId": "capstone-webapp-pentest-report",
+          "note": "Napisz swój pierwszy raport z testu"
+        },
+        {
+          "roomId": "vulnerability-management-basics",
+          "note": "Priorytetyzacja: co łatać najpierw"
         }
       ]
     },
     {
       "id": "soc-analyst",
       "title": "SOC Analyst (Blue Team)",
-      "description": "Ścieżka defensywna — analiza logów, wykrywanie incydentów i podstawy monitoringu bezpieczeństwa.",
+      "description": "Ścieżka defensywna — analiza logów, wykrywanie incydentów, forensyka i reagowanie krok po kroku.",
       "icon": "🛡️",
       "track": "cybersecurity",
       "steps": [
@@ -33,12 +77,191 @@
           "note": "Triada CIA to Twój kompas"
         },
         {
+          "roomId": "computer-fundamentals-inside-a-computer",
+          "note": "Zanim zaczniesz hackować, poznaj sprzęt"
+        },
+        {
+          "roomId": "operating-systems-fundamentals",
+          "note": "Jak systemy operacyjne zarządzają sprzętem"
+        },
+        {
           "roomId": "linux-fundamentals",
           "note": "Analiza logów w /var/log"
         },
         {
           "roomId": "network-basics",
           "note": "Rozpoznawanie ruchu sieciowego"
+        },
+        {
+          "roomId": "digital-forensics-basics",
+          "note": "Zachowanie łańcucha dowodowego"
+        },
+        {
+          "roomId": "incident-response-basics",
+          "note": "Cykl reagowania na incydenty"
+        },
+        {
+          "roomId": "network-traffic-analysis",
+          "note": "Wireshark i tcpdump w praktyce"
+        },
+        {
+          "roomId": "capstone-blue-team-investigation",
+          "note": "Połącz wszystko w jedno śledztwo"
+        },
+        {
+          "roomId": "malware-analysis-concepts",
+          "note": "Analiza statyczna i dynamiczna próbek"
+        },
+        {
+          "roomId": "zero-trust-architecture",
+          "note": "Nowoczesna architektura obrony"
+        }
+      ]
+    },
+    {
+      "id": "osint-investigator",
+      "title": "Analityk OSINT / Threat Intelligence",
+      "description": "Ścieżka rekonesansu: zbieranie informacji z otwartych źródeł, rozpoznawanie socjotechniki i kryptografia jako narzędzie weryfikacji.",
+      "icon": "🔍",
+      "track": "cybersecurity",
+      "steps": [
+        {
+          "roomId": "intro-to-cybersecurity",
+          "note": "Etyka pracy z danymi"
+        },
+        {
+          "roomId": "computer-fundamentals-inside-a-computer",
+          "note": "Zanim zaczniesz hackować, poznaj sprzęt"
+        },
+        {
+          "roomId": "operating-systems-fundamentals",
+          "note": "Jak systemy operacyjne zarządzają sprzętem"
+        },
+        {
+          "roomId": "osint-fundamentals",
+          "note": "Metodyka białego wywiadu"
+        },
+        {
+          "roomId": "social-engineering-awareness",
+          "note": "Jak myślą atakujący"
+        },
+        {
+          "roomId": "cryptography-basics",
+          "note": "Weryfikacja integralności danych"
+        }
+      ]
+    },
+    {
+      "id": "cryptography-track",
+      "title": "Specjalista ds. kryptografii i haseł",
+      "description": "Od podstaw funkcji skrótu po bezpieczne przechowywanie haseł i uwierzytelnianie wieloskładnikowe.",
+      "icon": "🔐",
+      "track": "cybersecurity",
+      "steps": [
+        {
+          "roomId": "cryptography-basics",
+          "note": "Hash vs szyfrowanie"
+        },
+        {
+          "roomId": "password-security",
+          "note": "Sól, bcrypt, MFA"
+        },
+        {
+          "roomId": "wireless-security-basics",
+          "note": "Kryptografia w praktyce: Wi-Fi"
+        }
+      ]
+    },
+    {
+      "id": "linux-sysadmin",
+      "title": "Linux System Administrator",
+      "description": "Kompletna ścieżka administracyjna: od podstaw, przez użytkowników i usługi, po sieć, automatyzację i monitoring produkcyjny.",
+      "icon": "🐧",
+      "track": "linux-admin",
+      "steps": [
+        {
+          "roomId": "linux-admin-intro",
+          "note": "Filozofia sysadmina i FHS"
+        },
+        {
+          "roomId": "linux-users-permissions",
+          "note": "Kto może co robić"
+        },
+        {
+          "roomId": "linux-package-management",
+          "note": "Instalowanie i aktualizowanie oprogramowania"
+        },
+        {
+          "roomId": "linux-systemd-services",
+          "note": "Usługi, które muszą działać 24/7"
+        },
+        {
+          "roomId": "linux-networking-admin",
+          "note": "Konfiguracja i zabezpieczenie sieci"
+        },
+        {
+          "roomId": "linux-cron-automation",
+          "note": "Automatyzacja powtarzalnych zadań"
+        },
+        {
+          "roomId": "linux-logs-monitoring",
+          "note": "Wiedza, że coś się psuje, zanim zepsuje się na dobre"
+        },
+        {
+          "roomId": "linux-shell-scripting-admin",
+          "note": "Skrypty zamiast ręcznej roboty"
+        },
+        {
+          "roomId": "linux-disks-storage",
+          "note": "Partycje, LVM i systemy plików"
+        },
+        {
+          "roomId": "linux-backup-strategies",
+          "note": "Zasada 3-2-1 i rsync"
+        },
+        {
+          "roomId": "linux-containers-docker",
+          "note": "Konteneryzacja z perspektywy admina"
+        },
+        {
+          "roomId": "linux-selinux-apparmor",
+          "note": "Dodatkowa warstwa obrony MAC"
+        },
+        {
+          "roomId": "linux-boot-process",
+          "note": "Diagnozowanie problemów z rozruchem"
+        },
+        {
+          "roomId": "linux-high-availability",
+          "note": "Eliminowanie pojedynczych punktów awarii"
+        },
+        {
+          "roomId": "linux-virtualization-kvm",
+          "note": "Maszyny wirtualne z KVM"
+        },
+        {
+          "roomId": "linux-config-management-ansible",
+          "note": "Automatyzacja konfiguracji wielu serwerów"
+        },
+        {
+          "roomId": "linux-vpn-networking",
+          "note": "Bezpieczny zdalny dostęp"
+        },
+        {
+          "roomId": "linux-monitoring-stack",
+          "note": "Prometheus i Grafana"
+        },
+        {
+          "roomId": "linux-kernel-tuning",
+          "note": "Strojenie wydajności jądra"
+        },
+        {
+          "roomId": "linux-admin-capstone",
+          "note": "Kompletne wdrożenie serwera produkcyjnego"
+        },
+        {
+          "roomId": "linux-troubleshooting-methodology",
+          "note": "Systematyczna diagnostyka zamiast zgadywania"
         }
       ]
     },
@@ -49,10 +272,372 @@
       "icon": "🌐",
       "track": "programming",
       "steps": [
-        { "roomId": "programming-html-basics", "note": "Struktura każdej strony" },
-        { "roomId": "programming-css-basics", "note": "Wygląd i układ" },
-        { "roomId": "programming-javascript-basics", "note": "Interaktywność" },
-        { "roomId": "programming-typescript-basics", "note": "Bezpieczniejszy, typowany kod" }
+        {
+          "roomId": "how-the-web-works",
+          "note": "Zrozum, co dzieje się między klientem a serwerem"
+        },
+        {
+          "roomId": "programming-html-basics",
+          "note": "Struktura każdej strony"
+        },
+        {
+          "roomId": "programming-css-basics",
+          "note": "Wygląd i układ"
+        },
+        {
+          "roomId": "programming-javascript-basics",
+          "note": "Interaktywność"
+        },
+        {
+          "roomId": "programming-javascript-intermediate",
+          "note": "Tablice, map/filter i async/await"
+        },
+        {
+          "roomId": "programming-typescript-basics",
+          "note": "Bezpieczniejszy, typowany kod"
+        },
+        {
+          "roomId": "programming-html-intermediate",
+          "note": "Formularze i dostępność"
+        },
+        {
+          "roomId": "programming-css-intermediate",
+          "note": "Flexbox, Grid i responsywność"
+        },
+        {
+          "roomId": "programming-git-basics",
+          "note": "Śledzenie historii swojego kodu"
+        },
+        {
+          "roomId": "programming-regex-basics",
+          "note": "Uniwersalny język wzorców tekstowych"
+        }
+      ]
+    },
+    {
+      "id": "automation-scripter",
+      "title": "Automatyzacja i skryptowanie",
+      "description": "Ścieżka dla osób automatyzujących codzienne zadania: powłoka systemowa, Python i Lua.",
+      "icon": "🤖",
+      "track": "programming",
+      "steps": [
+        {
+          "roomId": "programming-shell-basics",
+          "note": "Podstawowe narzędzie każdego admina"
+        },
+        {
+          "roomId": "programming-python-basics",
+          "note": "Uniwersalny język automatyzacji"
+        },
+        {
+          "roomId": "programming-python-intermediate",
+          "note": "Struktury danych i obsługa błędów"
+        },
+        {
+          "roomId": "programming-lua-basics",
+          "note": "Lekkie skrypty osadzane w narzędziach"
+        },
+        {
+          "roomId": "programming-shell-intermediate",
+          "note": "Funkcje, tablice i obsługa sygnałów"
+        },
+        {
+          "roomId": "programming-git-basics",
+          "note": "Podstawowe narzędzie każdego programisty"
+        },
+        {
+          "roomId": "programming-regex-basics",
+          "note": "Uniwersalny język wzorców tekstowych"
+        }
+      ]
+    },
+    {
+      "id": "hackeros-native-developer",
+      "title": "Deweloper ekosystemu HackerOS",
+      "description": "Poznaj trzy rodzime języki programowania stworzone specjalnie dla dystrybucji HackerOS: Hacker Lang, H# i HackerScript.",
+      "icon": "🧬",
+      "track": "programming",
+      "steps": [
+        {
+          "roomId": "programming-hackerlang-basics",
+          "note": "Skrypty terminala i instalatory HackerOS"
+        },
+        {
+          "roomId": "programming-hackerlang-intermediate",
+          "note": "Pętle, switch i potoki"
+        },
+        {
+          "roomId": "programming-hsharp-basics",
+          "note": "Statycznie typowany język kompilowany"
+        },
+        {
+          "roomId": "programming-hsharp-intermediate",
+          "note": "Struktury, enumy i dopasowanie wzorców"
+        },
+        {
+          "roomId": "programming-hackerscript-basics",
+          "note": "Nowoczesny język z systemem pakietów Virus.hk"
+        },
+        {
+          "roomId": "programming-hackerscript-intermediate",
+          "note": "Moduły i biblioteka standardowa"
+        },
+        {
+          "roomId": "programming-hackerlang-advanced",
+          "note": "Funkcje i prawdziwe instalatory pakietów"
+        },
+        {
+          "roomId": "programming-hsharp-advanced",
+          "note": "Generyki, traity i moduły"
+        },
+        {
+          "roomId": "programming-hackerscript-advanced",
+          "note": "Zajrzyj do wnętrza kompilatora hackerc"
+        },
+        {
+          "roomId": "capstone-hackeros-cli-tool",
+          "note": "Zbuduj własne narzędzie CLI"
+        },
+        {
+          "roomId": "programming-git-basics",
+          "note": "Podstawowe narzędzie każdego programisty"
+        }
+      ]
+    },
+    {
+      "id": "systems-programmer",
+      "title": "Programista systemowy",
+      "description": "Języki bliższe systemowi operacyjnemu: Rust, Go i shell — wydajność i kontrola nad zasobami.",
+      "icon": "⚙️",
+      "track": "programming",
+      "steps": [
+        {
+          "roomId": "programming-shell-basics",
+          "note": "Klej między programami"
+        },
+        {
+          "roomId": "programming-go-basics",
+          "note": "Prostota i współbieżność"
+        },
+        {
+          "roomId": "programming-rust-basics",
+          "note": "Bezpieczeństwo pamięci bez garbage collectora"
+        },
+        {
+          "roomId": "programming-go-intermediate",
+          "note": "Goroutines i kanały"
+        },
+        {
+          "roomId": "programming-rust-intermediate",
+          "note": "Własność i pożyczanie bez garbage collectora"
+        },
+        {
+          "roomId": "programming-git-basics",
+          "note": "Podstawowe narzędzie każdego programisty"
+        }
+      ]
+    },
+    {
+      "id": "cloud-security-engineer",
+      "title": "Inżynier bezpieczeństwa chmury i kontenerów",
+      "description": "Nowoczesna ścieżka: bezpieczeństwo chmury, konteneryzacja i bezpieczne praktyki programistyczne.",
+      "icon": "☁️",
+      "track": "cybersecurity",
+      "steps": [
+        {
+          "roomId": "linux-containers-docker",
+          "note": "Fundamenty konteneryzacji"
+        },
+        {
+          "roomId": "cloud-security-basics",
+          "note": "Model odpowiedzialności współdzielonej"
+        },
+        {
+          "roomId": "container-security",
+          "note": "Najczęstsze błędy konfiguracji Dockera"
+        },
+        {
+          "roomId": "secure-coding-practices",
+          "note": "Bezpieczeństwo zaczyna się w kodzie"
+        },
+        {
+          "roomId": "iot-security-basics",
+          "note": "Bezpieczeństwo urządzeń brzegowych"
+        },
+        {
+          "roomId": "zero-trust-architecture",
+          "note": "Architektura bez domyślnego zaufania"
+        },
+        {
+          "roomId": "vulnerability-management-basics",
+          "note": "CVSS i cykl łatania"
+        }
+      ]
+    },
+    {
+      "id": "database-analyst",
+      "title": "Analityk danych i SQL",
+      "description": "Od pierwszego zapytania SELECT po łączenie tabel — fundament pracy z danymi.",
+      "icon": "🗄️",
+      "track": "programming",
+      "steps": [
+        {
+          "roomId": "programming-sql-basics",
+          "note": "SELECT, WHERE, ORDER BY i JOIN"
+        },
+        {
+          "roomId": "programming-python-basics",
+          "note": "Automatyzacja analizy danych"
+        },
+        {
+          "roomId": "programming-python-intermediate",
+          "note": "Przetwarzanie danych strukturalnych"
+        },
+        {
+          "roomId": "programming-git-basics",
+          "note": "Podstawowe narzędzie każdego programisty"
+        },
+        {
+          "roomId": "programming-regex-basics",
+          "note": "Uniwersalny język wzorców tekstowych"
+        }
+      ]
+    },
+    {
+      "id": "grc-specialist",
+      "title": "Specjalista GRC (Governance, Risk, Compliance)",
+      "description": "Pomost między bezpieczeństwem technicznym a wymogami prawnymi: RODO, zarządzanie ryzykiem i incydentami.",
+      "icon": "📋",
+      "track": "cybersecurity",
+      "steps": [
+        {
+          "roomId": "intro-to-cybersecurity",
+          "note": "Wspólny język z zespołem technicznym"
+        },
+        {
+          "roomId": "computer-fundamentals-inside-a-computer",
+          "note": "Zanim zaczniesz hackować, poznaj sprzęt"
+        },
+        {
+          "roomId": "operating-systems-fundamentals",
+          "note": "Jak systemy operacyjne zarządzają sprzętem"
+        },
+        {
+          "roomId": "privacy-compliance-basics",
+          "note": "RODO i ochrona danych osobowych"
+        },
+        {
+          "roomId": "password-security",
+          "note": "Polityki haseł jako wymóg zgodności"
+        },
+        {
+          "roomId": "incident-response-basics",
+          "note": "Obowiązek zgłaszania naruszeń w 72h"
+        }
+      ]
+    },
+    {
+      "id": "mobile-appsec-specialist",
+      "title": "Specjalista bezpieczeństwa aplikacji mobilnych",
+      "description": "Bezpieczeństwo urządzeń i aplikacji, z którymi użytkownicy mają kontakt na co dzień: telefony, IoT i API.",
+      "icon": "📱",
+      "track": "cybersecurity",
+      "steps": [
+        {
+          "roomId": "web-security-fundamentals",
+          "note": "Fundamenty przenoszą się na mobile"
+        },
+        {
+          "roomId": "api-security-basics",
+          "note": "Aplikacje mobilne żyją dzięki API"
+        },
+        {
+          "roomId": "mobile-security-basics",
+          "note": "Specyfika urządzeń mobilnych"
+        },
+        {
+          "roomId": "iot-security-basics",
+          "note": "Gdy 'mobile' to też czujnik czy kamera"
+        }
+      ]
+    },
+    {
+      "id": "platform-engineer",
+      "title": "Inżynier platformy (DevOps)",
+      "description": "Nowoczesna infrastruktura: wirtualizacja, konteneryzacja, automatyzacja konfiguracji i obserwowalność.",
+      "icon": "🛠️",
+      "track": "linux-admin",
+      "steps": [
+        {
+          "roomId": "linux-containers-docker",
+          "note": "Konteneryzacja aplikacji"
+        },
+        {
+          "roomId": "linux-virtualization-kvm",
+          "note": "Maszyny wirtualne"
+        },
+        {
+          "roomId": "linux-config-management-ansible",
+          "note": "Infrastruktura jako kod"
+        },
+        {
+          "roomId": "linux-monitoring-stack",
+          "note": "Metryki, alerty i dashboardy"
+        },
+        {
+          "roomId": "linux-high-availability",
+          "note": "Eliminacja pojedynczych punktów awarii"
+        },
+        {
+          "roomId": "linux-troubleshooting-methodology",
+          "note": "Metoda zamiast chaosu przy awarii"
+        }
+      ]
+    },
+    {
+      "id": "absolute-beginner",
+      "title": "Zupełny początek: fundamenty przed czymkolwiek innym",
+      "description": "Zacznij tutaj, jeśli nigdy wcześniej nie zaglądałeś pod maskę komputera — sprzęt, system operacyjny i internet zanim przejdziesz do specjalizacji.",
+      "icon": "🌱",
+      "track": "cybersecurity",
+      "steps": [
+        {
+          "roomId": "computer-fundamentals-inside-a-computer",
+          "note": "CPU, RAM, dysk — z czego składa się komputer"
+        },
+        {
+          "roomId": "operating-systems-fundamentals",
+          "note": "Jak system operacyjny zarządza sprzętem"
+        },
+        {
+          "roomId": "how-the-web-works",
+          "note": "DNS, HTTP i model klient-serwer"
+        },
+        {
+          "roomId": "intro-to-cybersecurity",
+          "note": "Pierwsze pojęcia bezpieczeństwa"
+        },
+        {
+          "roomId": "linux-fundamentals",
+          "note": "Twój pierwszy kontakt z terminalem"
+        }
+      ]
+    },
+    {
+      "id": "version-control-track",
+      "title": "Kontrola wersji: Git od podstaw",
+      "description": "Niezależnie od tego, jakiego języka używasz — Git to narzędzie, bez którego trudno pracować profesjonalnie.",
+      "icon": "🌿",
+      "track": "programming",
+      "steps": [
+        {
+          "roomId": "programming-git-basics",
+          "note": "add, commit, push — pierwszy cykl pracy"
+        },
+        {
+          "roomId": "programming-git-intermediate",
+          "note": "Scalanie gałęzi i rozwiązywanie konfliktów"
+        }
       ]
     }
   ]
