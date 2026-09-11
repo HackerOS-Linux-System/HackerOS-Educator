@@ -1,0 +1,77 @@
+{
+  "id": "linux-users-permissions",
+  "title": "Użytkownicy, grupy i uprawnienia",
+  "summary": "Zarządzanie kontami użytkowników, grupami oraz modelem uprawnień rwx — praktyka z useradd, chmod i chown.",
+  "category": "Zarządzanie systemem",
+  "difficulty": "Łatwy",
+  "track": "linux-admin",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "linux-admin-intro"
+  ],
+  "tags": [
+    "linux",
+    "uprawnienia",
+    "użytkownicy",
+    "chmod"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Model uprawnień rwx",
+      "kind": "info",
+      "content": "## Odczyt, zapis, wykonanie\n\nKażdy plik i katalog w Linuksie ma trzy zestawy uprawnień: dla właściciela (**u**ser), grupy (**g**roup) i pozostałych (**o**ther). Każdy zestaw to trzy bity: `r` (odczyt), `w` (zapis), `x` (wykonanie).\n\n```\n-rwxr-xr--  1 ala  developerzy  1024 paź 10 10:00 skrypt.sh\n```\n\nTo znaczy: właściciel (`ala`) może czytać/pisać/wykonywać, grupa `developerzy` może czytać i wykonywać, reszta świata może tylko czytać.\n\nUprawnienia można też zapisać liczbowo (ósemkowo): `r=4, w=2, x=1`. Suma dla każdej grupy daje np. `754`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Zapis liczbowy uprawnień",
+      "kind": "question",
+      "content": "## Ćwiczenie liczbowe\n\nChcesz nadać właścicielowi pełne prawa (rwx = 7), grupie prawo odczytu i wykonania (rx = 5), a reszcie świata brak jakichkolwiek praw (0).",
+      "question": "Jaki trzycyfrowy numer ósemkowy odpowiada uprawnieniom rwxr-x---?",
+      "answer": "750",
+      "hint": "Policz osobno dla każdej z trzech grup: właściciel, grupa, inni.",
+      "walkthrough": "rwx = 4+2+1 = 7, r-x = 4+0+1 = 5, --- = 0. Razem: 750.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Praktyka: chmod, chown, useradd",
+      "kind": "practical",
+      "content": "## Zarządzanie kontami i uprawnieniami w terminalu\n\nWypróbuj podstawowe polecenia administracyjne (część może wymagać `sudo` i nie zadziałać bez uprawnień — to normalne, obserwuj komunikaty):\n\n```bash\n# utworzenie pliku testowego\ntouch raport.txt\nls -l raport.txt\n\n# zmiana uprawnień na 640\nchmod 640 raport.txt\nls -l raport.txt\n\n# sprawdzenie własnej grupy\ngroups\n\n# (wymaga uprawnień) dodanie nowego użytkownika\nsudo useradd -m stazysta\n```\n\nZanotuj, jak zmienia się output `ls -l` po `chmod`.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "chmod symbolicznie",
+      "kind": "question",
+      "content": "## Zapis symboliczny\n\n`chmod` obsługuje też zapis symboliczny, np. `chmod u+x skrypt.sh` dodaje prawo wykonania właścicielowi, a `chmod o-w plik` odbiera prawo zapisu innym.",
+      "question": "Jakiej litery używa się w zapisie symbolicznym chmod, aby odnieść się do GRUPY pliku (np. w `chmod g+w`)?",
+      "answer": "g",
+      "hint": "u = user, g = ?, o = other.",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Właściciel pliku: chown",
+      "kind": "question",
+      "content": "## Zmiana właściciela\n\nPolecenie `chown` zmienia właściciela i/lub grupę pliku, np.:\n\n```bash\nsudo chown ala:developerzy raport.txt\n```",
+      "question": "Jakiego polecenia (samej nazwy, bez argumentów) używa się do zmiany WŁAŚCICIELA pliku w Linuksie?",
+      "answer": "chown",
+      "hint": "Nazwa to skrót od „change owner”.",
+      "points": 10
+    },
+    {
+      "id": "task-6",
+      "title": "Plik /etc/passwd",
+      "kind": "question",
+      "content": "## Rejestr użytkowników\n\nKażdy lokalny użytkownik systemu ma wpis w `/etc/passwd` (dane konta) oraz zaszyfrowane hasło w `/etc/shadow` (dostępnym tylko dla roota).",
+      "question": "W jakim pliku (podaj pełną ścieżkę) trzymane są zahaszowane hasła użytkowników, niedostępne dla zwykłych użytkowników?",
+      "answer": "/etc/shadow",
+      "hint": "To NIE jest /etc/passwd — tamten plik każdy może odczytać.",
+      "points": 15
+    }
+  ]
+}
