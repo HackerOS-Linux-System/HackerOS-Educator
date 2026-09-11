@@ -1,0 +1,111 @@
+{
+  "id": "incident-response-basics",
+  "title": "Podstawy reagowania na incydenty (Blue Team)",
+  "summary": "Cykl życia reagowania na incydent bezpieczeństwa: przygotowanie, wykrycie, powstrzymanie, eliminacja i wnioski.",
+  "category": "Blue Team",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "intro-to-cybersecurity",
+    "digital-forensics-basics"
+  ],
+  "tags": [
+    "blue-team",
+    "incydenty",
+    "soc"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Cykl reagowania na incydenty",
+      "kind": "info",
+      "content": "## Sześć faz (NIST)\n\nStandardowy model reagowania na incydenty (wg NIST) obejmuje sześć faz:\n\n1. **Przygotowanie** (Preparation) — polityki, narzędzia, szkolenia zanim cokolwiek się wydarzy.\n2. **Identyfikacja** (Identification) — wykrycie, że incydent w ogóle miał miejsce.\n3. **Powstrzymanie** (Containment) — ograniczenie szkód (np. odłączenie zainfekowanej maszyny od sieci).\n4. **Eliminacja** (Eradication) — usunięcie przyczyny (malware, konto atakującego).\n5. **Odzyskiwanie** (Recovery) — przywrócenie normalnego działania.\n6. **Wnioski** (Lessons Learned) — analiza post-mortem, co poprawić na przyszłość.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Powstrzymanie vs eliminacja",
+      "kind": "question",
+      "content": "## Nie myl tych faz\n\n**Powstrzymanie** (containment) to szybkie działanie ograniczające rozprzestrzenianie się incydentu (np. izolacja zainfekowanego hosta w osobnym VLAN-ie), zanim jeszcze w pełni rozumiemy przyczynę. **Eliminacja** (eradication) to dopiero usunięcie właściwej przyczyny problemu.",
+      "question": "Jak nazywa się faza reagowania na incydent polegająca na SZYBKIM ograniczeniu szkód (np. odłączeniu zainfekowanego komputera od sieci), zanim poznamy pełną przyczynę?",
+      "answer": "powstrzymanie",
+      "hint": "To faza, która następuje zaraz po wykryciu incydentu.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Wskaźniki kompromitacji (IoC)",
+      "kind": "question",
+      "content": "## Indicators of Compromise\n\nAnalitycy SOC (Security Operations Center) szukają **wskaźników kompromitacji** — konkretnych, obserwowalnych dowodów włamania: nietypowe hashe plików, podejrzane adresy IP w logach, nieznane procesy, nietypowy ruch sieciowy o nietypowych porach.",
+      "question": "Jakim skrótem (3 litery, po angielsku) określa się konkretne dowody wskazujące na to, że doszło do włamania (np. złośliwy hash pliku, podejrzany adres IP)?",
+      "answer": "IoC",
+      "hint": "To skrót od Indicators of Compromise.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Praktyka: pierwsza analiza logów incydentu",
+      "kind": "practical",
+      "content": "## Szukanie podejrzanych logowań\n\nZałóżmy, że podejrzewasz nieautoryzowane próby logowania SSH. Spróbuj w terminalu (dostosuj do dostępnych logów w Twoim środowisku):\n\n```bash\njournalctl -u ssh 2>/dev/null | grep -i \"failed\" | tail -n 20\ngrep \"Failed password\" /var/log/auth.log 2>/dev/null | tail -n 20\nlast -n 10\n```\n\n`last` pokazuje historię ostatnich udanych logowań — warto porównać ją z oczekiwaną aktywnością (czy ktoś logował się o nietypowej porze, z nieznanego adresu).",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Post-mortem bez obwiniania",
+      "kind": "question",
+      "content": "## Blameless post-mortem\n\nOstatnia faza (Lessons Learned) jest najczęściej pomijana, choć jest kluczowa. Dobre praktyki zalecają kulturę **'blameless post-mortem'** — analizę incydentu skupioną na procesach i systemach, a nie na obwinianiu konkretnej osoby, co zachęca zespół do szczerego zgłaszania problemów w przyszłości.",
+      "question": "Jak nazywa się (po polsku) ostatnia faza cyklu reagowania na incydenty, w której zespół wyciąga wnioski na przyszłość?",
+      "answer": "wnioski",
+      "hint": "To synonim słowa 'lekcje' — czego się nauczyliśmy.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: znajdź podejrzany adres IP w logach",
+      "kind": "question",
+      "content": "## Symulowany dziennik logowań\n\nPoniższa symulowana maszyna zawiera plik `/var/log/auth.log` z wieloma próbami logowania SSH. Użyj `cat`, `grep` i `head`/`tail`, aby znaleźć adres IP, z którego wykonano NIEUDANE próby logowania na konto `root` — nietypowe, bo konto root nie powinno mieć w ogóle włączonego logowania przez SSH.",
+      "question": "Podaj adres IP odpowiedzialny za nieudane próby logowania na konto root.",
+      "answer": "198.51.100.23",
+      "hint": "Użyj `grep root /var/log/auth.log`, aby odfiltrować tylko wpisy dotyczące konta root.",
+      "walkthrough": "Polecenie `grep root /var/log/auth.log` pokazuje wielokrotne wpisy `Failed password for root from 198.51.100.23` — to adres, z którego prowadzony był atak brute-force na konto root.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "srv-brama",
+        "user": "analityk",
+        "banner": "Połączono z symulowanym serwerem 'srv-brama'. Trwa analiza podejrzanej aktywności logowania.",
+        "startPath": "/home/analityk",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "analityk": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            },
+            "var": {
+              "type": "dir",
+              "children": {
+                "log": {
+                  "type": "dir",
+                  "children": {
+                    "auth.log": {
+                      "type": "file",
+                      "content": "Mar 01 03:01:02 srv-brama sshd: Accepted password for analityk from 10.0.0.5\nMar 01 03:14:11 srv-brama sshd: Failed password for root from 198.51.100.23\nMar 01 03:14:12 srv-brama sshd: Failed password for root from 198.51.100.23\nMar 01 03:14:14 srv-brama sshd: Failed password for root from 198.51.100.23\nMar 01 03:14:20 srv-brama sshd: Failed password for admin from 198.51.100.23\nMar 01 03:15:01 srv-brama sshd: Failed password for root from 198.51.100.23\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "points": 25
+    }
+  ]
+}
