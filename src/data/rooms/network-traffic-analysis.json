@@ -1,0 +1,65 @@
+{
+  "id": "network-traffic-analysis",
+  "title": "Analiza ruchu sieciowego",
+  "summary": "Podstawy przechwytywania i analizy pakietów: Wireshark, tcpdump i rozpoznawanie podejrzanych wzorców ruchu.",
+  "category": "Blue Team",
+  "difficulty": "Trudny",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "network-basics",
+    "network-scanning-nmap"
+  ],
+  "tags": [
+    "wireshark",
+    "tcpdump",
+    "analiza-ruchu"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Dlaczego analitycy patrzą na pakiety?",
+      "kind": "info",
+      "content": "## Pakiet nie kłamie\n\nLogi aplikacji mogą być niepełne lub zmodyfikowane przez atakującego, ale surowy ruch sieciowy (przechwycony 'na drucie') jest znacznie trudniejszy do sfałszowania. Analiza pakietów pozwala wykryć: nietypowe wzorce transferu danych (eksfiltracja), połączenia do znanych złośliwych adresów IP czy próby skanowania.\n\nNajpopularniejsze narzędzia: **Wireshark** (GUI, dogłębna analiza) i **tcpdump** (terminal, przechwytywanie na serwerach bez GUI).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Praktyka: tcpdump",
+      "kind": "practical",
+      "content": "## Przechwytywanie ruchu w terminalu\n\nJeśli masz uprawnienia i tcpdump zainstalowany, spróbuj (w środowisku laboratoryjnym):\n\n```bash\nsudo tcpdump -i any -c 10\nsudo tcpdump -i any port 443 -c 5\nsudo tcpdump -i any -w przechwycone.pcap -c 20\n```\n\nFlaga `-w` zapisuje przechwycony ruch do pliku `.pcap`, który można później otworzyć w Wiresharku do dogłębnej analizy.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Format pcap",
+      "kind": "question",
+      "content": "## Standardowy format przechwyconego ruchu\n\nPliki `.pcap` (packet capture) to standardowy format zapisu przechwyconych pakietów, odczytywalny zarówno przez tcpdump, jak i Wireshark — pozwala na przenoszenie danych między narzędziami i archiwizację do późniejszej analizy śledczej.",
+      "question": "Jakiego rozszerzenia pliku (bez kropki) używa się do zapisu przechwyconego ruchu sieciowego, odczytywalnego przez Wireshark i tcpdump?",
+      "answer": "pcap",
+      "hint": "To skrót od 'packet capture'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Filtry wyświetlania w Wireshark",
+      "kind": "question",
+      "content": "## Odnajdywanie igły w stogu pakietów\n\nWireshark obsługuje potężny język filtrów wyświetlania, np.:\n\n```\nip.addr == 192.168.1.10\nhttp.request.method == \"POST\"\ntcp.port == 443\n```\n\nBez filtrowania, analiza ruchu z dużej sieci byłaby praktycznie niemożliwa — pakietów są dziesiątki tysięcy na sekundę.",
+      "question": "Jaki filtr Wireshark (dokładna składnia) pokazuje TYLKO pakiety związane z konkretnym adresem IP, np. 192.168.1.10?",
+      "answer": "ip.addr == 192.168.1.10",
+      "hint": "Użyj podwójnego znaku równości, tak jak w przykładzie z treści.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Sygnały eksfiltracji danych",
+      "kind": "question",
+      "content": "## Co powinno wzbudzić czujność?\n\nAnalityk powinien uważnie przyjrzeć się m.in.: nietypowo dużemu ruchowi wychodzącemu o nietypowych porach (np. w środku nocy), połączeniom do rzadko odwiedzanych krajów/adresów IP, oraz ruchowi DNS o nietypowo dużej liczbie zapytań (może wskazywać na tzw. DNS tunneling — ukrywanie danych w zapytaniach DNS).",
+      "question": "Jak (dwa słowa po angielsku: 'DNS ...') nazywa się technika ukrywania i przesyłania danych wewnątrz pozornie zwykłych zapytań DNS?",
+      "answer": "DNS tunneling",
+      "hint": "Drugie słowo oznacza 'tunelowanie'.",
+      "points": 20
+    }
+  ]
+}
