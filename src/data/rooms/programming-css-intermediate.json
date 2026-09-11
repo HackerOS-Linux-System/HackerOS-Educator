@@ -1,0 +1,66 @@
+{
+  "id": "programming-css-intermediate",
+  "title": "CSS: Flexbox, Grid i responsywność",
+  "summary": "Nowoczesne układy strony przez Flexbox i CSS Grid oraz projektowanie responsywne z media queries.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "css",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "programming-css-basics"
+  ],
+  "tags": [
+    "css",
+    "flexbox",
+    "grid",
+    "responsywność"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Flexbox — układ jednowymiarowy",
+      "kind": "info",
+      "content": "## display: flex\n\nFlexbox znacznie upraszcza rozmieszczanie elementów w RZĘDZIE lub KOLUMNIE:\n\n```css\n.kontener {\n  display: flex;\n  justify-content: space-between; /* rozmieszczenie w poziomie */\n  align-items: center;             /* wyrównanie w pionie */\n  gap: 16px;                       /* odstęp między elementami */\n}\n```\n\nPrzed Flexboxem, wyśrodkowanie elementu w pionie wymagało niewygodnych sztuczek — dziś wystarczy `align-items: center`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "justify-content",
+      "kind": "question",
+      "content": "## Rozmieszczenie wzdłuż głównej osi\n\n`justify-content` kontroluje rozmieszczenie elementów WZDŁUŻ głównej osi kontenera flex (domyślnie poziomej): `flex-start`, `center`, `space-between`, `space-around`.",
+      "question": "Jakiej właściwości CSS Flexbox używa się do kontrolowania rozmieszczenia elementów wzdłuż GŁÓWNEJ osi kontenera?",
+      "answer": "justify-content",
+      "hint": "To dwuczłonowa nazwa właściwości, zaczynająca się od 'justify'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "CSS Grid — układ dwuwymiarowy",
+      "kind": "question",
+      "content": "## display: grid\n\nGdy potrzebujesz kontroli nad WIERSZAMI i KOLUMNAMI jednocześnie (nie tylko jednym wymiarem jak we Flexboksie), używasz CSS Grid:\n\n```css\n.siatka {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 20px;\n}\n```\n\n`repeat(3, 1fr)` tworzy TRZY kolumny o równej szerokości (każda zajmuje jedną 'ułamkową jednostkę', fr).",
+      "question": "Jakiej jednostki CSS Grid używa się do zdefiniowania 'ułamkowej' (proporcjonalnej) szerokości kolumny lub wiersza?",
+      "answer": "fr",
+      "hint": "To skrót od 'fraction' (ułamek).",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Media queries — responsywność",
+      "kind": "question",
+      "content": "## Dostosowanie do rozmiaru ekranu\n\n```css\n.kontener {\n  display: flex;\n  flex-direction: column;\n}\n\n@media (min-width: 768px) {\n  .kontener {\n    flex-direction: row;\n  }\n}\n```\n\nTa reguła sprawia, że na małych ekranach (telefon) elementy układają się w KOLUMNIE, a od szerokości 768px (tablet/desktop) — w RZĘDZIE.",
+      "question": "Jakiej reguły CSS (zaczynającej się od symbolu @) używa się do zastosowania stylów TYLKO przy określonej szerokości ekranu?",
+      "answer": "@media",
+      "hint": "Zaczyna się od znaku 'małpy' (@).",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: responsywna siatka kart",
+      "kind": "practical",
+      "content": "## Zbuduj responsywny układ\n\nSpróbuj w terminalu:\n\n```bash\ncat > style.css << 'EOF'\n.karty {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.karta {\n  background: #1a1a1a;\n  color: white;\n  padding: 16px;\n  border-radius: 8px;\n}\nEOF\ncat style.css\n```\n\n`auto-fit` wraz z `minmax(200px, 1fr)` tworzy siatkę, która AUTOMATYCZNIE dostosowuje liczbę kolumn do dostępnej szerokości — bez ani jednej linii media query!",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
