@@ -3,6 +3,7 @@ import { marked } from "marked";
 import type { Room, RoomTask } from "../types";
 import { checkAnswer, completeTask, profile, recordAttempt, setTaskNote } from "../store/progress";
 import TerminalPanel from "./Terminal";
+import SimulatedTerminal from "./SimulatedTerminal";
 
 interface TaskBlockProps {
   room: Room;
@@ -67,6 +68,10 @@ const TaskBlock: Component<TaskBlockProps> = (props) => {
 
       <Show when={props.task.hasTerminal}>
         <TerminalPanel sessionId={`${props.room.id}-${props.task.id}`} />
+      </Show>
+
+      <Show when={props.task.simulatedMachine}>
+        <SimulatedTerminal machine={props.task.simulatedMachine!} />
       </Show>
 
       <Show when={props.task.kind !== "info" && props.task.question}>
