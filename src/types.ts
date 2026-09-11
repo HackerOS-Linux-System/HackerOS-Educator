@@ -1,5 +1,27 @@
 export type TaskKind = "info" | "question" | "practical";
 
+export interface VFile {
+  type: "file";
+  content: string;
+  permissions?: string;
+}
+
+export interface VDir {
+  type: "dir";
+  children: Record<string, VFile | VDir>;
+  permissions?: string;
+}
+
+/** Definicja "udawanej" maszyny docelowej — zob. src/lib/simulatedShell.ts. */
+export interface SimulatedMachine {
+  hostname: string;
+  user: string;
+  banner?: string;
+  filesystem: VDir;
+  startPath?: string;
+  cannedCommands?: Record<string, string>;
+}
+
 export interface RoomTask {
   id: string;
   title: string;
@@ -16,8 +38,10 @@ export interface RoomTask {
   walkthrough?: string;
   /** Po ilu nieudanych próbach odblokować walkthrough. Domyślnie 3. */
   walkthroughUnlockAfterAttempts?: number;
-  /** Czy zadanie oferuje lokalny terminal do ćwiczeń (kind === "practical"). */
+  /** Czy zadanie oferuje PRAWDZIWY lokalny terminal (Tauri PTY) do ćwiczeń na własnym systemie. */
   hasTerminal?: boolean;
+  /** Czy zadanie oferuje SYMULOWANĄ maszynę docelową — bezpieczny, deterministyczny terminal-udawacz. */
+  simulatedMachine?: SimulatedMachine;
   points: number;
 }
 
@@ -35,7 +59,12 @@ export type ProgrammingLanguage =
   | "rust"
   | "lua"
   | "shell"
-  | "go";
+  | "go"
+  | "python"
+  | "sql"
+  | "hackerlang"
+  | "hsharp"
+  | "hackerscript";
 
 export interface Room {
   id: string;
@@ -176,20 +205,20 @@ export const TRACKS: TrackDef[] = [
   {
     id: "cybersecurity",
     title: "Cyberbezpieczeństwo",
-    description: "Etyczny hacking, obrona (Blue Team), sieci i systemy pod kątem bezpieczeństwa.",
+    description: "Etyczny hacking, obrona (Blue Team), sieci, kryptografia, OSINT i forensyka.",
     icon: "🛡️",
   },
   {
     id: "linux-admin",
     title: "Administracja Linuksem",
-    description: "Zarządzanie systemem, usługami, siecią i użytkownikami w Linuksie.",
+    description: "Zarządzanie systemem, usługami, siecią, pakietami i użytkownikami w Linuksie.",
     icon: "🐧",
-    comingSoon: true,
   },
   {
     id: "programming",
     title: "Programowanie",
-    description: "HTML, CSS, JavaScript, TypeScript, Rust, Lua, Shell, Go — i będzie więcej.",
+    description:
+      "HTML, CSS, JavaScript, TypeScript, Python, Rust, Lua, Shell, Go oraz rodzime języki HackerOS: Hacker Lang, H# i HackerScript.",
     icon: "💻",
   },
 ];
@@ -199,10 +228,15 @@ export const LANGUAGE_LABELS: Record<ProgrammingLanguage, string> = {
   css: "CSS",
   javascript: "JavaScript",
   typescript: "TypeScript",
+  python: "Python",
+  sql: "SQL",
   rust: "Rust",
   lua: "Lua",
   shell: "Shell",
   go: "Go",
+  hackerlang: "Hacker Lang",
+  hsharp: "H#",
+  hackerscript: "HackerScript",
 };
 
 export const LANGUAGE_ICONS: Record<ProgrammingLanguage, string> = {
@@ -210,8 +244,16 @@ export const LANGUAGE_ICONS: Record<ProgrammingLanguage, string> = {
   css: "🟦",
   javascript: "🟨",
   typescript: "🔷",
+  python: "🐍",
+  sql: "🗄️",
   rust: "🦀",
   lua: "🌙",
   shell: "🐚",
   go: "🐹",
+  hackerlang: "🦈",
+  hsharp: "🗡️",
+  hackerscript: "🧬",
 };
+
+/** Języki "rodzinne" HackerOS — własne języki tworzone w ramach ekosystemu dystrybucji. */
+export const HACKEROS_NATIVE_LANGUAGES: ProgrammingLanguage[] = ["hackerlang", "hsharp", "hackerscript"];
