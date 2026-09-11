@@ -1,0 +1,67 @@
+{
+  "id": "programming-python-intermediate",
+  "title": "Python: struktury danych i funkcje",
+  "summary": "Słowniki, list comprehension, funkcje z argumentami domyślnymi oraz obsługa wyjątków try/except.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "python",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "programming-python-basics"
+  ],
+  "tags": [
+    "python",
+    "słowniki",
+    "wyjątki"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Słowniki (dict)",
+      "kind": "info",
+      "content": "## Pary klucz-wartość\n\n```python\nosoba = {\"imie\": \"Ala\", \"wiek\": 25}\nprint(osoba[\"imie\"])  # Ala\nosoba[\"miasto\"] = \"Kraków\"  # dodanie nowego klucza\n```\n\nSłowniki (dict) przechowują dane jako pary klucz-wartość — szybki dostęp po kluczu, bez potrzeby przeszukiwania listy.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "List comprehension",
+      "kind": "question",
+      "content": "## Zwięzłe tworzenie list\n\n```python\nkwadraty = [x * x for x in range(5)]\n# kwadraty = [0, 1, 4, 9, 16]\n\nparzyste = [x for x in range(10) if x % 2 == 0]\n```\n\nList comprehension to pythoniczny sposób tworzenia list w jednej, czytelnej linii, zamiast pętli `for` z `append`.",
+      "question": "Ile elementów będzie miała lista wynikowa z `[x for x in range(10) if x % 2 == 0]`?",
+      "answer": "5",
+      "hint": "range(10) daje liczby 0-9. Ile z nich jest parzystych?",
+      "walkthrough": "range(10) = 0,1,2,...,9. Parzyste: 0,2,4,6,8 — to 5 liczb.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Argumenty domyślne funkcji",
+      "kind": "question",
+      "content": "## Wartości domyślne\n\n```python\ndef powitaj(imie, jezyk=\"polski\"):\n    if jezyk == \"polski\":\n        print(f\"Cześć, {imie}!\")\n    else:\n        print(f\"Hello, {imie}!\")\n\npowitaj(\"Ala\")               # Cześć, Ala!\npowitaj(\"Tom\", jezyk=\"en\")   # Hello, Tom!\n```",
+      "question": "Jaki tekst wypisze wywołanie `powitaj(\"Ala\")` bez podania argumentu `jezyk`?",
+      "answer": "Cześć, Ala!",
+      "hint": "Skorzysta z wartości domyślnej 'polski'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "try/except — obsługa wyjątków",
+      "kind": "question",
+      "content": "## Bezpieczne obsłużenie błędów\n\n```python\ntry:\n    wynik = 10 / 0\nexcept ZeroDivisionError:\n    print(\"Nie można dzielić przez zero!\")\n```\n\n`try/except` pozwala PRZEWIDZIEĆ i obsłużyć konkretne błędy, zamiast pozwolić programowi się wywalić (crash).",
+      "question": "Jakiego słowa kluczowego Pythona używa się do PRZECHWYCENIA konkretnego typu wyjątku po bloku `try`?",
+      "answer": "except",
+      "hint": "To angielskie słowo oznaczające 'z wyjątkiem'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: przetwarzanie danych",
+      "kind": "practical",
+      "content": "## Połącz słownik, listę i wyjątki\n\nSpróbuj w terminalu:\n\n```bash\npython3 -c \"\nosoby = [{'imie': 'Ala', 'wiek': 25}, {'imie': 'Tom', 'wiek': 17}]\ndorosli = [o['imie'] for o in osoby if o['wiek'] >= 18]\nprint('Dorośli:', dorosli)\n\"\n```",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
