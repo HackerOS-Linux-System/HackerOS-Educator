@@ -1,0 +1,67 @@
+{
+  "id": "linux-selinux-apparmor",
+  "title": "Obowiązkowa kontrola dostępu: SELinux i AppArmor",
+  "summary": "Dlaczego standardowe uprawnienia rwx to za mało oraz jak działają SELinux i AppArmor jako dodatkowa warstwa obrony.",
+  "category": "Bezpieczeństwo systemów",
+  "difficulty": "Trudny",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-users-permissions"
+  ],
+  "tags": [
+    "linux",
+    "selinux",
+    "apparmor",
+    "mac"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "DAC to za mało",
+      "kind": "info",
+      "content": "## Discretionary vs Mandatory Access Control\n\nStandardowy model uprawnień rwx to **DAC** (Discretionary Access Control) — WŁAŚCICIEL pliku decyduje, kto ma do niego dostęp. Problem: jeśli usługa (np. serwer web) zostanie przejęta, atakujący dziedziczy WSZYSTKIE uprawnienia właściciela procesu — łącznie z dostępem do plików, do których usługa nigdy nie powinna mieć dostępu.\n\n**MAC** (Mandatory Access Control) — jak SELinux czy AppArmor — narzuca dodatkową, sztywną politykę na poziomie CAŁEGO SYSTEMU, niezależną od decyzji właściciela pliku. Nawet jeśli proces ma uprawnienia rwx do pliku, polityka MAC może mu i tak zabronić dostępu.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "SELinux — konteksty bezpieczeństwa",
+      "kind": "question",
+      "content": "## Etykiety zamiast tylko właściciela\n\nSELinux (Security-Enhanced Linux, domyślny w RHEL/Fedora/CentOS) przypisuje każdemu plikowi, procesowi i portowi **kontekst bezpieczeństwa** (etykietę), np. `httpd_sys_content_t` dla plików serwera Apache. Polityka SELinux określa, jakie konteksty mogą wchodzić w interakcję — nawet root nie może obejść tej reguły bez zmiany samej polityki.",
+      "question": "Jak (dwa słowa po angielsku: 'security ...') nazywa się etykieta przypisywana przez SELinux każdemu plikowi i procesowi, określająca dozwolone interakcje?",
+      "answer": "security context",
+      "hint": "Drugie słowo oznacza 'kontekst'.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Tryby pracy SELinux",
+      "kind": "question",
+      "content": "## Enforcing, Permissive, Disabled\n\nSELinux ma trzy tryby:\n\n- **Enforcing** — polityka jest EGZEKWOWANA, naruszenia są blokowane i logowane.\n- **Permissive** — naruszenia są tylko LOGOWANE, ale NIE blokowane (przydatne przy debugowaniu nowej polityki).\n- **Disabled** — SELinux całkowicie wyłączony.\n\nSprawdza się to poleceniem `getenforce`, a zmienia `setenforce 0/1` (tymczasowo) lub w `/etc/selinux/config` (na stałe).",
+      "question": "Jakiego trybu SELinux użyjesz do PRZETESTOWANIA nowej polityki bez faktycznego blokowania żadnych akcji — tylko z logowaniem naruszeń?",
+      "answer": "Permissive",
+      "hint": "To NIE jest tryb 'Enforcing' ani 'Disabled'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "AppArmor — podejście oparte na ścieżkach",
+      "kind": "question",
+      "content": "## Prostsza alternatywa (Ubuntu/Debian)\n\nAppArmor (domyślny w Ubuntu/Debian) działa na innej zasadzie niż SELinux — zamiast etykietowania każdego pliku, definiuje **profile** ograniczające konkretny PROGRAM do listy ścieżek plików, do których może mieć dostęp. Jest uznawany za prostszy do skonfigurowania niż SELinux, kosztem nieco mniejszej granularności.",
+      "question": "Jak nazywa się plik/zestaw reguł AppArmor ograniczający konkretny program do określonych zasobów systemowych?",
+      "answer": "profil",
+      "hint": "Po angielsku to 'profile'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Dlaczego administratorzy czasem (błędnie) wyłączają SELinux",
+      "kind": "question",
+      "content": "## Pułapka 'wyłącz i zapomnij'\n\nCzęsty (zły) nawyk: gdy SELinux blokuje coś niespodziewanie, niedoświadczony administrator po prostu go WYŁĄCZA zamiast zdiagnozować problem (np. narzędziem `audit2allow`) i dostosować politykę. To rezygnacja z całej dodatkowej warstwy obrony zamiast naprawienia jednej reguły.",
+      "question": "Jakim poleceniem sprawdza się AKTUALNY tryb działania SELinux (Enforcing/Permissive/Disabled)?",
+      "answer": "getenforce",
+      "hint": "Nazwa łączy 'get' (pobierz) i 'enforce' (egzekwuj).",
+      "points": 15
+    }
+  ]
+}
