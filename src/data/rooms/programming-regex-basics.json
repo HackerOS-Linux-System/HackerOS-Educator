@@ -1,0 +1,72 @@
+{
+  "id": "programming-regex-basics",
+  "title": "Wyrażenia regularne (regex) od podstaw",
+  "summary": "Uniwersalny język wzorców tekstowych używany w niemal każdym języku programowania — od walidacji po parsowanie logów.",
+  "category": "Narzędzia programisty",
+  "difficulty": "Średni",
+  "track": "programming",
+  "estimatedMinutes": 30,
+  "prerequisites": [],
+  "tags": [
+    "regex",
+    "wyrażenia-regularne",
+    "narzędzia"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym są wyrażenia regularne?",
+      "kind": "info",
+      "content": "## Język do opisywania wzorców tekstu\n\n**Wyrażenie regularne** (regex, regexp) to zwięzły sposób opisania WZORCA tekstu, np. 'ciąg cyfr', 'adres e-mail' czy 'linia zaczynająca się od daty'. Regex działa niemal identycznie w Pythonie, JavaScript, grep, sed i dziesiątkach innych narzędzi — nauczenie się go raz przydaje się WSZĘDZIE.\n\n```\n\\d+        — jedna lub więcej cyfr\n[a-z]+     — jedna lub więcej małych liter\n^Start     — linia zaczynająca się od 'Start'\n```",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Klasy znaków: \\d, \\w, \\s",
+      "kind": "question",
+      "content": "## Skróty dla popularnych grup znaków\n\n- `\\d` — dowolna CYFRA (0-9)\n- `\\w` — dowolny znak 'słowny' (litera, cyfra, podkreślnik)\n- `\\s` — dowolny biały znak (spacja, tabulacja)\n\n```\nnumer_tel = \\d{3}-\\d{3}-\\d{3}   # dopasuje np. \"123-456-789\"\n```\n\n`{3}` oznacza 'dokładnie 3 powtórzenia' poprzedzającego elementu.",
+      "question": "Jakiego skrótu regex (dwa znaki) używa się do dopasowania DOWOLNEJ POJEDYNCZEJ cyfry?",
+      "answer": "\\d",
+      "hint": "To ukośnik wsteczny plus litera 'd' (digit).",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Kwantyfikatory: *, +, ?",
+      "kind": "question",
+      "content": "## Ile razy coś może się powtórzyć?\n\n- `*` — zero LUB WIĘCEJ powtórzeń\n- `+` — jeden LUB WIĘCEJ powtórzeń (co najmniej jeden!)\n- `?` — zero LUB JEDNO powtórzenie (opcjonalnie)\n\n```\ncolou?r     # dopasuje zarówno \"color\" jak i \"colour\"\n\\d+         # dopasuje \"5\", \"42\", \"123\" — ale NIE pusty ciąg\n```",
+      "question": "Jakiego kwantyfikatora regex użyjesz, aby dopasować element WYSTĘPUJĄCY ZERO LUB WIĘCEJ razy (włącznie z brakiem wystąpienia)?",
+      "answer": "*",
+      "hint": "To gwiazdka.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Kotwice: ^ i $",
+      "kind": "question",
+      "content": "## Początek i koniec linii\n\n`^` oznacza POCZĄTEK linii/tekstu, a `$` KONIEC linii/tekstu:\n\n```\n^Błąd       # dopasuje TYLKO linie ZACZYNAJĄCE SIĘ od słowa \"Błąd\"\n\\.txt$      # dopasuje TYLKO teksty KOŃCZĄCE SIĘ na \".txt\"\n```\n\nBez kotwic, wzorzec dopasowałby się GDZIEKOLWIEK w tekście, nie tylko na początku/końcu.",
+      "question": "Jakiego symbolu regex używa się do oznaczenia KOŃCA linii/tekstu (np. w '\\.txt$')?",
+      "answer": "$",
+      "hint": "To znak dolara.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Grupy przechwytujące",
+      "kind": "question",
+      "content": "## Wydobywanie fragmentów dopasowania\n\nNawiasy `( )` tworzą GRUPĘ PRZECHWYTUJĄCĄ — pozwala wydobyć KONKRETNY fragment dopasowanego tekstu, np. samą nazwę domeny z adresu e-mail:\n\n```python\nimport re\nwynik = re.search(r'\\w+@(\\w+\\.\\w+)', 'ala@example.com')\nprint(wynik.group(1))  # \"example.com\"\n```",
+      "question": "Jakiego symbolu (pary znaków) regex używa się do utworzenia GRUPY przechwytującej fragment dopasowania?",
+      "answer": "()",
+      "hint": "To para nawiasów okrągłych.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: grep z wyrażeniem regularnym",
+      "kind": "practical",
+      "content": "## Filtrowanie logów wzorcem\n\nSpróbuj w terminalu:\n\n```bash\ncat > log.txt << 'EOF'\n2026-03-01 10:00:01 INFO Uruchomiono serwis\n2026-03-01 10:02:15 ERROR Blad polaczenia z baza\n2026-03-01 10:03:44 INFO Ponowna proba\n2026-03-01 10:04:02 ERROR Timeout\nEOF\ngrep -E '^[0-9-]+ [0-9:]+ ERROR' log.txt\n```\n\n`grep -E` włącza rozszerzoną składnię regex, a wzorzec dopasowuje TYLKO linie zaczynające się od daty i godziny, po których następuje słowo `ERROR`.",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
