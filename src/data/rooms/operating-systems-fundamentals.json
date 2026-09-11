@@ -1,0 +1,101 @@
+{
+  "id": "operating-systems-fundamentals",
+  "title": "Systemy operacyjne: rodzaje i podstawowe pojęcia",
+  "summary": "Czym jest system operacyjny, czym różnią się Windows/Linux/macOS oraz czym jest proces, wątek i jądro systemu.",
+  "category": "Podstawy komputerowe",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "computer-fundamentals-inside-a-computer"
+  ],
+  "tags": [
+    "system-operacyjny",
+    "podstawy",
+    "procesy"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Rola systemu operacyjnego",
+      "kind": "info",
+      "content": "## Pośrednik między sprzętem a aplikacjami\n\nSystem operacyjny (OS) zarządza sprzętem komputera i udostępnia go aplikacjom w zorganizowany sposób. Bez niego każdy program musiałby 'wiedzieć' dokładnie, jak zakomunikować się z konkretnym modelem dysku czy karty sieciowej — OS ujednolica ten dostęp przez tzw. sterowniki i interfejsy systemowe.\n\nTrzy najpopularniejsze rodziny systemów operacyjnych na komputerach osobistych to **Windows** (Microsoft), **macOS** (Apple) i **Linux** (open source, wiele dystrybucji, w tym HackerOS).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Jądro systemu (kernel)",
+      "kind": "question",
+      "content": "## Serce systemu operacyjnego\n\n**Jądro** (kernel) to najbardziej uprzywilejowana część systemu operacyjnego — bezpośrednio zarządza procesorem, pamięcią i urządzeniami. Wszystko INNE w systemie (interfejs graficzny, aplikacje) działa 'na wierzchu' jądra i prosi je o dostęp do zasobów sprzętowych.",
+      "question": "Jak (po angielsku, jedno słowo) nazywa się najbardziej uprzywilejowana, centralna część systemu operacyjnego zarządzająca sprzętem?",
+      "answer": "kernel",
+      "hint": "Po polsku to 'jądro'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Proces vs wątek",
+      "kind": "question",
+      "content": "## Dwie jednostki wykonania\n\n**Proces** to uruchomiony program wraz z WŁASNĄ, odizolowaną pamięcią (np. otwarta przeglądarka to jeden proces). **Wątek** (thread) to jednostka wykonania WEWNĄTRZ procesu — jeden proces może mieć wiele wątków dzielących TĘ SAMĄ pamięć, wykonujących różne zadania równolegle (np. jedna karta przeglądarki ładuje obraz, podczas gdy inny wątek reaguje na kliknięcia).",
+      "question": "Który z tych dwóch pojęć (proces/wątek) ma WŁASNĄ, odizolowaną przestrzeń pamięci, niedostępną bezpośrednio dla innych?",
+      "answer": "proces",
+      "hint": "To pojęcie odpowiadające całemu, uruchomionemu programowi.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Open source vs zamknięte oprogramowanie",
+      "kind": "question",
+      "content": "## Linux jako otwarty kod źródłowy\n\nW przeciwieństwie do Windows czy macOS (kod źródłowy zamknięty, kontrolowany przez jedną firmę), **Linux** jest **open source** — jego kod źródłowy jest publicznie dostępny, może być czytany, modyfikowany i redystrybuowany przez każdego. Dlatego istnieją setki **dystrybucji** Linuksa (Ubuntu, Fedora, Arch, a także HackerOS) — różnych 'złożeń' tego samego jądra z różnym oprogramowaniem dodatkowym i filozofią.",
+      "question": "Jak (po angielsku, dwa słowa: 'open ...') nazywa się model oprogramowania, w którym kod źródłowy jest publicznie dostępny do przeglądania i modyfikacji?",
+      "answer": "open source",
+      "hint": "Drugie słowo oznacza 'źródło'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Dystrybucja Linuksa",
+      "kind": "question",
+      "content": "## Ten sam kernel, różne 'opakowania'\n\n**Dystrybucja** Linuksa to konkretny zestaw: jądro Linux + menedżer pakietów + oprogramowanie dodatkowe + (zwykle) środowisko graficzne, spakowane razem w gotowy do zainstalowania system. HackerOS jest właśnie taką dystrybucją — zbudowaną z myślą o nauce cyberbezpieczeństwa i programowania.",
+      "question": "Jak (jednym słowem) nazywa się konkretny, gotowy do instalacji zestaw jądra Linux i oprogramowania (np. Ubuntu, Fedora, HackerOS)?",
+      "answer": "dystrybucja",
+      "hint": "To słowo znajduje się w treści tego zadania kilka razy.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: przegląd procesów na symulowanej maszynie",
+      "kind": "question",
+      "content": "## ps aux — lista uruchomionych procesów\n\nPolecenie `ps aux` pokazuje wszystkie uruchomione procesy w systemie: kto je uruchomił, ile zużywają CPU/RAM oraz ich identyfikator (PID). Połącz się z symulowaną maszyną i uruchom `ps aux`, aby znaleźć PID procesu `nginx`.",
+      "question": "Jaki PID (numer procesu) ma proces 'nginx' według wyniku ps aux?",
+      "answer": "812",
+      "hint": "Uruchom 'ps aux' i poszukaj linii zawierającej 'nginx'.",
+      "walkthrough": "W wyniku `ps aux` linia `www-data   812  0.1  0.5  55000  8200 ?  Ss  09:00  0:02 nginx: worker process` pokazuje PID 812 dla procesu nginx.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "srv-nauka",
+        "user": "kursant",
+        "banner": "Symulowana maszyna do nauki procesów systemowych.",
+        "startPath": "/home/kursant",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "kursant": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            }
+          }
+        },
+        "cannedCommands": {
+          "ps aux": "USER       PID %CPU %MEM    VSZ   RSS TTY  STAT START   TIME COMMAND\nroot         1  0.0  0.1   1200   800 ?    Ss   09:00   0:01 /sbin/init\nroot       420  0.0  0.3   9800  3100 ?    Ss   09:00   0:00 sshd\nwww-data   812  0.1  0.5  55000  8200 ?    Ss   09:00   0:02 nginx: worker process\nmysql      930  0.4  2.1 480000 42000 ?    Sl   09:00   0:12 mysqld"
+        }
+      },
+      "points": 20
+    }
+  ]
+}
