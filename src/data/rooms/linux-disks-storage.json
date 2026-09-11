@@ -1,0 +1,65 @@
+{
+  "id": "linux-disks-storage",
+  "title": "Dyski, partycje i LVM",
+  "summary": "Zarządzanie pamięcią masową: partycjonowanie, systemy plików, montowanie oraz elastyczne woluminy LVM.",
+  "category": "Zarządzanie systemem",
+  "difficulty": "Średni",
+  "track": "linux-admin",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "linux-admin-intro"
+  ],
+  "tags": [
+    "linux",
+    "dyski",
+    "lvm",
+    "partycje"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Od dysku do katalogu",
+      "kind": "info",
+      "content": "## Droga danych: dysk → partycja → system plików → punkt montowania\n\nZanim dane trafią do katalogu w drzewie systemu plików, dysk fizyczny (`/dev/sda`) musi zostać podzielony na **partycje** (`/dev/sda1`), sformatowany konkretnym **systemem plików** (ext4, xfs, btrfs), a następnie **zamontowany** w jakimś katalogu (np. `/mnt/dane`).\n\n```bash\nlsblk              # drzewo dysków i partycji\ndf -hT             # zamontowane systemy plików z ich typem\nblkid              # UUID i typ systemu plików partycji\n```",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Praktyka: przegląd dysków",
+      "kind": "practical",
+      "content": "## Zbadaj układ dysków\n\nSpróbuj w terminalu:\n\n```bash\nlsblk\ndf -hT\nmount | column -t | head -n 10\n```\n\n`lsblk` (list block devices) pokazuje hierarchię: dysk → partycje → (opcjonalnie) woluminy LVM.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "/etc/fstab — trwałe montowanie",
+      "kind": "question",
+      "content": "## Montowanie na stałe\n\nRęczne `mount` znika po restarcie. Aby system plików montował się automatycznie przy każdym starcie systemu, wpis dodaje się do pliku `/etc/fstab`, np.:\n\n```\nUUID=1234-5678  /mnt/dane  ext4  defaults  0  2\n```",
+      "question": "W jakim pliku (podaj pełną ścieżkę) definiuje się systemy plików, które mają być montowane automatycznie przy starcie systemu?",
+      "answer": "/etc/fstab",
+      "hint": "Nazwa to skrót od 'file system table'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "LVM — elastyczne woluminy",
+      "kind": "question",
+      "content": "## Logical Volume Manager\n\nLVM wprowadza warstwę abstrakcji: **Physical Volume (PV)** → **Volume Group (VG)** → **Logical Volume (LV)**. Zaletą jest możliwość ZWIĘKSZENIA rozmiaru woluminu logicznego 'w locie', bez przerywania pracy usługi, o ile w grupie woluminów jest wolne miejsce — czego nie da się łatwo zrobić z klasyczną, sztywną partycją.",
+      "question": "Jakim skrótem (3 litery) określa się warstwę abstrakcji Linuksa pozwalającą elastycznie zarządzać przestrzenią dyskową ponad sztywnymi partycjami?",
+      "answer": "LVM",
+      "hint": "To skrót od Logical Volume Manager.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Zapełnienie inode'ów",
+      "kind": "question",
+      "content": "## Kiedy 'miejsce jest', a zapisać się nie da\n\nOprócz miejsca na dane, system plików ma ograniczoną liczbę **inode'ów** — struktur opisujących metadane pliku (nazwa, uprawnienia, wskaźnik do danych). Jeśli katalog zawiera MILIONY malutkich plików, można wyczerpać inode'y, mimo że `df -h` pokazuje wolne miejsce. Sprawdza się to poleceniem `df -i`.",
+      "question": "Jakiej flagi `df` używa się do sprawdzenia zajętości inode'ów (a nie zwykłego miejsca na dysku)?",
+      "answer": "-i",
+      "hint": "To pierwsza litera słowa 'inode'.",
+      "points": 15
+    }
+  ]
+}
