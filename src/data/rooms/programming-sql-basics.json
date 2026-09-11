@@ -1,0 +1,73 @@
+{
+  "id": "programming-sql-basics",
+  "title": "Podstawy SQL",
+  "summary": "Zapytania SELECT, filtrowanie, sortowanie i podstawy relacyjnych baz danych — fundament dla każdego, kto pracuje z danymi.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "sql",
+  "estimatedMinutes": 30,
+  "prerequisites": [],
+  "tags": [
+    "sql",
+    "bazy-danych",
+    "select"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym są relacyjne bazy danych?",
+      "kind": "info",
+      "content": "## Tabele, wiersze, kolumny\n\nRelacyjna baza danych przechowuje dane w **tabelach** — siatkach z **wierszami** (rekordami) i **kolumnami** (polami). SQL (Structured Query Language) to język do odpytywania i modyfikowania takich danych.\n\n```sql\nSELECT imie, wiek FROM uzytkownicy;\n```\n\nTo zapytanie zwraca kolumny `imie` i `wiek` z tabeli `uzytkownicy`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "SELECT * — wszystkie kolumny",
+      "kind": "question",
+      "content": "## Gwiazdka jako 'wszystko'\n\n```sql\nSELECT * FROM uzytkownicy;\n```\n\nGwiazdka `*` oznacza 'wszystkie kolumny' — wygodne przy eksploracji danych, ale w kodzie produkcyjnym lepiej wymieniać jawnie potrzebne kolumny (wydajność i czytelność).",
+      "question": "Jakiego znaku używa się w SQL, aby zwrócić WSZYSTKIE kolumny tabeli bez wymieniania ich nazw?",
+      "answer": "*",
+      "hint": "To gwiazdka.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Filtrowanie: WHERE",
+      "kind": "question",
+      "content": "## Warunki w zapytaniach\n\n```sql\nSELECT * FROM uzytkownicy WHERE wiek >= 18;\n```\n\nKlauzula `WHERE` filtruje wiersze SPEŁNIAJĄCE podany warunek — zwrócone zostaną tylko wiersze, gdzie `wiek` wynosi 18 lub więcej.",
+      "question": "Jakiego słowa kluczowego SQL używa się do filtrowania wierszy wg warunku?",
+      "answer": "WHERE",
+      "hint": "To angielskie słowo oznaczające 'gdzie'.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Sortowanie: ORDER BY",
+      "kind": "question",
+      "content": "## Kolejność wyników\n\n```sql\nSELECT imie, wiek FROM uzytkownicy ORDER BY wiek DESC;\n```\n\n`DESC` sortuje malejąco (od największej wartości), `ASC` (domyślne) sortuje rosnąco.",
+      "question": "Jakiego słowa kluczowego (skrótu) SQL używa się, aby posortować wyniki MALEJĄCO?",
+      "answer": "DESC",
+      "hint": "To skrót od 'descending'.",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Łączenie tabel: JOIN",
+      "kind": "question",
+      "content": "## Dane rozproszone po wielu tabelach\n\nDane relacyjne często są rozbite na wiele powiązanych tabel (np. `uzytkownicy` i `zamowienia`). `JOIN` łączy je na podstawie wspólnego klucza:\n\n```sql\nSELECT u.imie, z.kwota\nFROM uzytkownicy u\nJOIN zamowienia z ON u.id = z.uzytkownik_id;\n```",
+      "question": "Jakiego słowa kluczowego SQL używa się do POŁĄCZENIA wierszy z dwóch różnych tabel na podstawie wspólnej kolumny?",
+      "answer": "JOIN",
+      "hint": "To angielskie słowo oznaczające 'połączenie'.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: zapytania SQL",
+      "kind": "practical",
+      "content": "## Uruchom SQLite w terminalu\n\nJeśli w Twoim środowisku dostępny jest `sqlite3`, spróbuj:\n\n```bash\nsqlite3 :memory: \"CREATE TABLE uzytkownicy (imie TEXT, wiek INT); \\\n  INSERT INTO uzytkownicy VALUES ('Ala', 22), ('Bartek', 17); \\\n  SELECT * FROM uzytkownicy WHERE wiek >= 18;\"\n```\n\nTo utworzy tabelę w pamięci, wstawi dwa wiersze i zwróci tylko pełnoletnich użytkowników.",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
