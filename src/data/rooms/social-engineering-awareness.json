@@ -1,0 +1,66 @@
+{
+  "id": "social-engineering-awareness",
+  "title": "Inżynieria społeczna i obrona przed phishingiem",
+  "summary": "Psychologiczne techniki manipulacji wykorzystywane w atakach oraz jak rozpoznawać i przeciwdziałać phishingowi.",
+  "category": "Bezpieczeństwo ludzi",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "intro-to-cybersecurity"
+  ],
+  "tags": [
+    "phishing",
+    "socjotechnika",
+    "świadomość"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Najsłabsze ogniwo to człowiek",
+      "kind": "info",
+      "content": "## Inżynieria społeczna\n\nNajsilniejsza zapora sieciowa nie pomoże, jeśli pracownik sam poda hasło atakującemu podszywającemu się pod dział IT. Inżynieria społeczna wykorzystuje psychologiczne dźwignie: **autorytet** (\"dzwonię z działu IT\"), **presję czasu** (\"Twoje konto zostanie zablokowane za 10 minut\"), **ciekawość** oraz **chęć niesienia pomocy**.\n\nTen pokój uczy WYŁĄCZNIE rozpoznawania i obrony przed takimi atakami — nie ich przeprowadzania.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Phishing — najpopularniejszy wektor",
+      "kind": "question",
+      "content": "## Rozpoznawanie phishingu\n\nTypowe sygnały ostrzegawcze wiadomości phishingowej:\n\n- adres nadawcy niewiele różniący się od prawdziwego (np. `micros0ft.com`),\n- presja czasu i groźby konsekwencji,\n- link prowadzący do adresu innego niż wyświetlana nazwa,\n- prośba o dane logowania lub płatność.\n\nOdmianą skierowaną w konkretną, wybraną osobę (np. dyrektora finansowego) jest **spear phishing** — znacznie trudniejszy do wykrycia, bo spersonalizowany.",
+      "question": "Jak nazywa się phishing SPERSONALIZOWANY, wymierzony w konkretną osobę lub organizację, a nie masowo wysyłany? (dwa słowa po angielsku: 'spear ...')",
+      "answer": "spear phishing",
+      "hint": "Pierwsze słowo oznacza 'włócznię' — coś celowanego, precyzyjnego.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Vishing i smishing",
+      "kind": "question",
+      "content": "## Phishing poza e-mailem\n\nAtaki socjotechniczne nie ograniczają się do e-maila:\n\n- **Vishing** (voice phishing) — telefoniczne podszywanie się (np. pod bank),\n- **Smishing** (SMS phishing) — fałszywe SMS-y z linkami,\n- **Pretexting** — budowanie fałszywego, wiarygodnego scenariusza (pretekstu) do wyłudzenia informacji.",
+      "question": "Jak nazywa się atak socjotechniczny prowadzony przez rozmowę TELEFONICZNĄ, podszywający się np. pod bank lub dział wsparcia?",
+      "answer": "vishing",
+      "hint": "To połączenie słów 'voice' i 'phishing'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Zasada ograniczonego zaufania",
+      "kind": "question",
+      "content": "## Zero Trust w praktyce codziennej\n\nNajskuteczniejsza obrona przed socjotechniką to weryfikacja przez NIEZALEŻNY kanał: jeśli ktoś dzwoni 'z banku' i prosi o dane, rozłącz się i zadzwoń na oficjalny numer banku ze strony internetowej — nie na numer podany przez rozmówcę.",
+      "question": "Jednym słowem: jak nazywa się metoda obrony polegająca na potwierdzeniu tożsamości rozmówcy przez INNY, zaufany kanał komunikacji niż ten, którym się z Tobą skontaktowano?",
+      "answer": "weryfikacja",
+      "hint": "To rzeczownik odczasownikowy od słowa 'weryfikować'.",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Baiting — przynęta",
+      "kind": "question",
+      "content": "## Zgubiony pendrive\n\nKlasyczny test świadomości bezpieczeństwa: 'zgubiony' pendrive podrzucony na parkingu firmy. Ciekawość pracownika, który podłącza go do komputera, może uruchomić złośliwe oprogramowanie. Ta technika nazywa się **baiting** (od słowa 'przynęta').",
+      "question": "Jak (jednym angielskim słowem) nazywa się technika socjotechniczna polegająca na pozostawieniu 'zgubionego' nośnika (np. pendrive'a) jako przynęty?",
+      "answer": "baiting",
+      "hint": "Nazwa pochodzi od angielskiego słowa oznaczającego przynętę wędkarską.",
+      "points": 15
+    }
+  ]
+}
