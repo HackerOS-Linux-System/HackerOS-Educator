@@ -1,0 +1,67 @@
+{
+  "id": "programming-go-intermediate",
+  "title": "Go: goroutines i kanały",
+  "summary": "Współbieżność w Go: lekkie goroutines, kanały do komunikacji między nimi oraz obsługa błędów jako wartości zwracanych.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Trudny",
+  "track": "programming",
+  "language": "go",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "programming-go-basics"
+  ],
+  "tags": [
+    "go",
+    "współbieżność",
+    "goroutines"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Goroutines — lekka współbieżność",
+      "kind": "info",
+      "content": "## go func()\n\n**Goroutines** to lekkie, zarządzane przez runtime Go 'wątki' — znacznie tańsze niż tradycyjne wątki systemowe, można ich uruchomić tysiące bez problemu.\n\n```go\nfunc powiedzCzesc() {\n    fmt.Println(\"Cześć z goroutine!\")\n}\n\nfunc main() {\n    go powiedzCzesc() // uruchamia funkcję WSPÓŁBIEŻNIE\n    time.Sleep(100 * time.Millisecond) // czekamy, by goroutine zdążyła się wykonać\n}\n```\n\nSłowo kluczowe `go` przed wywołaniem funkcji uruchamia ją jako osobną goroutine, nie czekając na jej zakończenie.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Uruchamianie goroutine",
+      "kind": "question",
+      "content": "## Słowo kluczowe go\n\nSamo napisanie `go` przed wywołaniem funkcji wystarczy, aby Go uruchomiło ją współbieżnie, nie blokując reszty programu.",
+      "question": "Jakiego JEDNEGO słowa kluczowego Go używa się PRZED wywołaniem funkcji, aby uruchomić ją jako goroutine?",
+      "answer": "go",
+      "hint": "To ta sama nazwa co sam język.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Kanały (channels) do komunikacji",
+      "kind": "question",
+      "content": "## chan — bezpieczna wymiana danych\n\nGoroutines komunikują się bezpiecznie przez **kanały** (channels), zamiast dzielić pamięć bezpośrednio:\n\n```go\nfunc licz(kanal chan int) {\n    kanal <- 42 // wysyłamy wartość do kanału\n}\n\nfunc main() {\n    kanal := make(chan int)\n    go licz(kanal)\n    wynik := <-kanal // odbieramy wartość z kanału (blokuje do momentu otrzymania)\n    fmt.Println(wynik)\n}\n```\n\nFilozofia Go: 'Don't communicate by sharing memory; share memory by communicating' (Nie komunikuj się przez współdzielenie pamięci; współdziel pamięć przez komunikację).",
+      "question": "Jakiego słowa kluczowego Go używa się do zadeklarowania typu KANAŁU (np. `chan int`)?",
+      "answer": "chan",
+      "hint": "To skrót od 'channel'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Błędy jako wartości zwracane",
+      "kind": "question",
+      "content": "## Brak wyjątków w Go\n\nGo NIE MA klasycznych wyjątków (try/catch). Zamiast tego, funkcje zwracają błąd jako DRUGĄ wartość, a wywołujący jawnie ją sprawdza:\n\n```go\nfunc podziel(a, b float64) (float64, error) {\n    if b == 0 {\n        return 0, errors.New(\"dzielenie przez zero\")\n    }\n    return a / b, nil\n}\n\nwynik, err := podziel(10, 0)\nif err != nil {\n    fmt.Println(\"Błąd:\", err)\n}\n```",
+      "question": "Jaką wartość zwraca funkcja Go jako błąd, gdy operacja zakończyła się SUKCESEM (brak błędu)?",
+      "answer": "nil",
+      "hint": "To odpowiednik 'null'/'brak wartości' w Go.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "defer — odłożone wykonanie",
+      "kind": "question",
+      "content": "## Sprzątanie zasobów\n\n`defer` odkłada wykonanie instrukcji do momentu ZAKOŃCZENIA otaczającej funkcji — niezależnie od tego, jak funkcja się zakończy (normalnie czy przez panikę). Klasyczne zastosowanie: zamykanie plików/połączeń.\n\n```go\nfunc czytajPlik() {\n    plik, _ := os.Open(\"dane.txt\")\n    defer plik.Close() // wykona się na końcu funkcji, cokolwiek się stanie\n    // ... operacje na pliku ...\n}\n```",
+      "question": "Jakiego słowa kluczowego Go używa się, aby odłożyć wykonanie instrukcji do momentu ZAKOŃCZENIA otaczającej funkcji?",
+      "answer": "defer",
+      "hint": "To angielskie słowo oznaczające 'odłożyć'.",
+      "points": 15
+    }
+  ]
+}
