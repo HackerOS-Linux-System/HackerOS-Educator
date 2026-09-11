@@ -1,0 +1,144 @@
+{
+  "id": "linux-admin-capstone",
+  "title": "Kapsztat: wdrożenie i zabezpieczenie serwera produkcyjnego",
+  "summary": "Pokój podsumowujący — połącz użytkowników, firewall, usługi, backup i monitoring w jedno kompletne wdrożenie.",
+  "category": "Infrastruktura",
+  "difficulty": "Ekspert",
+  "track": "linux-admin",
+  "estimatedMinutes": 50,
+  "prerequisites": [
+    "linux-backup-strategies",
+    "linux-selinux-apparmor",
+    "linux-monitoring-stack"
+  ],
+  "tags": [
+    "capstone",
+    "linux",
+    "hardening"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Scenariusz: nowy serwer produkcyjny",
+      "kind": "info",
+      "content": "## Symulacja końcowa\n\nOtrzymujesz świeżo postawiony serwer Linux (symulowany poniżej), który ma hostować aplikację webową firmy. Twoim zadaniem jest przejść przez pełną checklistę wdrożeniową, łącząc wiedzę ze wszystkich poprzednich pokoi administracyjnych: użytkownicy, firewall, usługi, backup, obrona MAC i monitoring.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Krok 1: audytuj konta użytkowników",
+      "kind": "question",
+      "content": "## Połącz się z nowym serwerem\n\nZbadaj plik `/etc/passwd`, aby sprawdzić listę kont systemowych. Znajdziesz tam jedno konto, które łamie fundamentalną zasadę bezpieczeństwa poznaną w pokoju o eskalacji uprawnień — ma nadane znacznie szersze uprawnienia niż jego rola wymaga.",
+      "question": "Podaj nazwę konta, które ma niepotrzebnie przypisane uprawnienia administracyjne (widoczne w /etc/passwd jako UID 0).",
+      "answer": "backup_stary",
+      "hint": "Sprawdź 'cat /etc/passwd' i poszukaj konta z drugim UID równym 0 (czyli tym samym co root).",
+      "walkthrough": "W `/etc/passwd` konto `backup_stary:x:0:0::/home/backup_stary:/bin/bash` ma UID 0 — czyli DOKŁADNIE te same uprawnienia co root, mimo że to zapomniane, stare konto do backupów. To poważne naruszenie zasady najmniejszych uprawnień.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "web-prod-nowy",
+        "user": "admin",
+        "banner": "Połączono z nowym serwerem 'web-prod-nowy' — trwa checklist wdrożeniowy.",
+        "startPath": "/home/admin",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "admin": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            },
+            "etc": {
+              "type": "dir",
+              "children": {
+                "passwd": {
+                  "type": "file",
+                  "content": "root:x:0:0:root:/root:/bin/bash\nadmin:x:1000:1000::/home/admin:/bin/bash\nwww-data:x:33:33::/var/www:/usr/sbin/nologin\nbackup_stary:x:0:0::/home/backup_stary:/bin/bash\n"
+                }
+              }
+            }
+          }
+        }
+      },
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Krok 2: zasada, o której nie wolno zapomnieć",
+      "kind": "question",
+      "content": "## Nazwij problem\n\nKonto `backup_stary` z UID 0 to podręcznikowy przykład naruszenia fundamentalnej zasady bezpieczeństwa poznanej w pokoju o eskalacji uprawnień.",
+      "question": "Jak (po polsku, 'zasada najmniejszych ...') nazywa się ta zasada, którą to konto łamie?",
+      "answer": "zasada najmniejszych uprawnień",
+      "hint": "To dokładnie ten sam termin z pokoju o eskalacji uprawnień.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Krok 3: firewall — domyślna polityka",
+      "kind": "question",
+      "content": "## Sprawdź otwarte porty\n\nUruchom `ss -tulpn` na symulowanej maszynie, aby zobaczyć, jakie usługi nasłuchują. Znajdziesz tam usługę nasłuchującą na porcie, który NIGDY nie powinien być otwarty publicznie na serwerze produkcyjnym (baza danych bezpośrednio dostępna z internetu).",
+      "question": "Podaj numer portu, na którym niepotrzebnie nasłuchuje baza danych MySQL na wszystkich interfejsach (0.0.0.0).",
+      "answer": "3306",
+      "hint": "To standardowy port MySQL — sprawdź wynik 'ss -tulpn'.",
+      "walkthrough": "Wynik `ss -tulpn` pokazuje `0.0.0.0:3306 LISTEN mysqld` — baza danych nasłuchuje na WSZYSTKICH interfejsach sieciowych, czyli jest dostępna bezpośrednio z internetu, a nie tylko lokalnie z serwera aplikacji.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "web-prod-nowy",
+        "user": "admin",
+        "banner": "Połączono z 'web-prod-nowy'. Kontynuacja checklisty: firewall i usługi sieciowe.",
+        "startPath": "/home/admin",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "admin": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            }
+          }
+        },
+        "cannedCommands": {
+          "ss -tulpn": "Netid State  Local Address:Port   Process\ntcp   LISTEN 127.0.0.1:6379       redis-server\ntcp   LISTEN 0.0.0.0:22           sshd\ntcp   LISTEN 0.0.0.0:80           nginx\ntcp   LISTEN 0.0.0.0:3306         mysqld"
+        }
+      },
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Krok 4: zasada firewalla",
+      "kind": "question",
+      "content": "## Domyślna polityka\n\nNaprawiasz to, wiążąc MySQL tylko do `127.0.0.1` i konfigurując `ufw`, by domyślnie blokował wszystko poza portami 22, 80 i 443.",
+      "question": "Jak (dwa angielskie słowa, pierwsze to 'default') nazywa się ta zasada firewalla?",
+      "answer": "default deny",
+      "hint": "To dokładnie ten sam termin z pokoju 'Administracja siecią w Linuksie'.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Krok 5: kopie zapasowe",
+      "kind": "question",
+      "content": "## Backup od pierwszego dnia\n\nUstawiasz cykliczny backup bazy danych aplikacji za pomocą `cron` i `rsync` do zdalnej lokalizacji. Zgodnie z zasadą poznaną w pokoju o backupach, ile MINIMUM kopii danych, na ilu różnych nośnikach i gdzie (ile poza siedzibą) powinieneś docelowo mieć?",
+      "question": "Podaj pełną zasadę w formacie 'X-Y-Z' (trzy liczby oddzielone myślnikami).",
+      "answer": "3-2-1",
+      "hint": "To dokładnie ta sama zasada z pokoju 'Strategie kopii zapasowych'.",
+      "points": 15
+    },
+    {
+      "id": "task-7",
+      "title": "Krok 6: dodatkowa warstwa obrony i monitoring",
+      "kind": "question",
+      "content": "## Poza standardowymi uprawnieniami\n\nNa koniec włączasz SELinux w trybie Enforcing (kategoria kontroli dostępu poznana w pokoju o SELinux/AppArmor) oraz konfigurujesz Prometheusa, który sam CYKLICZNIE pobiera metryki z serwera.",
+      "question": "Podaj skrót (3 litery) kategorii kontroli dostępu reprezentowanej przez SELinux — TEJ, w której serwer NIE ufa automatycznie właścicielowi pliku.",
+      "answer": "MAC",
+      "hint": "To skrót od Mandatory Access Control, poznany w pokoju o SELinux/AppArmor.",
+      "points": 15
+    }
+  ]
+}
