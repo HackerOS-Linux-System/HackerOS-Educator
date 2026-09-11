@@ -1,0 +1,65 @@
+{
+  "id": "programming-javascript-intermediate",
+  "title": "JavaScript: funkcje, tablice i asynchroniczność",
+  "summary": "Funkcje strzałkowe, metody tablicowe (map/filter/reduce) oraz podstawy asynchronicznego JavaScriptu (Promise, async/await).",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "javascript",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "programming-javascript-basics"
+  ],
+  "tags": [
+    "javascript",
+    "async",
+    "tablice"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Funkcje strzałkowe",
+      "kind": "info",
+      "content": "## Krótszy zapis funkcji\n\n```javascript\nconst kwadrat = (x) => x * x;\nconst dodaj = (a, b) => {\n  return a + b;\n};\n```\n\nFunkcje strzałkowe (`=>`) są zwięzłym zamiennikiem `function`, z inaczej działającym `this` — przydatne zwłaszcza w krótkich funkcjach przekazywanych jako argumenty.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "map — transformacja tablicy",
+      "kind": "question",
+      "content": "## Tworzenie nowej tablicy\n\n```javascript\nconst liczby = [1, 2, 3];\nconst podwojone = liczby.map(x => x * 2);\n// podwojone = [2, 4, 6]\n```\n\n`map` tworzy NOWĄ tablicę, stosując podaną funkcję do każdego elementu — oryginalna tablica pozostaje niezmieniona.",
+      "question": "Jakiej metody tablicowej JavaScript używa się, aby utworzyć NOWĄ tablicę przez zastosowanie funkcji do KAŻDEGO elementu?",
+      "answer": "map",
+      "hint": "To krótkie, angielskie słowo oznaczające 'mapować'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "filter — selekcja elementów",
+      "kind": "question",
+      "content": "## Wybieranie pasujących elementów\n\n```javascript\nconst liczby = [1, 2, 3, 4, 5];\nconst parzyste = liczby.filter(x => x % 2 === 0);\n// parzyste = [2, 4]\n```",
+      "question": "Jakiej metody tablicowej używa się, aby zwrócić TYLKO elementy spełniające podany warunek?",
+      "answer": "filter",
+      "hint": "To angielskie słowo oznaczające 'filtrować'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Promise i async/await",
+      "kind": "question",
+      "content": "## Obsługa operacji asynchronicznych\n\n```javascript\nasync function pobierzDane() {\n  const odpowiedz = await fetch(\"https://api.example.com/dane\");\n  const dane = await odpowiedz.json();\n  return dane;\n}\n```\n\n`await` 'czeka' na rozwiązanie Promise, zanim kod przejdzie dalej — bez blokowania całego programu. Funkcja musi być oznaczona słowem `async`, aby móc używać `await`.",
+      "question": "Jakiego słowa kluczowego JavaScript trzeba użyć PRZED definicją funkcji, aby móc wewnątrz niej używać 'await'?",
+      "answer": "async",
+      "hint": "To krótkie, angielskie słowo oznaczające 'asynchroniczny'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: łańcuch metod tablicowych",
+      "kind": "practical",
+      "content": "## Połącz map i filter\n\nSpróbuj w terminalu (Node.js):\n\n```bash\nnode -e \"\nconst liczby = [1, 2, 3, 4, 5, 6];\nconst wynik = liczby.filter(x => x % 2 === 0).map(x => x * 10);\nconsole.log(wynik);\n\"\n```\n\nZastanów się: co dokładnie zawiera tablica `wynik`, krok po kroku?",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
