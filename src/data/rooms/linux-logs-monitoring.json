@@ -1,0 +1,65 @@
+{
+  "id": "linux-logs-monitoring",
+  "title": "Logi i monitorowanie zasobów",
+  "summary": "Analiza logów systemowych oraz monitorowanie zużycia CPU, pamięci i dysku w czasie rzeczywistym.",
+  "category": "Monitoring",
+  "difficulty": "Średni",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-systemd-services"
+  ],
+  "tags": [
+    "linux",
+    "logi",
+    "monitoring",
+    "wydajność"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Gdzie szukać logów?",
+      "kind": "info",
+      "content": "## Mapa logów\n\n| Plik / narzędzie | Zawartość |\n|---|---|\n| `journalctl` | scentralizowane logi systemd |\n| `/var/log/auth.log` (Debian) | próby logowania, sudo |\n| `/var/log/syslog` lub `/var/log/messages` | ogólne logi systemowe |\n| `/var/log/nginx/` | logi konkretnej usługi (przykład) |\n\nAnaliza logów to pierwszy krok w diagnozowaniu awarii i wykrywaniu podejrzanej aktywności.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Praktyka: monitorowanie na żywo",
+      "kind": "practical",
+      "content": "## top, df, du\n\nSpróbuj podstawowych narzędzi diagnostycznych:\n\n```bash\ntop -bn1 | head -n 15      # migawka procesów (bn1 = batch, jedna iteracja)\ndf -h                       # zajętość dysków (human-readable)\ndu -sh /var/log             # rozmiar konkretnego katalogu\nfree -h                     # zużycie pamięci RAM\n```\n\n`top` (lub nowocześniejszy `htop`) pokazuje procesy zużywające najwięcej CPU/RAM w czasie rzeczywistym.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Filtrowanie logów przez grep",
+      "kind": "question",
+      "content": "## Szukanie igły w stogu logów\n\nLogi bywają ogromne — kluczowe jest filtrowanie, np.:\n\n```bash\njournalctl -u sshd | grep \"Failed password\"\ngrep -i error /var/log/syslog | tail -n 20\n```",
+      "question": "Jakiego polecenia (tekstowego, uniksowego) używa się najczęściej do wyszukiwania wzorca tekstu w plikach logów?",
+      "answer": "grep",
+      "hint": "To jedno z najstarszych i najczęściej używanych poleceń Unix.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Interpretacja df -h",
+      "kind": "question",
+      "content": "## Kiedy dysk jest 'pełny'?\n\n`df -h` pokazuje procentowe zapełnienie partycji. Gdy `Use%` zbliża się do 100%, usługi (zwłaszcza bazy danych i logi) mogą zacząć zawodzić z powodu braku miejsca.",
+      "question": "Jakiej flagi używa się z `df`, aby wyniki pokazywały rozmiary w czytelnej dla człowieka formie (np. 3.2G zamiast bajtów)?",
+      "answer": "-h",
+      "hint": "To ta sama flaga co w `du -h` i `free -h`.",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Rotacja logów",
+      "kind": "question",
+      "content": "## logrotate\n\nBez zarządzania, logi rosłyby w nieskończoność i zapełniły dysk. Narzędzie `logrotate` automatycznie kompresuje, archiwizuje i usuwa stare logi wg reguł w `/etc/logrotate.conf` i `/etc/logrotate.d/`.",
+      "question": "Jak nazywa się standardowe narzędzie Linuksa odpowiedzialne za automatyczną rotację (archiwizację/usuwanie) plików logów?",
+      "answer": "logrotate",
+      "hint": "Nazwa to dosłownie 'rotacja logów' po angielsku, jednym słowem.",
+      "points": 15
+    }
+  ]
+}
