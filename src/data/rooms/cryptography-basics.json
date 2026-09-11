@@ -1,0 +1,64 @@
+{
+  "id": "cryptography-basics",
+  "title": "Podstawy kryptografii",
+  "summary": "Szyfrowanie symetryczne vs asymetryczne, funkcje skrótu (hash) i podpisy cyfrowe — fundamenty bez matematyki wyższej.",
+  "category": "Kryptografia",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "intro-to-cybersecurity"
+  ],
+  "tags": [
+    "kryptografia",
+    "hashowanie",
+    "szyfrowanie"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Szyfrowanie symetryczne vs asymetryczne",
+      "kind": "info",
+      "content": "## Dwa światy szyfrowania\n\n**Symetryczne** (np. AES) — ten sam klucz służy do szyfrowania i deszyfrowania. Szybkie, ale wymaga bezpiecznego udostępnienia klucza obu stronom.\n\n**Asymetryczne** (np. RSA) — para kluczy: publiczny (do szyfrowania, można udostępniać wszystkim) i prywatny (do deszyfrowania, trzymany w tajemnicy). Wolniejsze, ale rozwiązuje problem dystrybucji kluczy.\n\nW praktyce (np. TLS/HTTPS) łączy się oba: asymetryczne do bezpiecznej wymiany klucza sesji, symetryczne do szyfrowania właściwych danych — to tzw. kryptografia hybrydowa.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Hashowanie a szyfrowanie",
+      "kind": "question",
+      "content": "## To NIE to samo\n\nSzyfrowanie jest **odwracalne** (z odpowiednim kluczem można odzyskać oryginał). Funkcja skrótu (hash, np. SHA-256) jest **jednokierunkowa** — nie da się z hasha odtworzyć oryginalnych danych. Hashe służą do weryfikacji integralności (czy plik się nie zmienił) i przechowywania haseł.",
+      "question": "Jak nazywa się cecha funkcji hashującej oznaczająca, że NIE da się z wyniku odtworzyć danych wejściowych? (jedno słowo, po polsku: 'jedno...')",
+      "answer": "jednokierunkowa",
+      "hint": "Przeciwieństwo do 'odwracalna'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Praktyka: hashowanie w terminalu",
+      "kind": "practical",
+      "content": "## Policz sumy kontrolne\n\nSpróbuj w terminalu:\n\n```bash\necho -n \"HackerOS\" | sha256sum\necho -n \"HackerOS\" | md5sum\necho -n \"hackeros\" | sha256sum\n```\n\nZwróć uwagę, że zmiana JEDNEJ litery (wielkość liter) całkowicie zmienia wynikowy hash — to tzw. **efekt lawinowy** (avalanche effect), pożądana cecha dobrej funkcji skrótu.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Dlaczego MD5 jest passé?",
+      "kind": "question",
+      "content": "## Kolizje MD5 i SHA-1\n\nMD5 i SHA-1 uznaje się dziś za kryptograficznie złamane — udowodniono, że można znaleźć dwie różne wiadomości dające ten sam hash (**kolizję**) przy realistycznym nakładzie obliczeniowym. Do zastosowań bezpieczeństwa (integralność, hasła) zaleca się rodzinę SHA-2 (np. SHA-256) lub nowocześniejszą SHA-3.",
+      "question": "Jak nazywa się sytuacja, w której dwie różne wiadomości dają ten sam wynik funkcji hash? (jedno słowo po polsku)",
+      "answer": "kolizja",
+      "hint": "To pojęcie z fizyki użyte metaforycznie w kryptografii.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Podpis cyfrowy",
+      "kind": "question",
+      "content": "## Autentyczność i niezaprzeczalność\n\nPodpis cyfrowy łączy hashowanie z kryptografią asymetryczną: nadawca hashuje wiadomość, a następnie szyfruje hash swoim kluczem PRYWATNYM. Odbiorca deszyfruje podpis kluczem publicznym nadawcy i porównuje z własnoręcznie obliczonym hashem wiadomości — jeśli się zgadzają, wiadomość jest autentyczna i niezmieniona.",
+      "question": "Jakim kluczem (publicznym czy prywatnym) nadawca podpisuje wiadomość, tworząc podpis cyfrowy?",
+      "answer": "prywatnym",
+      "hint": "To klucz, który zna tylko nadawca.",
+      "points": 15
+    }
+  ]
+}
