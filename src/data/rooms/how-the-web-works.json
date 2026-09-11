@@ -1,0 +1,114 @@
+{
+  "id": "how-the-web-works",
+  "title": "Jak działa WWW: DNS, HTTP i przeglądarki",
+  "summary": "Co dokładnie dzieje się między wpisaniem adresu w przeglądarce a wyświetleniem strony: DNS, HTTP/HTTPS i model klient-serwer.",
+  "category": "Podstawy komputerowe",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "computer-fundamentals-inside-a-computer",
+    "network-basics"
+  ],
+  "tags": [
+    "www",
+    "dns",
+    "http",
+    "podstawy"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Model klient-serwer",
+      "kind": "info",
+      "content": "## Kto o co prosi?\n\nKażda strona internetowa opiera się na modelu **klient-serwer**: Twoja przeglądarka (klient) wysyła ŻĄDANIE do komputera gdzieś w internecie (serwer), który odsyła ODPOWIEDŹ — zwykle plik HTML, obraz albo dane JSON. Serwer 'słucha' na konkretnym porcie (najczęściej 80 dla HTTP i 443 dla HTTPS) i czeka na takie żądania od dowolnego klienta na świecie.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "DNS — książka telefoniczna internetu",
+      "kind": "question",
+      "content": "## Z nazwy na adres IP\n\nKomputery komunikują się przez adresy IP (np. `142.250.203.78`), ale ludzie wolą pamiętać nazwy (`google.com`). **DNS** (Domain Name System) tłumaczy nazwę domeny na adres IP — to jak książka telefoniczna, w której szukasz osoby po imieniu, a system podaje Ci jej numer.\n\nGdy wpisujesz adres w przeglądarce, ZANIM cokolwiek się załaduje, komputer pyta serwer DNS: 'jaki adres IP odpowiada tej nazwie?'.",
+      "question": "Jakim skrótem (3 litery) określa się system tłumaczący nazwy domen na adresy IP?",
+      "answer": "DNS",
+      "hint": "To skrót od Domain Name System.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Anatomia adresu URL",
+      "kind": "question",
+      "content": "## Rozbiór adresu\n\n```\nhttps://sklep.example.com/produkty?kategoria=buty\n└─┬──┘   └──────┬───────┘└────┬────┘└──────┬──────┘\nprotokół     domena         ścieżka    parametry zapytania\n```\n\n`https://` to PROTOKÓŁ (sposób komunikacji), `sklep.example.com` to DOMENA (adres serwera), `/produkty` to ŚCIEŻKA (konkretny zasób na serwerze), a `?kategoria=buty` to parametry przekazujące dodatkowe dane do serwera.",
+      "question": "Jak nazywa się część adresu URL WSKAZUJĄCA na konkretny zasób/stronę na serwerze (np. '/produkty')?",
+      "answer": "ścieżka",
+      "hint": "Po angielsku to 'path'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "HTTP vs HTTPS",
+      "kind": "question",
+      "content": "## Dodatkowe 'S' robi ogromną różnicę\n\n**HTTP** (Hypertext Transfer Protocol) przesyła dane w postaci JAWNEJ (niezaszyfrowanej) — każdy na trasie (np. w tej samej sieci Wi-Fi) może podejrzeć zawartość. **HTTPS** dodaje warstwę szyfrowania TLS — dane są zaszyfrowane, więc podsłuchujący widzi tylko nieczytelny ciąg bajtów.\n\nWspółczesne przeglądarki oznaczają strony BEZ HTTPS jako 'niezabezpieczone' — nigdy nie należy wpisywać hasła ani danych karty na stronie działającej tylko przez HTTP.",
+      "question": "Jaki protokół szyfrowania (skrót, 3 litery) dodaje HTTPS ponad zwykłym HTTP?",
+      "answer": "TLS",
+      "hint": "To skrót od Transport Layer Security.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Metody HTTP: GET i POST",
+      "kind": "question",
+      "content": "## Różne rodzaje żądań\n\nPrzeglądarka może wysyłać różne TYPY żądań HTTP:\n\n- **GET** — poproś o dane (np. wczytanie strony). Dane w URL, widoczne, bez efektów ubocznych.\n- **POST** — wyślij dane DO serwera (np. wysłanie formularza logowania). Dane w treści żądania, niewidoczne w adresie URL.\n\nDlatego hasło w formularzu logowania powinno być wysyłane metodą POST, a nie GET — GET umieściłby je jawnie w adresie URL (widocznym np. w historii przeglądarki).",
+      "question": "Jaką metodę HTTP (GET/POST) powinien używać formularz logowania, aby hasło NIE trafiło do widocznego adresu URL?",
+      "answer": "POST",
+      "hint": "To metoda przeznaczona do WYSYŁANIA danych, nie tylko ich pobierania.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Kody statusu HTTP",
+      "kind": "question",
+      "content": "## Co oznaczają te trzycyfrowe liczby?\n\nServer odpowiada kodem STATUSU wskazującym wynik żądania:\n\n- **200 OK** — wszystko poszło dobrze.\n- **301/302** — przekierowanie na inny adres.\n- **403 Forbidden** — masz zabroniony dostęp.\n- **404 Not Found** — zasobu nie znaleziono.\n- **500 Internal Server Error** — błąd PO STRONIE serwera.\n\nRozpoznawanie tych kodów jest przydatne nie tylko dla programistów, ale też przy podstawowej diagnostyce — np. odróżnieniu 'strona nie istnieje' (404) od 'serwer się wywalił' (500).",
+      "question": "Jaki kod statusu HTTP oznacza 'zasobu nie znaleziono' (strona nie istnieje pod tym adresem)?",
+      "answer": "404",
+      "hint": "To chyba najbardziej znany kod błędu w internecie.",
+      "points": 15
+    },
+    {
+      "id": "task-7",
+      "title": "Praktyka: symulowane zapytanie DNS i HTTP",
+      "kind": "question",
+      "content": "## Zbadaj proces krok po kroku\n\nPoniższa symulowana maszyna pozwala prześledzić, co dzieje się 'pod maską', gdy przeglądarka ładuje stronę `sklep.hackeros.lab`. Użyj poleceń `nslookup` i `curl -I`, aby zbadać, jaki adres IP ma ta domena oraz jaki kod statusu HTTP zwraca serwer.",
+      "question": "Jaki kod statusu HTTP zwraca serwer sklep.hackeros.lab według wyniku 'curl -I'?",
+      "answer": "200",
+      "hint": "Uruchom 'curl -I http://sklep.hackeros.lab' i poszukaj pierwszej linii odpowiedzi.",
+      "walkthrough": "Wynik `curl -I http://sklep.hackeros.lab` pokazuje linię `HTTP/1.1 200 OK` — serwer odpowiedział poprawnie, strona istnieje i działa.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "przegladarka-lab",
+        "user": "kursant",
+        "banner": "Symulowane środowisko do nauki DNS i HTTP. Wpisz 'help', by zobaczyć listę poleceń.",
+        "startPath": "/home/kursant",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "kursant": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            }
+          }
+        },
+        "cannedCommands": {
+          "nslookup sklep.hackeros.lab": "Server:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\nNon-authoritative answer:\nName:\tsklep.hackeros.lab\nAddress: 10.10.20.15",
+          "curl -I http://sklep.hackeros.lab": "HTTP/1.1 200 OK\nServer: nginx/1.24.0\nContent-Type: text/html; charset=UTF-8\nContent-Length: 4211\nConnection: keep-alive"
+        }
+      },
+      "points": 25
+    }
+  ]
+}
