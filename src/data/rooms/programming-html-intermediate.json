@@ -1,0 +1,65 @@
+{
+  "id": "programming-html-intermediate",
+  "title": "HTML: formularze, semantyka i dostępność",
+  "summary": "Znaczniki semantyczne, poprawnie zbudowane formularze i podstawy dostępności (accessibility) stron internetowych.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "html",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "programming-html-basics"
+  ],
+  "tags": [
+    "html",
+    "formularze",
+    "dostępność"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Znaczniki semantyczne",
+      "kind": "info",
+      "content": "## Znaczenie zamiast samego wyglądu\n\nZamiast budować całą stronę z ogólnych `<div>`, HTML5 oferuje znaczniki SEMANTYCZNE, opisujące ZNACZENIE fragmentu strony:\n\n```html\n<header>Nagłówek strony</header>\n<nav>Menu nawigacyjne</nav>\n<main>\n  <article>Treść głównego artykułu</article>\n  <aside>Powiązane treści boczne</aside>\n</main>\n<footer>Stopka</footer>\n```\n\nCzytniki ekranu (dla osób niewidomych) i wyszukiwarki znacznie lepiej rozumieją stronę zbudowaną semantycznie niż 'zupę z divów'.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "label i atrybut for",
+      "kind": "question",
+      "content": "## Dostępne formularze\n\n```html\n<label for=\"email\">Adres e-mail:</label>\n<input type=\"email\" id=\"email\" name=\"email\">\n```\n\nAtrybut `for` w `<label>` musi ZGADZAĆ SIĘ z `id` powiązanego pola — dzięki temu kliknięcie etykiety aktywuje pole, a czytniki ekranu poprawnie odczytują, do czego dane pole służy.",
+      "question": "Jaki atrybut znacznika `<label>` musi być IDENTYCZNY z atrybutem `id` powiązanego pola formularza?",
+      "answer": "for",
+      "hint": "To krótkie, trzyliterowe słowo.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Atrybut alt dla obrazów",
+      "kind": "question",
+      "content": "## Tekst alternatywny\n\n```html\n<img src=\"kot.jpg\" alt=\"Rudy kot śpiący na parapecie\">\n```\n\nAtrybut `alt` opisuje treść obrazu TEKSTOWO — czytany przez czytniki ekranu dla niewidomych użytkowników, wyświetlany gdy obraz się nie załaduje, i indeksowany przez wyszukiwarki.",
+      "question": "Jakiego atrybutu znacznika `<img>` używa się do podania tekstowego opisu obrazu (dla dostępności i na wypadek błędu ładowania)?",
+      "answer": "alt",
+      "hint": "To skrót od 'alternative text'.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Walidacja formularzy HTML5",
+      "kind": "question",
+      "content": "## Walidacja bez JavaScriptu\n\nHTML5 oferuje wbudowaną walidację formularzy bez pisania kodu JavaScript:\n\n```html\n<input type=\"email\" required>\n<input type=\"number\" min=\"1\" max=\"100\">\n```\n\nAtrybut `required` sprawia, że przeglądarka nie pozwoli wysłać formularza, jeśli pole jest puste — WAŻNE: to tylko wygoda dla użytkownika, backend MUSI i tak zwalidować dane ponownie (patrz pokój 'Bezpieczne programowanie').",
+      "question": "Jakiego atrybutu HTML5 (bez wartości) używa się, aby oznaczyć pole formularza jako OBOWIĄZKOWE do wypełnienia?",
+      "answer": "required",
+      "hint": "To angielskie słowo oznaczające 'wymagane'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: dostępny formularz kontaktowy",
+      "kind": "practical",
+      "content": "## Zbuduj poprawny formularz\n\nSpróbuj w terminalu:\n\n```bash\ncat > formularz.html << 'EOF'\n<form>\n  <label for=\"imie\">Imię:</label>\n  <input type=\"text\" id=\"imie\" name=\"imie\" required>\n\n  <label for=\"wiadomosc\">Wiadomość:</label>\n  <textarea id=\"wiadomosc\" name=\"wiadomosc\" required></textarea>\n\n  <button type=\"submit\">Wyślij</button>\n</form>\nEOF\ncat formularz.html\n```\n\nZwróć uwagę, że KAŻDE pole ma powiązany `<label>` przez atrybut `for`/`id` — to podstawa dostępnego formularza.",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
