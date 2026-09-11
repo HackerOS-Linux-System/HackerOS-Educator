@@ -1,0 +1,65 @@
+{
+  "id": "programming-hackerlang-advanced",
+  "title": "Hacker Lang: funkcje, moduły i budowanie pakietów",
+  "summary": "Definiowanie własnych funkcji, dołączanie modułów oraz struktura prawdziwego instalatora pakietu HackerOS.",
+  "category": "Języki HackerOS",
+  "difficulty": "Trudny",
+  "track": "programming",
+  "language": "hackerlang",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "programming-hackerlang-intermediate"
+  ],
+  "tags": [
+    "hackerlang",
+    "hackeros",
+    "instalatory"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Definiowanie własnych funkcji",
+      "kind": "info",
+      "content": "## fn ... end\n\nHacker Lang (generacja 2) pozwala definiować własne, wielokrotnego użytku funkcje:\n\n```hl\nusing <gen 2>\n\nfn powitaj(imie)\n    ~> Witaj, @imie!\nend\n\ncall powitaj(\"Kursancie\")\n```\n\nDzięki funkcjom skrypty instalacyjne (`install.hl`) mogą definiować np. `fn sprawdz_zaleznosci()` i wywoływać ją wielokrotnie w różnych miejscach skryptu, zamiast powtarzać kod.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Wywoływanie funkcji",
+      "kind": "question",
+      "content": "## call\n\nAby wywołać wcześniej zdefiniowaną funkcję w Hacker Lang, używa się słowa `call` przed jej nazwą.",
+      "question": "Jakiego słowa kluczowego Hacker Lang używa się do WYWOŁANIA wcześniej zdefiniowanej funkcji?",
+      "answer": "call",
+      "hint": "To angielskie słowo oznaczające 'wywołaj'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Struktura instalatora pakietu",
+      "kind": "question",
+      "content": "## install.hl i remove.hl\n\nW ekosystemie HackerOS każdy pakiet dostarcza (przynajmniej) dwa skrypty: `install.hl` (instalacja) i `remove.hl` (deinstalacja). Typowy `install.hl` sprawdza zależności, kopiuje pliki i rejestruje pakiet w systemie:\n\n```hl\nusing <gen 2>\n:: bold Instalacja pakietu przykladowego\n\n>> which curl |> @_curl_path\n?~ @_curl_path == \"\"\n    :: red Brak zaleznosci: curl. Przerywam instalacje.\ndone\n\n:: green Instalacja zakonczona pomyslnie!\n```",
+      "question": "Jak nazywa się (jedno słowo, nazwa pliku bez rozszerzenia) skrypt Hacker Lang odpowiedzialny za DEINSTALACJĘ pakietu w HackerOS?",
+      "answer": "remove",
+      "hint": "To przeciwieństwo do 'install'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Obsługa błędów w skryptach instalacyjnych",
+      "kind": "question",
+      "content": "## Dlaczego sprawdzanie zależności jest kluczowe\n\nDobry instalator NIGDY nie zakłada, że wymagane narzędzia (np. `curl`, `git`) są już zainstalowane — sprawdza to jawnie na początku i przerywa działanie z czytelnym komunikatem, zamiast pozwolić, by błąd wystąpił w nieoczywistym miejscu w połowie instalacji.",
+      "question": "Jakiego operatora Hacker Lang (poznanego w poprzednim pokoju) użyjesz, aby sprawdzić WARUNEK (np. czy zmienna jest pusta) przed kontynuowaniem instalacji?",
+      "answer": "?~",
+      "hint": "To ten sam symbol, którego używa pętla warunkowa (while) w Hacker Lang.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: mini-instalator",
+      "kind": "practical",
+      "content": "## Napisz uproszczony instalator\n\nSpróbuj przeanalizować i (jeśli masz interpreter `hl`) uruchomić:\n\n```bash\ncat > install.hl << 'EOF'\nusing <gen 2>\n:: bold Instalacja mojego-narzedzia\n\nfn sprawdz(nazwa)\n    >> which @nazwa |> @_wynik\n    ?~ @_wynik == \"\"\n        :: red Brak zaleznosci: @nazwa\n        ~> Przerywam instalacje.\n    done\nend\n\ncall sprawdz(\"bash\")\n:: green Wszystkie zaleznosci sa OK. Instaluje...\n:: green Gotowe!\nEOF\ncat install.hl\n```",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
