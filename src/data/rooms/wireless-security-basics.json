@@ -1,0 +1,66 @@
+{
+  "id": "wireless-security-basics",
+  "title": "Bezpieczeństwo sieci bezprzewodowych",
+  "summary": "Ewolucja standardów Wi-Fi (WEP, WPA, WPA2, WPA3), zagrożenia typu Evil Twin i dobre praktyki konfiguracji.",
+  "category": "Sieci",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "network-basics"
+  ],
+  "tags": [
+    "wifi",
+    "sieci-bezprzewodowe",
+    "wpa"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Ewolucja bezpieczeństwa Wi-Fi",
+      "kind": "info",
+      "content": "## Od WEP do WPA3\n\n| Standard | Status |\n|---|---|\n| WEP | Złamany, NIE UŻYWAĆ — możliwy do złamania w minuty |\n| WPA | Przejściowy, również ma słabości |\n| WPA2 | Standard przez lata, podatny na atak KRACK i słabe hasła |\n| WPA3 | Aktualny standard, silniejsza wymiana kluczy (SAE) |\n\nKażda kolejna generacja poprawiała słabości poprzedniczki, ale ostateczne bezpieczeństwo i tak zależy od siły ustawionego hasła.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Dlaczego WEP jest niebezpieczny?",
+      "kind": "question",
+      "content": "## Słabości WEP\n\nWEP (Wired Equivalent Privacy) używa krótkiego, statycznego wektora inicjującego (IV), który się powtarza przy dużym ruchu sieciowym, co pozwala odtworzyć klucz szyfrujący przy użyciu ogólnodostępnych narzędzi w kilka minut. Uznaje się go za całkowicie przestarzały.",
+      "question": "Jakim skrótem (3 litery) określa się najstarszy, dziś już całkowicie przestarzały standard szyfrowania Wi-Fi?",
+      "answer": "WEP",
+      "hint": "To pierwszy standard szyfrowania Wi-Fi, sprzed WPA.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Evil Twin — fałszywy punkt dostępu",
+      "kind": "question",
+      "content": "## Rogue Access Point\n\nAtak **Evil Twin** polega na utworzeniu fałszywego punktu dostępowego Wi-Fi o identycznej (lub bardzo podobnej) nazwie (SSID) co legalna sieć, np. w kawiarni. Nieświadomi użytkownicy łączą się z fałszywą siecią, a cały ich ruch przechodzi przez urządzenie atakującego. Obrona: unikanie niezaszyfrowanych publicznych sieci, korzystanie z VPN.",
+      "question": "Jak (dwa słowa po angielsku, 'evil ...') nazywa się atak polegający na utworzeniu fałszywego punktu dostępu Wi-Fi podszywającego się pod legalną sieć?",
+      "answer": "evil twin",
+      "hint": "Drugie słowo oznacza 'bliźniak'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "WPA3 i SAE",
+      "kind": "question",
+      "content": "## Co poprawia WPA3?\n\nWPA3 wprowadza m.in. **SAE** (Simultaneous Authentication of Equals) zamiast podatnego na ataki słownikowe 4-way handshake z WPA2, oraz szyfrowanie indywidualnych sesji nawet w sieciach otwartych (Enhanced Open).",
+      "question": "Jakim skrótem (3 litery) określa się nowy, bezpieczniejszy mechanizm wymiany kluczy wprowadzony w WPA3, zastępujący 4-way handshake?",
+      "answer": "SAE",
+      "hint": "To skrót od Simultaneous Authentication of Equals.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Dobre praktyki konfiguracji routera",
+      "kind": "question",
+      "content": "## Checklist bezpiecznego Wi-Fi\n\n- Zmień domyślne hasło administratora routera.\n- Używaj WPA3 (lub minimum WPA2) z silnym hasłem sieci.\n- Wyłącz WPS (Wi-Fi Protected Setup) — bywa podatny na atak brute-force PIN-u.\n- Regularnie aktualizuj firmware routera.",
+      "question": "Jaką funkcję routera (skrót, 3 litery), umożliwiającą łatwe parowanie urządzeń przez PIN, zaleca się WYŁĄCZYĆ ze względu na podatność na atak brute-force?",
+      "answer": "WPS",
+      "hint": "To skrót od Wi-Fi Protected Setup.",
+      "points": 15
+    }
+  ]
+}
