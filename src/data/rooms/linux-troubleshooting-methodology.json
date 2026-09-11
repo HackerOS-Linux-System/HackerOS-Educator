@@ -1,0 +1,112 @@
+{
+  "id": "linux-troubleshooting-methodology",
+  "title": "Metodyka rozwiązywania problemów w Linuksie",
+  "summary": "Systematyczne podejście do diagnozowania awarii: od objawu do przyczyny źródłowej, zamiast losowego zgadywania.",
+  "category": "Podstawy administracji",
+  "difficulty": "Średni",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-logs-monitoring",
+    "linux-networking-admin"
+  ],
+  "tags": [
+    "troubleshooting",
+    "diagnostyka",
+    "metodyka"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Dlaczego przypadkowe zgadywanie nie działa",
+      "kind": "info",
+      "content": "## Metoda zamiast chaosu\n\nPrzy awarii systemu, niedoświadczony administrator często zaczyna przypadkowo zmieniać rzeczy 'na czuja', co bywa nie tylko nieskuteczne, ale też ryzykowne — zmiana wielu rzeczy naraz utrudnia ustalenie, CO faktycznie naprawiło (lub pogorszyło) problem. Doświadczeni administratorzy stosują SYSTEMATYCZNĄ metodykę: zbierz objawy → sformułuj hipotezę → przetestuj JEDNĄ rzecz naraz → obserwuj wynik → powtórz.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Zbieranie objawów PRZED działaniem",
+      "kind": "question",
+      "content": "## Nie naprawiaj, zanim nie zrozumiesz\n\nPierwszy krok to zawsze DOKŁADNE zebranie informacji: KIEDY zaczął się problem, CO się zmieniło tuż przed (wdrożenie, aktualizacja?), KTO zgłasza problem i w jakich dokładnie okolicznościach. Dopiero mając te dane, formułuje się hipotezę o przyczynie.",
+      "question": "Jakie pytanie (jedno słowo po polsku) powinieneś zadać jako PIERWSZE, zanim cokolwiek zmienisz w systemie: 'co się ZMIENIŁO' tuż przed pojawieniem się problemu?",
+      "answer": "co",
+      "hint": "To pytanie o to, JAKA zmiana poprzedziła awarię.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Model warstwowy diagnozowania",
+      "kind": "question",
+      "content": "## Od dołu do góry (albo odwrotnie)\n\nProblemy sieciowe/systemowe często warto diagnozować WARSTWAMI (podobnie do modelu OSI): czy sprzęt działa? → czy system operacyjny widzi urządzenie? → czy usługa jest uruchomiona? → czy firewall przepuszcza ruch? → czy aplikacja odpowiada poprawnie? Sprawdzanie kolejnych warstw pozwala szybko ZAWĘZIĆ, na którym poziomie faktycznie leży problem, zamiast sprawdzać wszystko naraz w przypadkowej kolejności.",
+      "question": "Czy sprawdzanie WARSTW systemu w usystematyzowanej kolejności jest SZYBSZE, czy WOLNIEJSZE niż sprawdzanie wszystkiego losowo? (odpowiedz: 'szybsze')",
+      "answer": "szybsze",
+      "hint": "Systematyczne podejście prawie zawsze wygrywa z chaotycznym.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Zmieniaj JEDNĄ rzecz naraz",
+      "kind": "question",
+      "content": "## Dlaczego to takie ważne\n\nJeśli zmienisz JEDNOCZEŚNIE pięć różnych ustawień, próbując naprawić problem, a system zacznie działać — NIE BĘDZIESZ WIEDZIEĆ, która z pięciu zmian faktycznie pomogła (a które mogły wprowadzić NOWE, ukryte problemy). Zmiana jednej rzeczy naraz, z obserwacją wyniku po każdej, to fundamentalna zasada metodycznego debugowania — także w programowaniu, nie tylko administracji.",
+      "question": "Ile zmian NALEŻY wprowadzać jednocześnie podczas metodycznego diagnozowania problemu, aby wiedzieć, co faktycznie zadziałało?",
+      "answer": "1",
+      "hint": "To liczba pojedyncza.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: zdiagnozuj niedziałającą usługę",
+      "kind": "question",
+      "content": "## Zastosuj metodykę krok po kroku\n\nPołącz się z symulowaną maszyną, na której zgłoszono, że strona WWW nie odpowiada. Sprawdź kolejno: czy usługa nginx jest uruchomiona (`systemctl status nginx` — canned), czy port nasłuchuje (`ss -tulpn`), a na końcu logi błędów (`cat /var/log/nginx/error.log`), aby znaleźć PRAWDZIWĄ przyczynę źródłową.",
+      "question": "Jaka jest przyczyna źródłowa awarii według logu błędów? (podaj krótko, np. 'brak miejsca na dysku')",
+      "answer": "brak miejsca na dysku",
+      "hint": "Sprawdź 'cat /var/log/nginx/error.log' na symulowanej maszynie.",
+      "walkthrough": "Log `/var/log/nginx/error.log` zawiera wpis `no space left on device` — usługa nginx nie mogła zapisać plików tymczasowych, bo dysk był pełny. To pokazuje, dlaczego warto sprawdzać LOGI, a nie tylko status usługi — sam status mógł wyglądać na 'aktywny', mimo realnego problemu.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "web-diagnoza",
+        "user": "admin",
+        "banner": "Zgłoszenie: strona WWW nie odpowiada od 10 minut. Rozpocznij diagnozę.",
+        "startPath": "/home/admin",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "admin": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            },
+            "var": {
+              "type": "dir",
+              "children": {
+                "log": {
+                  "type": "dir",
+                  "children": {
+                    "nginx": {
+                      "type": "dir",
+                      "children": {
+                        "error.log": {
+                          "type": "file",
+                          "content": "2026/03/02 10:14:01 [crit] 812#812: *55 open() \"/var/cache/nginx/tmp/000001\" failed (28: no space left on device)\n2026/03/02 10:14:02 [error] 812#812: *55 client intended to send too large body\n"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "cannedCommands": {
+          "systemctl status nginx": "● nginx.service - A high performance web server\n   Active: active (running) since 2026-03-02 08:00:00 UTC",
+          "ss -tulpn": "tcp   LISTEN 0.0.0.0:80   nginx"
+        }
+      },
+      "points": 25
+    }
+  ]
+}
