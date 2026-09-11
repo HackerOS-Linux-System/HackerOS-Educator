@@ -1,0 +1,68 @@
+{
+  "id": "linux-systemd-services",
+  "title": "systemd i zarządzanie usługami",
+  "summary": "Uruchamianie, zatrzymywanie i diagnozowanie usług systemowych za pomocą systemctl i journalctl.",
+  "category": "Zarządzanie systemem",
+  "difficulty": "Średni",
+  "track": "linux-admin",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "linux-admin-intro"
+  ],
+  "tags": [
+    "linux",
+    "systemd",
+    "usługi",
+    "systemctl"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest systemd?",
+      "kind": "info",
+      "content": "## systemd — system init\n\nWiększość nowoczesnych dystrybucji (w tym HackerOS) używa **systemd** jako systemu inicjującego (PID 1) — pierwszego procesu uruchamianego przez jądro, który następnie startuje wszystkie pozostałe usługi (tzw. *unit files*, pliki `.service`).\n\nGłówne narzędzie do zarządzania to `systemctl`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Praktyka: status i sterowanie usługą",
+      "kind": "practical",
+      "content": "## systemctl w akcji\n\nSpróbuj (część poleceń może wymagać uprawnień i różnić się w zależności od dostępnych usług w środowisku ćwiczeniowym):\n\n```bash\nsystemctl status ssh 2>&1 | head -n 5\nsystemctl list-units --type=service --state=running | head -n 10\nsudo systemctl restart ssh\nsudo systemctl enable ssh\n```\n\n`enable` sprawia, że usługa wystartuje automatycznie przy każdym uruchomieniu systemu — to co innego niż jej bieżące uruchomienie (`start`).",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "start vs enable",
+      "kind": "question",
+      "content": "## Różnica start / enable\n\n- `systemctl start nazwa` — uruchamia usługę TERAZ, jednorazowo.\n- `systemctl enable nazwa` — sprawia, że usługa uruchomi się automatycznie przy KAŻDYM starcie systemu.\n\nAdministratorzy często łączą oba: `systemctl enable --now nazwa`.",
+      "question": "Jakiego polecenia systemctl użyjesz, aby usługa uruchamiała się automatycznie przy każdym starcie systemu (bez uruchamiania jej teraz)?",
+      "answer": "enable",
+      "hint": "To NIE jest 'start'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "journalctl — dziennik systemu",
+      "kind": "question",
+      "content": "## Logi systemd\n\n`journalctl` pozwala przeglądać scentralizowany dziennik zdarzeń systemd (logi jądra, usług, komunikaty startowe). Przydatne flagi:\n\n```bash\njournalctl -u ssh          # logi konkretnej usługi\njournalctl -f              # śledzenie logów na żywo (follow)\njournalctl -p err          # tylko błędy\njournalctl --since \"1 hour ago\"\n```",
+      "question": "Jakiej flagi journalctl używa się, aby śledzić nowe logi na żywo (podobnie jak `tail -f`)?",
+      "answer": "-f",
+      "hint": "To ta sama litera co we `tail -f`.",
+      "walkthrough": "`journalctl -f` działa jak `tail -f /var/log/...` — pokazuje nowe wpisy w czasie rzeczywistym, aż przerwiesz je Ctrl+C.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Pliki unit",
+      "kind": "question",
+      "content": "## Anatomia pliku .service\n\nWłasne usługi definiuje się w plikach `.service`, np. `/etc/systemd/system/moja-app.service`:\n\n```ini\n[Unit]\nDescription=Moja własna usługa\nAfter=network.target\n\n[Service]\nExecStart=/usr/local/bin/moja-app\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target\n```\n\nPo dodaniu takiego pliku należy przeładować konfigurację systemd.",
+      "question": "Jakiego polecenia systemctl trzeba użyć po dodaniu/edycji pliku .service, aby systemd zauważył zmiany (bez restartu całego systemu)?",
+      "answer": "systemctl daemon-reload",
+      "hint": "Dwa słowa, drugie zaczyna się na 'daemon'.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 20
+    }
+  ]
+}
