@@ -1,0 +1,67 @@
+{
+  "id": "programming-hackerlang-basics",
+  "title": "Podstawy Hacker Lang",
+  "summary": "Poznaj Hacker Lang (.hl) — natywny język skryptowy HackerOS do automatyzacji terminala i instalatorów systemowych.",
+  "category": "Języki HackerOS",
+  "difficulty": "Łatwy",
+  "track": "programming",
+  "language": "hackerlang",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "programming-shell-basics"
+  ],
+  "tags": [
+    "hackerlang",
+    "hackeros",
+    "skrypty"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest Hacker Lang?",
+      "kind": "info",
+      "content": "## Hacker Lang (.hl)\n\n**Hacker Lang** to język skryptowy stworzony jako część ekosystemu dystrybucji **HackerOS** — używany m.in. do pisania instalatorów pakietów (`install.hl`, `remove.hl`) i automatyzacji zadań terminalowych. Łączy zwięzłą, symboliczną składnię z czytelnością.\n\n```hl\n/// Witaj w Hacker Lang!\n% name    = HackerOS\n% version = 0.1.0\n\n:: hr 40\n:: bold  Hacker Lang v@version\n:: hr 40\n\n~> Witaj w @name!\n:: green  Wszystko dziala poprawnie.\n```\n\nZauważ: `%` deklaruje zmienną, `@nazwa` odczytuje jej wartość (interpolacja), a `~>` wypisuje linię tekstu. `::` to polecenia formatujące wyjście terminala (np. `bold`, `green`, `hr` — pozioma linia).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Zmienne i interpolacja",
+      "kind": "question",
+      "content": "## Deklaracja zmiennej\n\nW Hacker Lang zmienną deklaruje się znakiem `%`, a odwołujesz się do niej przez `@`:\n\n```hl\n% miasto = Warszawa\n~> Mieszkam w @miasto\n```\n\nTo wypisze: `Mieszkam w Warszawa`.",
+      "question": "Jakiego znaku (symbolu) używa się w Hacker Lang do ODCZYTANIA wartości zmiennej wewnątrz tekstu (interpolacji)?",
+      "answer": "@",
+      "hint": "To ten sam znak co w adresach e-mail.",
+      "walkthrough": "Zmienną deklarujesz przez `%`, a odczytujesz przez `@nazwa` — np. `% x = 5` a potem `~> wartosc to @x`.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Wypisywanie tekstu",
+      "kind": "question",
+      "content": "## Operator wypisania\n\nDo wypisania linii tekstu na terminal służy strzałka `~>`:\n\n```hl\n~> To jest wiadomość na ekranie.\n```",
+      "question": "Jakiego dwuznakowego symbolu (strzałki) używa się w Hacker Lang do wypisania tekstu na ekran?",
+      "answer": "~>",
+      "hint": "To tylda plus znak większości.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Formatowanie: :: (kolory i styl)",
+      "kind": "question",
+      "content": "## Polecenia formatujące\n\nPodwójny dwukropek `::` uruchamia polecenie formatujące wyjście terminala, np.:\n\n```hl\n:: bold Ważny nagłówek\n:: green Sukces!\n:: hr 40\n:: nl\n```\n\n`hr 40` rysuje poziomą linię o długości 40 znaków, a `nl` wstawia pustą linię (new line).",
+      "question": "Jakiego polecenia :: użyjesz, aby narysować poziomą linię separatora w terminalu?",
+      "answer": "hr",
+      "hint": "To skrót od 'horizontal rule', tak jak w HTML.",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: pierwszy skrypt .hl",
+      "kind": "practical",
+      "content": "## Uruchom Hacker Lang w terminalu\n\nJeśli Twoje środowisko HackerOS ma zainstalowany interpreter `hl`, spróbuj:\n\n```bash\ncat > powitanie.hl << 'EOF'\n% imie = Kursant\n:: bold Witaj w Hacker Lang!\n~> Cześć, @imie!\n:: green Skrypt zakończony sukcesem.\nEOF\nhl powitanie.hl\n```\n\nJeśli polecenie `hl` nie jest dostępne w Twoim środowisku ćwiczeniowym, przeanalizuj kod: co dokładnie wypisze ten skrypt na ekran, krok po kroku?",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
