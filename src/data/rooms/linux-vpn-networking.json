@@ -1,0 +1,67 @@
+{
+  "id": "linux-vpn-networking",
+  "title": "VPN i zaawansowana sieć",
+  "summary": "Jak działają wirtualne sieci prywatne, różnice WireGuard vs OpenVPN oraz podstawy segmentacji sieci przez VLAN.",
+  "category": "Sieci",
+  "difficulty": "Trudny",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-networking-admin"
+  ],
+  "tags": [
+    "linux",
+    "vpn",
+    "wireguard",
+    "vlan"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Po co VPN?",
+      "kind": "info",
+      "content": "## Wirtualna sieć prywatna\n\n**VPN** (Virtual Private Network) tworzy zaszyfrowany 'tunel' między dwoma punktami przez publiczną sieć (internet), sprawiając wrażenie, jakby oba urządzenia były w tej samej, prywatnej sieci lokalnej. Typowe zastosowania: bezpieczny zdalny dostęp pracowników do sieci firmowej oraz łączenie odległych biur (site-to-site VPN).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "WireGuard vs OpenVPN",
+      "kind": "question",
+      "content": "## Nowoczesna alternatywa\n\n**OpenVPN** to dojrzały, elastyczny standard sprzed ponad dekady, ale stosunkowo złożony konfiguracyjnie. **WireGuard** to nowocześniejsze rozwiązanie z dużo mniejszą bazą kodu (łatwiejszą do audytu bezpieczeństwa), prostszą konfiguracją i zazwyczaj wyższą wydajnością dzięki nowoczesnej kryptografii wbudowanej bezpośrednio w jądro Linuksa.",
+      "question": "Które z tych dwóch rozwiązań VPN (WireGuard/OpenVPN) jest znane z ZNACZNIE mniejszej bazy kodu i prostszej konfiguracji?",
+      "answer": "WireGuard",
+      "hint": "To nowsze z tych dwóch rozwiązań.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Site-to-site vs remote access VPN",
+      "kind": "question",
+      "content": "## Dwa modele użycia\n\n**Remote access VPN** — pojedynczy użytkownik (np. pracownik z domu) łączy się z siecią firmową. **Site-to-site VPN** — CAŁE sieci dwóch lokalizacji (np. dwóch biur firmy) są ze sobą trwale połączone tunelem, transparentnie dla użytkowników po obu stronach.",
+      "question": "Jak (po angielsku, dwa słowa: 'site-to-...') nazywa się typ VPN łączący CAŁE sieci dwóch oddzielnych lokalizacji, a nie pojedynczego użytkownika?",
+      "answer": "site-to-site",
+      "hint": "To dosłownie 'z miejsca do miejsca'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "VLAN — segmentacja sieci",
+      "kind": "question",
+      "content": "## Wirtualne podsieci na jednym przełączniku\n\n**VLAN** (Virtual LAN) pozwala logicznie podzielić JEDEN fizyczny przełącznik sieciowy na wiele odizolowanych od siebie sieci — np. VLAN 10 dla pracowników, VLAN 20 dla gości Wi-Fi, VLAN 30 dla serwerów. Ruch z jednego VLAN-u domyślnie NIE dociera do drugiego bez przejścia przez router/firewall, co ogranicza zasięg potencjalnego włamania.",
+      "question": "Jakim skrótem (4 litery) określa się technologię logicznego dzielenia jednej fizycznej sieci na wiele odizolowanych segmentów?",
+      "answer": "VLAN",
+      "hint": "To skrót od Virtual Local Area Network.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Segmentacja jako obrona",
+      "kind": "question",
+      "content": "## Dlaczego segmentacja ogranicza szkody\n\nJeśli atakujący przejmie komputer w segmencie 'goście Wi-Fi', dobra segmentacja VLAN uniemożliwi mu bezpośredni dostęp do segmentu 'serwery produkcyjne' bez pokonania dodatkowej bariery (firewalla między VLAN-ami). To praktyczne zastosowanie zasady 'defense in depth' na poziomie sieci.",
+      "question": "Jak (po polsku, jednym słowem) nazywa się praktyka DZIELENIA sieci na mniejsze, izolowane od siebie części w celu ograniczenia zasięgu potencjalnego incydentu?",
+      "answer": "segmentacja",
+      "hint": "To rzeczownik odczasownikowy od 'segmentować' — dzielić na segmenty.",
+      "points": 15
+    }
+  ]
+}
