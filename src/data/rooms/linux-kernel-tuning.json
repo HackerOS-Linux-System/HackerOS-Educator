@@ -1,0 +1,65 @@
+{
+  "id": "linux-kernel-tuning",
+  "title": "Strojenie jądra i wydajności",
+  "summary": "Parametry sysctl, limity systemowe (ulimit) oraz diagnozowanie wąskich gardeł wydajności serwera.",
+  "category": "Monitoring",
+  "difficulty": "Ekspert",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-monitoring-stack"
+  ],
+  "tags": [
+    "linux",
+    "wydajność",
+    "sysctl",
+    "tuning"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "sysctl — parametry jądra w locie",
+      "kind": "info",
+      "content": "## Dostrajanie zachowania jądra\n\nJądro Linuksa udostępnia setki parametrów konfigurowalnych 'w locie' (bez rekompilacji ani restartu) przez `sysctl`, np.:\n\n```bash\nsysctl net.ipv4.ip_forward       # sprawdź wartość\nsudo sysctl -w net.ipv4.ip_forward=1   # zmień tymczasowo\n```\n\nAby zmiana przetrwała restart, dodaje się ją do `/etc/sysctl.conf` lub pliku w `/etc/sysctl.d/`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Praktyka: sprawdzanie parametrów jądra",
+      "kind": "practical",
+      "content": "## Zbadaj bieżącą konfigurację\n\nSpróbuj w terminalu:\n\n```bash\nsysctl -a 2>/dev/null | grep -i \"net.ipv4.ip_forward\"\nsysctl vm.swappiness\nulimit -n\n```\n\n`vm.swappiness` kontroluje, jak agresywnie jądro przenosi dane z RAM do partycji wymiany (swap), a `ulimit -n` pokazuje limit liczby jednocześnie otwartych deskryptorów plików dla bieżącej powłoki.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "ulimit — limity zasobów procesu",
+      "kind": "question",
+      "content": "## Zabezpieczenie przed 'wyciekami' zasobów\n\n`ulimit` ogranicza zasoby dostępne dla procesów danej powłoki: liczbę otwartych plików, rozmiar pliku core dump, liczbę procesów. Domyślny limit otwartych plików (często 1024) bywa ZA NISKI dla serwerów obsługujących tysiące jednoczesnych połączeń (np. baz danych, serwerów web pod dużym obciążeniem) i wymaga podniesienia.",
+      "question": "Jakiej flagi `ulimit` używa się do sprawdzenia/ustawienia limitu liczby jednocześnie OTWARTYCH PLIKÓW dla powłoki?",
+      "answer": "-n",
+      "hint": "To pierwsza litera słowa 'number' (of open files).",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Swappiness",
+      "kind": "question",
+      "content": "## Kiedy jądro sięga po dysk zamiast RAM\n\nParametr `vm.swappiness` (0-100) kontroluje, jak CHĘTNIE jądro przenosi rzadziej używane dane z pamięci RAM do znacznie wolniejszej partycji wymiany (swap). Na serwerach bazodanowych administratorzy często OBNIŻAJĄ tę wartość (np. do 10), by jądro trzymało jak najwięcej danych w szybkiej pamięci RAM, zamiast przedwcześnie sięgać po wolny dysk.",
+      "question": "Aby jądro rzadziej używało swap na rzecz pamięci RAM, wartość `vm.swappiness` należy USTAWIĆ (zwiększyć czy zmniejszyć)?",
+      "answer": "zmniejszyć",
+      "hint": "Niższa wartość = mniejsza 'chętność' do swapowania.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Metodyka diagnozowania wąskich gardeł",
+      "kind": "question",
+      "content": "## USE Method\n\nPrzy diagnozowaniu problemów z wydajnością, popularna metodyka **USE** (Brendan Gregg) sugeruje sprawdzenie dla każdego zasobu (CPU, pamięć, dysk, sieć) trzech wskaźników: **Utilization** (wykorzystanie), **Saturation** (nasycenie — kolejka oczekujących), **Errors** (błędy). Systematyczne przejście przez te trzy pytania dla każdego zasobu pozwala szybko zawęzić, GDZIE faktycznie leży wąskie gardło.",
+      "question": "Jakim skrótem (3 litery po angielsku) określa się metodykę diagnozowania wydajności opartą na sprawdzeniu wykorzystania, nasycenia i błędów każdego zasobu?",
+      "answer": "USE",
+      "hint": "To skrót od Utilization, Saturation, Errors.",
+      "points": 20
+    }
+  ]
+}
