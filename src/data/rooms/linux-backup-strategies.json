@@ -1,0 +1,66 @@
+{
+  "id": "linux-backup-strategies",
+  "title": "Strategie kopii zapasowych",
+  "summary": "Zasada 3-2-1, narzędzia rsync i tar oraz różnice między backupem pełnym, przyrostowym i różnicowym.",
+  "category": "Zarządzanie systemem",
+  "difficulty": "Średni",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-cron-automation"
+  ],
+  "tags": [
+    "linux",
+    "backup",
+    "rsync",
+    "tar"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Zasada 3-2-1",
+      "kind": "info",
+      "content": "## Złota zasada kopii zapasowych\n\n**3-2-1**: 3 kopie danych, na 2 różnych nośnikach, z czego 1 kopia poza siedzibą firmy (off-site) — np. w chmurze lub innym centrum danych. Chroni to nawet przed pożarem czy powodzią w jednej lokalizacji.\n\nAdministrator NIGDY nie polega na jednej kopii w jednym miejscu, niezależnie od tego, jak 'niezawodny' wydaje się dysk.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Praktyka: rsync",
+      "kind": "practical",
+      "content": "## Synchronizacja danych\n\n`rsync` kopiuje TYLKO zmienione fragmenty plików (nie całe pliki od nowa), co czyni go idealnym do backupów przyrostowych:\n\n```bash\nmkdir -p zrodlo cel\necho \"dane produkcyjne\" > zrodlo/plik.txt\nrsync -avh zrodlo/ cel/\nls cel/\n# zmodyfikuj plik i zsynchronizuj ponownie\necho \"nowa linia\" >> zrodlo/plik.txt\nrsync -avh zrodlo/ cel/\n```\n\nFlagi: `-a` (archive — zachowuje uprawnienia, daty), `-v` (verbose), `-h` (human-readable).",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Backup pełny vs przyrostowy",
+      "kind": "question",
+      "content": "## Różnice w strategiach\n\n- **Pełny** (full) — kopiuje WSZYSTKO za każdym razem. Proste odtwarzanie, ale wolne i zajmuje dużo miejsca.\n- **Przyrostowy** (incremental) — kopiuje tylko zmiany OD OSTATNIEGO backupu (pełnego lub przyrostowego). Szybki, ale odtwarzanie wymaga całego łańcucha kopii.\n- **Różnicowy** (differential) — kopiuje zmiany OD OSTATNIEGO backupu PEŁNEGO. Kompromis między szybkością a prostotą odtwarzania.",
+      "question": "Który typ backupu kopiuje TYLKO zmiany od ostatniego backupu PEŁNEGO (nie od poprzedniego jakiegokolwiek backupu)? (jedno słowo po polsku)",
+      "answer": "różnicowy",
+      "hint": "To NIE jest 'przyrostowy' — to trzecia, pośrednia opcja.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "tar — archiwizacja",
+      "kind": "question",
+      "content": "## Archiwum tar\n\n`tar` (tape archive) pakuje wiele plików w jedno archiwum, często z kompresją gzip:\n\n```bash\ntar -czvf backup.tar.gz /etc/nginx\ntar -xzvf backup.tar.gz\n```\n\nFlagi: `c` (create), `x` (extract), `z` (gzip), `v` (verbose), `f` (nazwa pliku archiwum).",
+      "question": "Jakiej flagi `tar` (jedna litera) używa się do UTWORZENIA nowego archiwum (w przeciwieństwie do wypakowania istniejącego)?",
+      "answer": "c",
+      "hint": "To pierwsza litera słowa 'create'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Testowanie odtwarzania",
+      "kind": "question",
+      "content": "## Backup, którego nikt nie testował, nie istnieje\n\nNajczęstszy błąd administracyjny: tworzenie kopii zapasowych bez REGULARNEGO testowania, czy w ogóle da się z nich cokolwiek odtworzyć. Backup, który nie przeszedł testu odtworzenia, jest niepewny — dowiadujemy się, że jest uszkodzony, dopiero gdy naprawdę go potrzebujemy.",
+      "question": "Jakim (angielskim) terminem określa się proces sprawdzenia, że dane z kopii zapasowej faktycznie da się poprawnie odzyskać?",
+      "answer": "restore test",
+      "hint": "Dwa słowa: 'przywróć' + 'test'.",
+      "points": 15
+    }
+  ]
+}
