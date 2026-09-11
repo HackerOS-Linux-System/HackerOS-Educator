@@ -1,0 +1,65 @@
+{
+  "id": "linux-cron-automation",
+  "title": "Automatyzacja: cron i systemd timers",
+  "summary": "Planowanie zadań cyklicznych: składnia crontab, at oraz nowoczesna alternatywa — systemd timers.",
+  "category": "Automatyzacja",
+  "difficulty": "Średni",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-systemd-services"
+  ],
+  "tags": [
+    "linux",
+    "cron",
+    "automatyzacja",
+    "systemd"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Składnia crontaba",
+      "kind": "info",
+      "content": "## Pięć pól crona\n\n`crontab -e` otwiera edycję zadań cyklicznych bieżącego użytkownika. Składnia to pięć pól czasu plus polecenie:\n\n```\n#  min godz dzień-mies miesiąc dzień-tyg  polecenie\n   0    3     *          *        *       /usr/local/bin/backup.sh\n```\n\nPowyższy wpis uruchamia `backup.sh` codziennie o 3:00 w nocy. Gwiazdka `*` oznacza „każda wartość”.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Zaplanuj zadanie",
+      "kind": "question",
+      "content": "## Ćwiczenie ze składnią crona\n\nChcesz, aby skrypt uruchamiał się co godzinę, o pełnej godzinie (minuta 0), każdego dnia.",
+      "question": "Podaj wartość pierwszego pola (minuty) w wyrażeniu cron, aby zadanie uruchamiało się o pełnej godzinie.",
+      "answer": "0",
+      "hint": "To najprostsza możliwa wartość — liczba, nie gwiazdka.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Praktyka: crontab",
+      "kind": "practical",
+      "content": "## Zobacz swoje zadania cron\n\nSpróbuj:\n\n```bash\ncrontab -l\necho \"0 3 * * * echo backup\" | crontab -\ncrontab -l\ncrontab -r  # usuwa wszystkie zadania bieżącego użytkownika — ostrożnie!\n```\n\n`crontab -l` (list) pokazuje bieżące zadania — jeśli nie masz żadnych, zobaczysz komunikat o pustym crontabie.",
+      "hasTerminal": true,
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "systemd timers — nowoczesna alternatywa",
+      "kind": "question",
+      "content": "## Timery zamiast crona\n\nsystemd oferuje jednostki `.timer` powiązane z jednostkami `.service` — dają lepsze logowanie (przez `journalctl`) i obsługę zależności niż klasyczny cron. Timer aktywuje się poleceniem `systemctl enable --now nazwa.timer`.",
+      "question": "Jakim rozszerzeniem pliku opisuje się harmonogram w systemd (odpowiednik crontaba)?",
+      "answer": ".timer",
+      "hint": "To rozszerzenie pliku jednostki, analogiczne do .service.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "at — jednorazowe zadania",
+      "kind": "question",
+      "content": "## Jednorazowe wykonanie\n\nW odróżnieniu od crona (zadania cykliczne), polecenie `at` planuje JEDNORAZOWE wykonanie w przyszłości, np. `echo \"./skrypt.sh\" | at now + 5 minutes`.",
+      "question": "Jak nazywa się polecenie służące do planowania JEDNORAZOWEGO (nie cyklicznego) zadania w przyszłości?",
+      "answer": "at",
+      "hint": "To bardzo krótkie, dwuliterowe polecenie.",
+      "points": 10
+    }
+  ]
+}
