@@ -1,0 +1,66 @@
+{
+  "id": "api-security-basics",
+  "title": "Bezpieczeństwo API",
+  "summary": "Uwierzytelnianie tokenami, JWT, limitowanie zapytań oraz najczęstsze błędy zabezpieczeń interfejsów REST.",
+  "category": "Bezpieczeństwo aplikacji",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "web-security-fundamentals"
+  ],
+  "tags": [
+    "api",
+    "jwt",
+    "rest"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "API jako nowa powierzchnia ataku",
+      "kind": "info",
+      "content": "## Aplikacje bez API prawie nie istnieją\n\nWspółczesne aplikacje (webowe, mobilne) niemal zawsze komunikują się z backendem przez **API** (Application Programming Interface), najczęściej REST z formatem JSON. Każdy endpoint API to potencjalny punkt ataku — OWASP publikuje osobną listę 'API Security Top 10', bo API mają swoją specyfikę ryzyk (np. brak limitowania zapytań, nadmierna ekspozycja danych).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Tokeny zamiast sesji ciasteczkowych",
+      "kind": "question",
+      "content": "## Bezstanowe uwierzytelnianie\n\nAPI często używają **tokenów** (np. JWT — JSON Web Token) zamiast tradycyjnych sesji opartych na ciasteczkach. Klient przesyła token w nagłówku `Authorization: Bearer <token>` przy KAŻDYM zapytaniu, a serwer weryfikuje jego ważność bez potrzeby przechowywania stanu sesji.",
+      "question": "Jakim skrótem (3 litery) określa się popularny, samowystarczalny format tokenu uwierzytelniającego używany w API (JSON Web ...)?",
+      "answer": "JWT",
+      "hint": "To skrót od JSON Web Token.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Rate limiting",
+      "kind": "question",
+      "content": "## Ochrona przed nadużyciem\n\n**Rate limiting** (limitowanie zapytań) ogranicza liczbę żądań, jakie klient może wysłać do API w danym okresie (np. 100 zapytań/minutę). Bez tego mechanizmu API jest podatne na ataki typu brute-force (np. zgadywanie haseł) i odmowę usługi (DoS) przez zwykłe zalewanie serwera zapytaniami.",
+      "question": "Jak (dwa słowa po angielsku: 'rate ...') nazywa się mechanizm ograniczający liczbę zapytań, jakie klient może wykonać w danym czasie?",
+      "answer": "rate limiting",
+      "hint": "Pierwsze słowo oznacza 'tempo/wskaźnik'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Nadmierna ekspozycja danych",
+      "kind": "question",
+      "content": "## Excessive Data Exposure\n\nCzęsty błąd API: endpoint zwraca CAŁY obiekt z bazy danych (łącznie z polami jak hash hasła czy dane wewnętrzne), polegając na tym, że frontend 'i tak wyświetli tylko potrzebne pola'. Problem: atakujący widzi SUROWĄ odpowiedź API, nie tylko to, co renderuje interfejs. Zasada: backend powinien zwracać TYLKO te pola, które są faktycznie potrzebne klientowi.",
+      "question": "Jak (po angielsku, dwa słowa: 'excessive data ...') nazywa się podatność polegająca na zwracaniu przez API więcej danych niż faktycznie potrzeba klientowi?",
+      "answer": "excessive data exposure",
+      "hint": "Ostatnie słowo oznacza 'ekspozycja'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Wersjonowanie i wygaszanie starych wersji API",
+      "kind": "question",
+      "content": "## Zapomniane, stare endpointy\n\nOrganizacje często zapominają WYŁĄCZYĆ stare wersje API (np. `/api/v1/`) po wdrożeniu nowszej (`/api/v2/`). Stara wersja, rzadziej aktualizowana i monitorowana, staje się łatwiejszym celem — to zjawisko nazywane 'shadow API' lub 'zombie API'.",
+      "question": "Jak (po angielsku, dwa słowa: 'zombie ...' lub 'shadow ...') nazywa się zapomniany, wciąż aktywny, ale nieaktualizowany endpoint API?",
+      "answer": "zombie API",
+      "hint": "Nawiązuje do czegoś, co 'powinno być martwe', ale wciąż działa.",
+      "points": 15
+    }
+  ]
+}
