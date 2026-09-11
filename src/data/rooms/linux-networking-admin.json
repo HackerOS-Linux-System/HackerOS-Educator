@@ -1,0 +1,66 @@
+{
+  "id": "linux-networking-admin",
+  "title": "Administracja siecią w Linuksie",
+  "summary": "Konfiguracja interfejsów sieciowych, diagnostyka połączeń i podstawowa zapora sieciowa (firewall).",
+  "category": "Sieci",
+  "difficulty": "Średni",
+  "track": "linux-admin",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "linux-admin-intro"
+  ],
+  "tags": [
+    "linux",
+    "sieć",
+    "firewall",
+    "ip"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Nowoczesne narzędzia sieciowe",
+      "kind": "info",
+      "content": "## ip zamiast ifconfig\n\nStare polecenia jak `ifconfig` i `netstat` są uznawane za przestarzałe (deprecated) na rzecz pakietu `iproute2`: `ip` i `ss`.\n\n```bash\nip addr show          # adresy IP interfejsów\nip route show         # tablica routingu\nss -tulpn             # nasłuchujące porty (zamiast netstat -tulpn)\n```",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Praktyka: diagnostyka sieci",
+      "kind": "practical",
+      "content": "## Sprawdź swoją konfigurację sieciową\n\nSpróbuj w terminalu:\n\n```bash\nip addr show\nip route show\nss -tulpn 2>&1 | head -n 10\nping -c 3 1.1.1.1\n```\n\nZwróć uwagę na interfejs `lo` (loopback, 127.0.0.1) oraz swój główny interfejs (np. `eth0` / `enp0s3` / `wlan0`).",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Który port robi co?",
+      "kind": "question",
+      "content": "## Porty nasłuchujące\n\n`ss -tulpn` pokazuje, jakie usługi nasłuchują na jakich portach. Litery flag: `-t` TCP, `-u` UDP, `-l` listening, `-p` proces, `-n` numeryczne porty (bez rozwiązywania nazw).",
+      "question": "Jaki standardowy numer portu TCP używa protokół SSH?",
+      "answer": "22",
+      "hint": "To port dwucyfrowy.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Firewall: ufw",
+      "kind": "question",
+      "content": "## Uncomplicated Firewall\n\n`ufw` to przyjazna nakładka na `iptables`/`nftables`. Typowe użycie:\n\n```bash\nsudo ufw status\nsudo ufw allow 22/tcp\nsudo ufw allow from 192.168.1.0/24\nsudo ufw enable\n```\n\nZasada „default deny” — najpierw blokuj wszystko, potem świadomie otwieraj tylko potrzebne porty.",
+      "question": "Jakiego polecenia ufw użyjesz, aby zezwolić na ruch przychodzący na porcie 22 protokołu TCP?",
+      "answer": "ufw allow 22/tcp",
+      "hint": "Zaczyna się od 'ufw allow'.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Zasada najmniejszych uprawnień w sieci",
+      "kind": "question",
+      "content": "## Dobre praktyki firewalla\n\nZasada „default deny, allow by exception” minimalizuje powierzchnię ataku — otwierasz tylko to, co faktycznie potrzebne.",
+      "question": "Jak nazywa się zasada bezpieczeństwa mówiąca, że domyślnie blokujesz cały ruch i świadomie otwierasz tylko wyjątki? (dwa słowa po angielsku, pierwsze to 'default')",
+      "answer": "default deny",
+      "hint": "Przeciwieństwo to 'default allow'.",
+      "points": 15
+    }
+  ]
+}
