@@ -1,0 +1,55 @@
+{
+  "id": "linux-package-management",
+  "title": "Zarządzanie pakietami",
+  "summary": "Instalacja, aktualizacja i usuwanie oprogramowania: apt, dnf/pacman oraz natywny menedżer HackerOS.",
+  "category": "Zarządzanie systemem",
+  "difficulty": "Łatwy",
+  "track": "linux-admin",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "linux-admin-intro"
+  ],
+  "tags": [
+    "linux",
+    "pakiety",
+    "apt",
+    "hackeros"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Menedżery pakietów w skrócie",
+      "kind": "info",
+      "content": "## apt, dnf, pacman...\n\nRóżne rodziny dystrybucji mają różne menedżery pakietów:\n\n| Rodzina | Menedżer | Przykład instalacji |\n|---|---|---|\n| Debian/Ubuntu | `apt` | `sudo apt install nazwa` |\n| Fedora/RHEL | `dnf` | `sudo dnf install nazwa` |\n| Arch | `pacman` | `sudo pacman -S nazwa` |\n\nHackerOS (jako dystrybucja edukacyjna zorientowana na cyberbezpieczeństwo) dostarcza też własne skrypty instalacyjne dla swoich narzędzi — np. `install.hl` napisany w Hacker Lang, który widziałeś przy okazji tego projektu (`scripts/install.hl`).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Cykl życia pakietu",
+      "kind": "question",
+      "content": "## update vs upgrade\n\nW rodzinie apt istnieje ważne rozróżnienie:\n\n- `apt update` — odświeża LISTĘ dostępnych pakietów z repozytoriów (nie instaluje niczego).\n- `apt upgrade` — faktycznie AKTUALIZUJE zainstalowane pakiety do nowszych wersji.\n\nCzęsta pułapka początkujących: zapomnienie o `update` przed `upgrade` skutkuje aktualizacją do nieaktualnych metadanych.",
+      "question": "Jakiego polecenia apt użyjesz, aby TYLKO odświeżyć listę dostępnych pakietów, bez instalowania czegokolwiek?",
+      "answer": "apt update",
+      "hint": "To NIE jest 'apt upgrade'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Praktyka: sprawdzanie pakietów",
+      "kind": "practical",
+      "content": "## Odkrywanie zainstalowanego oprogramowania\n\nSpróbuj w terminalu (dostosuj do menedżera dostępnego w Twoim środowisku):\n\n```bash\nwhich python3\napt list --installed 2>/dev/null | head -n 10\ndpkg -l | grep -i curl\n```\n\nTe polecenia pomagają odpowiedzieć na pytanie „czy to jest już zainstalowane, i w jakiej wersji?” — zanim zaczniesz cokolwiek instalować od nowa.",
+      "hasTerminal": true,
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Usuwanie pakietów bez śmieci",
+      "kind": "question",
+      "content": "## purge i autoremove\n\n`apt remove pakiet` usuwa program, ale zostawia pliki konfiguracyjne. `apt purge pakiet` usuwa też konfigurację. `apt autoremove` sprząta osierocone zależności, których nikt już nie potrzebuje.",
+      "question": "Jakiego polecenia apt (jedno słowo po 'apt') użyjesz, aby usunąć pakiet WRAZ z jego plikami konfiguracyjnymi?",
+      "answer": "purge",
+      "hint": "To mocniejsza wersja 'remove'.",
+      "points": 15
+    }
+  ]
+}
