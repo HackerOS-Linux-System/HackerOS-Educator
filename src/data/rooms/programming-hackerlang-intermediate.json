@@ -1,0 +1,67 @@
+{
+  "id": "programming-hackerlang-intermediate",
+  "title": "Hacker Lang: pętle, warunki i potoki",
+  "summary": "Zmienne złożone, pętle while/for-in, przechwytywanie wyjścia potoku (PipeToVar) i instrukcja switch w Hacker Lang.",
+  "category": "Języki HackerOS",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "hackerlang",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "programming-hackerlang-basics"
+  ],
+  "tags": [
+    "hackerlang",
+    "hackeros",
+    "pętle"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Pętla warunkowa ?~",
+      "kind": "info",
+      "content": "## Pętla while (?~)\n\nHacker Lang (gen 2) oferuje pętlę warunkową `?~ warunek ... done`:\n\n```hl\nusing <gen 2>\n\n% _i = 1\n?~ @_i <= 5\n    ~> Numer: @_i\n    $(@_i + 1) -> @_i\ndone\n```\n\n`$(wyrażenie) -> @zmienna` to notacja arytmetyczna: oblicz wyrażenie w nawiasie i zapisz wynik do zmiennej po prawej stronie strzałki.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Arytmetyka i przypisanie wyniku",
+      "kind": "question",
+      "content": "## $(...) -> @zmienna\n\nAby dodać 1 do zmiennej `_i` i zapisać wynik z powrotem do `_i`:\n\n```hl\n$(@_i + 1) -> @_i\n```",
+      "question": "Jakiego symbolu (dwuznakowej strzałki) używa się w Hacker Lang do zapisania WYNIKU wyrażenia arytmetycznego do zmiennej?",
+      "answer": "->",
+      "hint": "To myślnik plus znak większości, tak jak strzałka funkcji w wielu językach.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Iteracja po liście: ForIn",
+      "kind": "question",
+      "content": "## @ zmienna in @lista\n\nAby iterować po słowach zmiennej zawierającej listę oddzieloną spacjami:\n\n```hl\n% _owoce = jablko gruszka sliwka\n@ _owoc in @_owoce\n    ~> Owoc: @_owoc\ndone\n```",
+      "question": "Jakiego znaku (jednoliterowego) używa się na początku pętli ForIn w Hacker Lang (przed nazwą zmiennej iteracyjnej)?",
+      "answer": "@",
+      "hint": "To ten sam znak, którego używasz do odczytu zmiennych.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "PipeToVar — przechwytywanie potoku",
+      "kind": "question",
+      "content": "## |> @zmienna\n\nHacker Lang pozwala przechwycić wynik potoku poleceń systemowych bezpośrednio do zmiennej:\n\n```hl\n>> echo \"hello world\" | tr 'a-z' 'A-Z' |> @_wynik\n~> Duże litery: @_wynik\n```\n\nTo niezwykle przydatne przy pisaniu instalatorów, które muszą odczytać np. wersję zainstalowanego pakietu.",
+      "question": "Jakiego dwuznakowego operatora używa się do przechwycenia wyniku potoku systemowego do zmiennej Hacker Lang?",
+      "answer": "|>",
+      "hint": "To potok `|` plus znak większości.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "switch — wybór wielowariantowy",
+      "kind": "question",
+      "content": "## ? switch @zmienna\n\nZamiast długich łańcuchów warunków, Hacker Lang oferuje `switch`:\n\n```hl\n? switch @_dzien\n| Poniedzialek\n    ::yellow Start tygodnia\n| Piatek\n    ::green Prawie weekend\n| *\n    ~> Zwykly dzien\ndone\n```\n\nGwiazdka `*` to przypadek domyślny (analogiczny do `default` w innych językach).",
+      "question": "Jakim symbolem oznacza się przypadek DOMYŚLNY (default) w instrukcji switch Hacker Lang, dopasowujący się, gdy żaden inny wariant nie pasuje?",
+      "answer": "*",
+      "hint": "To gwiazdka — symbol 'dopasuj wszystko' znany też z shellowych wzorców plików.",
+      "points": 15
+    }
+  ]
+}
