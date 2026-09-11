@@ -1,0 +1,65 @@
+{
+  "id": "programming-hackerscript-advanced",
+  "title": "HackerScript: kompilator i narzędzia deweloperskie",
+  "summary": "Zajrzyj pod maskę własnego kompilatora HackerScript (hackerc): fazy leksera, parsera i diagnostyki błędów.",
+  "category": "Języki HackerOS",
+  "difficulty": "Ekspert",
+  "track": "programming",
+  "language": "hackerscript",
+  "estimatedMinutes": 40,
+  "prerequisites": [
+    "programming-hackerscript-intermediate"
+  ],
+  "tags": [
+    "hackerscript",
+    "hackeros",
+    "kompilator"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Jak powstaje program z tekstu?",
+      "kind": "info",
+      "content": "## Fazy kompilacji\n\nOficjalny kompilator HackerScript (`hackerc`) przetwarza kod źródłowy przez kilka klasycznych faz kompilacji, podobnie jak większość nowoczesnych języków:\n\n1. **Lekser** (lexer) — dzieli surowy tekst na 'tokeny' (słowa kluczowe, identyfikatory, liczby, symbole).\n2. **Parser** — z tokenów buduje drzewo składniowe (AST) reprezentujące strukturę programu.\n3. **Diagnostyka** — sprawdza poprawność (typy, niezdefiniowane zmienne) i zgłasza czytelne błędy.\n4. **Generacja kodu** — tłumaczy AST na kod wykonywalny/pośredni.\n\nRepozytorium HackerScript zawiera te fazy jako osobne pliki: `lexer.hcs`, `parser` i `diagnostics.hcs` w katalogu `hackerc/cmd/`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Czym jest token?",
+      "kind": "question",
+      "content": "## Najmniejsza jednostka znaczenia\n\n**Token** to najmniejsza, niepodzielna jednostka rozpoznawana przez lekser — np. słowo kluczowe `fun`, identyfikator `main`, liczba `42` czy symbol `+`. Lekser zamienia strumień pojedynczych znaków tekstu źródłowego w strumień tokenów, ignorując zbędne białe znaki i komentarze.",
+      "question": "Jak nazywa się faza kompilacji, która dzieli surowy tekst źródłowy na tokeny?",
+      "answer": "lekser",
+      "hint": "Po angielsku to 'lexer', od słowa 'lexical'.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "AST — drzewo składniowe",
+      "kind": "question",
+      "content": "## Struktura zamiast płaskiego tekstu\n\nParser buduje **AST** (Abstract Syntax Tree) — drzewiastą reprezentację programu, gdzie np. wyrażenie `2 + 3 * 4` jest reprezentowane jako drzewo z węzłem `+` mającym dzieci `2` i węzeł `*` (który z kolei ma dzieci `3` i `4`) — to naturalnie koduje PRIORYTET operatorów (mnożenie przed dodawaniem).",
+      "question": "Jakim skrótem (3 litery) określa się drzewiastą reprezentację struktury programu tworzoną przez parser?",
+      "answer": "AST",
+      "hint": "To skrót od Abstract Syntax Tree.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Dlaczego dobra diagnostyka błędów jest trudna?",
+      "kind": "question",
+      "content": "## Więcej niż 'syntax error'\n\nModuł `diagnostics.hcs` w kompilatorze HackerScript odpowiada za generowanie CZYTELNYCH komunikatów błędów — z numerem linii, kolumny, fragmentem kodu i sugestią naprawy — zamiast surowego 'syntax error'. Dobra diagnostyka to jedna z najbardziej niedocenianych, a najbardziej wpływających na wygodę programisty części każdego kompilatora.",
+      "question": "Jakie DWIE informacje (oprócz samego opisu błędu) dobry komunikat kompilatora powinien zawsze podawać, aby wskazać DOKŁADNE miejsce błędu w pliku? (dwa słowa oddzielone przecinkiem, po polsku: 'linia, kolumna')",
+      "answer": "linia, kolumna",
+      "hint": "To dwie współrzędne pozycji w tekście źródłowym.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: symulacja tokenizacji",
+      "kind": "practical",
+      "content": "## Ręczna tokenizacja prostego wyrażenia\n\nZanim komputer to zrobi, spróbuj ręcznie 'stokenizować' poniższy fragment HackerScript, tak jak zrobiłby to lekser:\n\n```hcs\nfun add(a: Int, b: Int) -> Int [\n    end a + b\n]\n```\n\nW terminalu zapisz swoją analizę:\n\n```bash\ncat << 'EOF'\nTokeny: fun, add, (, a, :, Int, ..., end, a, +, b, ]\nEOF\n```\n\nZauważ, że nawet spacje i wcięcia NIE są tokenami — lekser je pomija (o ile język nie jest wrażliwy na wcięcia, jak Python).",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
