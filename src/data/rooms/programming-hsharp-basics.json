@@ -1,0 +1,65 @@
+{
+  "id": "programming-hsharp-basics",
+  "title": "Podstawy H#",
+  "summary": "Poznaj H# — statycznie typowany język kompilowany HackerOS z czytelną, blokową składnią is...end.",
+  "category": "Języki HackerOS",
+  "difficulty": "Średni",
+  "track": "programming",
+  "language": "hsharp",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "programming-typescript-basics"
+  ],
+  "tags": [
+    "hsharp",
+    "hackeros",
+    "typowanie-statyczne"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest H#?",
+      "kind": "info",
+      "content": "## H# (.h#)\n\n**H#** to statycznie typowany, kompilowany język HackerOS, którego składnia przypomina połączenie Rusta i Pascala — bloki kodu kończy się słowem `end` zamiast klamer.\n\n```h#\nfn main() is\n    write(\"Hello from H#!\")\nend\n```\n\nFunkcję deklaruje się słowem `fn`, ciało funkcji zaczyna się od `is`, a kończy słowem `end`. Do wypisania tekstu służy funkcja `write(...)`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Deklaracja funkcji",
+      "kind": "question",
+      "content": "## fn ... is ... end\n\nKażdy blok kodu w H# (funkcje, struktury, warunki) kończy się tym samym słowem kluczowym — nie ma osobnych `}` czy `endif`/`endfn`.",
+      "question": "Jakiego JEDNEGO słowa kluczowego H# używa się do ZAKOŃCZENIA każdego bloku kodu (funkcji, struktury, if, match)?",
+      "answer": "end",
+      "hint": "To przeciwieństwo do 'is', którym blok się zaczyna.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Zmienne: let i mut",
+      "kind": "question",
+      "content": "## Typowanie i mutowalność\n\nZmienne w H# deklaruje się słowem `let` z jawnym typem:\n\n```h#\nlet pi: f64 = 3.14159\nlet mut licznik: int = 0\nlicznik += 1\n```\n\nDomyślnie zmienne są NIEMUTOWALNE (nie można ich zmienić po deklaracji) — aby zezwolić na zmianę wartości, trzeba dodać słowo `mut`.",
+      "question": "Jakiego dodatkowego słowa kluczowego trzeba użyć przy `let`, aby zmienna mogła być modyfikowana po zadeklarowaniu?",
+      "answer": "mut",
+      "hint": "To skrót od 'mutable'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Konkatenacja i konwersja",
+      "kind": "question",
+      "content": "## to_string()\n\nH# jest silnie typowany — nie można bezpośrednio połączyć `string` z `int` operatorem `+`. Trzeba jawnie skonwertować liczbę na tekst:\n\n```h#\nlet x: int = 42\nwrite(\"Wynik: \" + to_string(x))\n```",
+      "question": "Jakiej funkcji H# używa się do skonwertowania wartości liczbowej na tekst (string)?",
+      "answer": "to_string",
+      "hint": "Nazwa dosłownie mówi 'do stringa'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: pierwszy program H#",
+      "kind": "practical",
+      "content": "## Analiza i (opcjonalnie) uruchomienie\n\nJeśli masz dostęp do interpretera/kompilatora H# w swoim środowisku, spróbuj:\n\n```bash\ncat > hello.h# << 'EOF'\nfn main() is\n    let jezyk: string = \"H#\"\n    write(\"Hello from \" + jezyk + \"!\")\nend\nEOF\nhsharp run hello.h#\n```\n\nJeśli narzędzie `hsharp` nie jest dostępne w Twoim środowisku ćwiczeniowym, przeanalizuj kod: jaki dokładnie tekst zostanie wypisany na ekran?",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
