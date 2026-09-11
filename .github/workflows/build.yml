@@ -1,1 +1,58 @@
+name: Build
 
+# Tylko budowanie binarki — celowo BEZ żadnych testów/lintów/itp.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Zależności systemowe wymagane przez Tauri v2 (Linux)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libxdo-dev \
+            libssl-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust (src-tauri)
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: npm install
+        run: npm install
+
+      - name: npm run tauri build
+        run: npm run tauri build
+
+      - name: Wrzuć binarkę jako artefakt
+        uses: actions/upload-artifact@v4
+        with:
+          name: hackeros-educator-linux-bundle
+          path: |
+            src-tauri/target/release/bundle/**/*.deb
+            src-tauri/target/release/bundle/**/*.rpm
+            src-tauri/target/release/bundle/**/*.AppImage
+          if-no-files-found: error
