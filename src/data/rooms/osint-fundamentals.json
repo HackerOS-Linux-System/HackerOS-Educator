@@ -1,0 +1,66 @@
+{
+  "id": "osint-fundamentals",
+  "title": "OSINT — biały wywiad",
+  "summary": "Metodyka zbierania informacji z ogólnodostępnych źródeł: rekonesans pasywny, ślad cyfrowy i etyka OSINT.",
+  "category": "Rekonesans",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "intro-to-cybersecurity"
+  ],
+  "tags": [
+    "osint",
+    "rekonesans",
+    "footprinting"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest OSINT?",
+      "kind": "info",
+      "content": "## Open Source Intelligence\n\nOSINT to zbieranie i analiza informacji z **ogólnodostępnych** źródeł: stron internetowych, mediów społecznościowych, publicznych rejestrów, metadanych plików, wyników wyszukiwarek. To pierwszy etap zarówno legalnego pentestu (za zgodą klienta), jak i pracy dziennikarzy śledczych czy analityków bezpieczeństwa.\n\nKluczowa zasada: OSINT wykorzystuje TYLKO dane, które są publicznie dostępne — bez włamań, bez omijania zabezpieczeń.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Rekonesans pasywny vs aktywny",
+      "kind": "question",
+      "content": "## Dwa rodzaje rekonesansu\n\n**Pasywny** — zbieranie informacji bez BEZPOŚREDNIEGO kontaktu z celem (np. przeglądanie archiwalnych stron w Wayback Machine, publicznych rejestrów domen WHOIS). Cel nie wie, że jest analizowany.\n\n**Aktywny** — bezpośrednia interakcja z systemem celu (np. skanowanie portów), co może zostać wykryte i zalogowane po stronie celu.",
+      "question": "Który rodzaj rekonesansu (pasywny/aktywny) NIE pozostawia śladu w logach systemu celu, bo nie ma z nim bezpośredniego kontaktu?",
+      "answer": "pasywny",
+      "hint": "To ten, który 'obserwuje z daleka'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Metadane plików",
+      "kind": "question",
+      "content": "## Co kryją zdjęcia i dokumenty?\n\nPliki (zwłaszcza zdjęcia z aparatów/telefonów oraz dokumenty biurowe) często zawierają metadane: model urządzenia, datę wykonania, a nawet współrzędne GPS lub nazwę autora dokumentu w ukrytych polach. Standard metadanych zdjęć nazywa się EXIF.",
+      "question": "Jak nazywa się standard metadanych osadzanych w plikach zdjęciowych (np. z aparatu lub telefonu), który może zawierać dane GPS?",
+      "answer": "EXIF",
+      "hint": "To skrót, cztery wielkie litery.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "WHOIS i rejestracja domen",
+      "kind": "question",
+      "content": "## Kto stoi za domeną?\n\nZapytanie WHOIS o domenę pokazuje m.in. datę rejestracji, rejestratora oraz (jeśli nie jest ukryte przez usługę prywatności) dane kontaktowe właściciela. To standardowy, w pełni legalny pierwszy krok OSINT wobec organizacji.",
+      "question": "Jak nazywa się protokół/usługa pozwalająca sprawdzić, kto zarejestrował daną domenę internetową?",
+      "answer": "WHOIS",
+      "hint": "Nazwa brzmi jak pytanie 'kto jest' (who is).",
+      "points": 10
+    },
+    {
+      "id": "task-5",
+      "title": "Etyka i granice OSINT",
+      "kind": "question",
+      "content": "## Gdzie jest granica?\n\nNawet jeśli dane są technicznie 'publiczne', OSINT niesie ryzyko naruszenia prywatności (np. stalking, doxxing). Etyczny praktyk OSINT działa w ramach prawa, z jasno określonym, uzasadnionym celem (np. za zgodą klienta w ramach pentestu) i nie publikuje zebranych danych osobowych bez podstawy prawnej.",
+      "question": "Jak nazywa się nieetyczna, często nielegalna praktyka publicznego ujawniania prywatnych danych osobowych danej osoby bez jej zgody, w złej intencji?",
+      "answer": "doxxing",
+      "hint": "To angielski neologizm od słowa 'docs' (dokumenty).",
+      "points": 15
+    }
+  ]
+}
