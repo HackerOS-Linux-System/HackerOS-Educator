@@ -1,0 +1,146 @@
+{
+  "id": "capstone-blue-team-investigation",
+  "title": "Kapsztat: śledztwo Blue Team",
+  "summary": "Pokój podsumowujący — połącz OSINT, analizę logów, forensykę i reagowanie na incydent w jednym symulowanym śledztwie.",
+  "category": "Blue Team",
+  "difficulty": "Ekspert",
+  "track": "cybersecurity",
+  "estimatedMinutes": 55,
+  "prerequisites": [
+    "incident-response-basics",
+    "digital-forensics-basics",
+    "network-traffic-analysis"
+  ],
+  "tags": [
+    "capstone",
+    "blue-team",
+    "śledztwo"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Scenariusz: podejrzana aktywność na serwerze",
+      "kind": "info",
+      "content": "## Symulacja końcowa\n\nTen pokój łączy wiedzę ze wszystkich poprzednich pokoi Blue Team w jeden symulowany scenariusz z prawdziwą, interaktywną maszyną: dział IT zgłasza, że serwer webowy `prod-web-07` zwalnia, a monitoring pokazuje nietypowy ruch wychodzący w nocy.\n\nJako analityk SOC połączysz się z symulowaną maszyną poniżej i przejdziesz przez pełny cykl: identyfikacja → analiza dowodów → wnioski. Wszystkie 'dowody' w tym pokoju są fikcyjne i służą wyłącznie edukacji.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Krok 1: zbadaj serwer i znajdź podejrzany proces",
+      "kind": "question",
+      "content": "## Połącz się z prod-web-07\n\nUżyj `ps aux`, aby zobaczyć listę uruchomionych procesów. Jeden z nich wygląda bardzo podejrzanie — nie powinien być tam uruchomiony na zwykłym serwerze webowym.",
+      "question": "Podaj DOKŁADNĄ nazwę podejrzanego procesu widocznego w wyniku ps aux.",
+      "answer": "exfil_agent",
+      "hint": "Szukaj procesu o nazwie, która nie pasuje do typowych usług serwera web (nginx, php-fpm, mysql...).",
+      "walkthrough": "Wynik `ps aux` zawiera linię z procesem `./exfil_agent` uruchomionym przez użytkownika `www-data` — nietypowa nazwa i lokalizacja uruchomienia (z katalogu tymczasowego) to poważny sygnał ostrzegawczy.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "prod-web-07",
+        "user": "analityk",
+        "banner": "Połączono z prod-web-07 (zgłoszenie: nietypowo wysokie obciążenie i podejrzany ruch nocny).",
+        "startPath": "/home/analityk",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "analityk": {
+                  "type": "dir",
+                  "children": {}
+                }
+              }
+            },
+            "var": {
+              "type": "dir",
+              "children": {
+                "log": {
+                  "type": "dir",
+                  "children": {
+                    "auth.log": {
+                      "type": "file",
+                      "content": "Mar 02 01:58:40 prod-web-07 sshd: Accepted publickey for deploy from 10.0.0.9\nMar 02 02:03:11 prod-web-07 sudo: www-data : COMMAND=/tmp/.cache/exfil_agent --daemon\n"
+                    },
+                    "dns-queries.log": {
+                      "type": "file",
+                      "content": "02:04:01 query: a1b2c3d4e5.dane-klienta.exfil-c2.net TXT\n02:04:03 query: f6a7b8c9d0.dane-klienta.exfil-c2.net TXT\n02:04:05 query: 11e2d3c4b5.dane-klienta.exfil-c2.net TXT\n02:04:07 query: 99887766aa.dane-klienta.exfil-c2.net TXT\n"
+                    }
+                  }
+                }
+              }
+            },
+            "tmp": {
+              "type": "dir",
+              "children": {
+                ".cache": {
+                  "type": "dir",
+                  "children": {
+                    "exfil_agent": {
+                      "type": "file",
+                      "permissions": "-rwxr-xr-x",
+                      "content": "[plik binarny — symulacja edukacyjna, nie prawdziwe oprogramowanie]\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "cannedCommands": {
+          "ps aux": "USER       PID %CPU %MEM COMMAND\nroot         1  0.0  0.1 /sbin/init\nroot       410  0.0  0.2 sshd\nwww-data   822  0.2  0.5 nginx: worker process\nmysql      930  0.3  2.0 mysqld\nwww-data  1471 12.8  1.1 ./exfil_agent --daemon"
+        }
+      },
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Krok 2: zidentyfikuj fazę incydentu",
+      "kind": "question",
+      "content": "## Gdzie jesteśmy w cyklu NIST?\n\nWłaśnie POTWIERDZIŁEŚ, że incydent faktycznie miał miejsce (znalazłeś podejrzany proces). Zgodnie z sześciofazowym modelem NIST (poznanym w pokoju 'Podstawy reagowania na incydenty'), w jakiej byłeś WŁAŚNIE fazie, zanim podjąłeś jakiekolwiek działania naprawcze?",
+      "question": "Jak nazywa się ta faza reagowania na incydent?",
+      "answer": "identyfikacja",
+      "hint": "To druga faza cyklu NIST, zaraz po przygotowaniu.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Krok 3: zbadaj ruch DNS i znajdź technikę ataku",
+      "kind": "question",
+      "content": "## Wróć do symulowanej maszyny\n\nUżyj `cat /var/log/dns-queries.log`, aby zbadać ruch DNS z serwera. Zwróć uwagę na wzorzec: tysiące nietypowo długich, losowo wyglądających subdomen jednej domeny nadrzędnej, odpytywanych w krótkim czasie.",
+      "question": "Jak (dwa słowa po angielsku) nazywa się technika ukrywania eksfiltrowanych danych w zapytaniach DNS, pasująca do tego wzorca?",
+      "answer": "DNS tunneling",
+      "hint": "To ten sam termin, który poznałeś w pokoju 'Analiza ruchu sieciowego'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Krok 4: zachowanie dowodów",
+      "kind": "question",
+      "content": "## Zanim cokolwiek usuniesz z serwera\n\nPrzed usunięciem złośliwego procesu i pliku `exfil_agent`, musisz zabezpieczyć dowody w sposób zachowujący ich wiarygodność (poznany w pokoju forensyki) — np. obliczając sumę kontrolną pliku i dokumentując, kto i kiedy miał z nim kontakt.",
+      "question": "Jak (dwa słowa po angielsku) nazywa się udokumentowana historia posiadania dowodu, którą musisz zachować?",
+      "answer": "chain of custody",
+      "hint": "To dokładnie ten sam termin co w pokoju o informatyce śledczej.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Krok 5: powstrzymanie",
+      "kind": "question",
+      "content": "## Szybka reakcja\n\nZabezpieczyłeś dowody. Zgodnie z cyklem NIST, jaka jest NASTĘPNA faza — szybkie działanie ograniczające dalsze szkody, np. odcięcie `prod-web-07` od sieci, zanim w pełni wyeliminujesz przyczynę?",
+      "question": "Jak nazywa się ta faza reagowania na incydent?",
+      "answer": "powstrzymanie",
+      "hint": "To ten sam termin z pokoju 'Podstawy reagowania na incydenty'.",
+      "points": 15
+    },
+    {
+      "id": "task-7",
+      "title": "Krok 6: wnioski końcowe",
+      "kind": "question",
+      "content": "## Ostatnia faza\n\nPo opanowaniu incydentu, usunięciu `exfil_agent` i przywróceniu normalnego działania serwera, zespół spotyka się, aby bez obwiniania konkretnych osób przeanalizować, co poszło nie tak (np. dlaczego konto `www-data` mogło w ogóle uruchomić `sudo`) i jak temu zapobiec w przyszłości.",
+      "question": "Jak (po polsku) nazywa się ta ostatnia faza cyklu reagowania na incydenty?",
+      "answer": "wnioski",
+      "hint": "To ten sam termin z pokoju 'Podstawy reagowania na incydenty'.",
+      "points": 15
+    }
+  ]
+}
