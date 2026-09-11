@@ -1,0 +1,68 @@
+{
+  "id": "linux-high-availability",
+  "title": "Wysoka dostępność i równoważenie obciążenia",
+  "summary": "Koncepcje HA: redundancja, load balancing, health checki i unikanie pojedynczego punktu awarii (SPOF).",
+  "category": "Infrastruktura",
+  "difficulty": "Trudny",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-networking-admin",
+    "linux-systemd-services"
+  ],
+  "tags": [
+    "linux",
+    "ha",
+    "load-balancing",
+    "infrastruktura"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Pojedynczy punkt awarii",
+      "kind": "info",
+      "content": "## Single Point of Failure (SPOF)\n\n**SPOF** to element infrastruktury, którego awaria powoduje niedostępność CAŁEJ usługi. Przykład: jeden serwer bazy danych bez repliki — jego awaria = przestój całej aplikacji. Wysoka dostępność (High Availability, HA) polega na eliminowaniu SPOF-ów przez **redundancję** (dublowanie krytycznych elementów).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Load balancer — rozkładanie ruchu",
+      "kind": "question",
+      "content": "## Load balancing\n\n**Load balancer** rozdziela ruch przychodzący pomiędzy WIELE identycznych serwerów backendowych, zwiększając zarówno wydajność (rozłożenie obciążenia), jak i dostępność (jeśli jeden serwer padnie, ruch kierowany jest do pozostałych). Popularne narzędzia to Nginx, HAProxy czy sprzętowe load balancery w chmurze.",
+      "question": "Jak (dwa słowa po angielsku, 'load ...') nazywa się komponent infrastruktury rozdzielający ruch pomiędzy wiele serwerów backendowych?",
+      "answer": "load balancer",
+      "hint": "Pierwsze słowo oznacza 'obciążenie'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Health checki",
+      "kind": "question",
+      "content": "## Skąd load balancer wie, że serwer padł?\n\nLoad balancer regularnie wysyła zapytania testowe (**health checki**) do każdego backendu, np. GET `/health` co kilka sekund. Jeśli serwer nie odpowiada lub zwraca błąd, load balancer automatycznie przestaje kierować do niego ruch, dopóki znów nie zacznie odpowiadać poprawnie.",
+      "question": "Jak (dwa słowa po angielsku: 'health ...') nazywa się mechanizm regularnego sprawdzania, czy dany serwer backendowy nadal działa poprawnie?",
+      "answer": "health check",
+      "hint": "Pierwsze słowo oznacza 'zdrowie'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Active-Active vs Active-Passive",
+      "kind": "question",
+      "content": "## Dwa modele redundancji\n\n**Active-Active** — WSZYSTKIE zapasowe węzły aktywnie obsługują ruch jednocześnie. **Active-Passive** — jeden węzeł aktywny obsługuje cały ruch, a zapasowy (passive/standby) czeka w gotowości i przejmuje ruch dopiero po awarii głównego (tzw. failover).",
+      "question": "Jak nazywa się model redundancji, w którym WSZYSTKIE węzły jednocześnie aktywnie obsługują ruch? (dwa słowa po angielsku, oba takie same: 'active-...')",
+      "answer": "active-active",
+      "hint": "Przeciwieństwo do 'active-passive'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Failover",
+      "kind": "question",
+      "content": "## Automatyczne przełączenie awaryjne\n\n**Failover** to automatyczny proces przełączenia obsługi ruchu z uszkodzonego węzła na zapasowy, ideally bez zauważalnej przerwy dla użytkownika końcowego. Czas potrzebny na to przełączenie nazywa się RTO (Recovery Time Objective).",
+      "question": "Jak (jedno słowo po angielsku) nazywa się automatyczne przełączenie ruchu z uszkodzonego węzła na zapasowy?",
+      "answer": "failover",
+      "hint": "To złożenie słów 'fail' (awaria) i 'over' (przejęcie).",
+      "points": 15
+    }
+  ]
+}
