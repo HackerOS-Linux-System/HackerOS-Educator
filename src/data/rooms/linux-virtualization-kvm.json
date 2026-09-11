@@ -1,0 +1,66 @@
+{
+  "id": "linux-virtualization-kvm",
+  "title": "Wirtualizacja: KVM i libvirt",
+  "summary": "Podstawy maszyn wirtualnych na Linuksie: hypervisor typu 1, KVM/QEMU oraz zarządzanie przez libvirt.",
+  "category": "Infrastruktura",
+  "difficulty": "Trudny",
+  "track": "linux-admin",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-containers-docker"
+  ],
+  "tags": [
+    "linux",
+    "wirtualizacja",
+    "kvm"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Hypervisor typu 1 vs typu 2",
+      "kind": "info",
+      "content": "## KVM jako hypervisor typu 1\n\n**Hypervisor typu 1** (bare-metal) działa BEZPOŚREDNIO na sprzęcie, bez pośredniczącego systemu operacyjnego — przykład: KVM (Kernel-based Virtual Machine), wbudowany w jądro Linuksa. **Hypervisor typu 2** działa jako zwykła aplikacja NA systemie operacyjnym (np. VirtualBox na Windowsie) — jest wolniejszy z powodu dodatkowej warstwy.\n\nKVM w połączeniu z **QEMU** (emulacja sprzętu) i **libvirt** (warstwa zarządzania) to standardowy stos wirtualizacji w środowiskach produkcyjnych Linuksa.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Dlaczego KVM jest szybszy niż zwykła emulacja?",
+      "kind": "question",
+      "content": "## Wirtualizacja sprzętowa\n\nKVM wykorzystuje sprzętowe rozszerzenia procesora (Intel VT-x / AMD-V), które pozwalają maszynie wirtualnej wykonywać większość instrukcji BEZPOŚREDNIO na fizycznym CPU, zamiast w pełni je emulować programowo — stąd wydajność bliska natywnej.",
+      "question": "Jak (skrót, 3 litery) nazywa się technologia jądra Linuksa pozwalająca uruchamiać w pełni wirtualizowane maszyny z wydajnością bliską natywnej dzięki wsparciu sprzętowemu CPU?",
+      "answer": "KVM",
+      "hint": "To skrót od Kernel-based Virtual Machine.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "libvirt — warstwa zarządzania",
+      "kind": "question",
+      "content": "## Jedno API dla wielu hypervisorów\n\n`libvirt` dostarcza jednolite API i narzędzia (np. `virsh`) do zarządzania maszynami wirtualnymi, niezależnie od bazowego hypervisora (KVM, Xen). Polecenie `virsh list --all` pokazuje wszystkie zdefiniowane maszyny wirtualne wraz ze stanem.",
+      "question": "Jakiego polecenia (narzędzia terminalowego) libvirt używa się do zarządzania maszynami wirtualnymi z linii poleceń?",
+      "answer": "virsh",
+      "hint": "Nazwa łączy 'virtualization' i 'shell'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Sieć wirtualnych maszyn: NAT vs bridged",
+      "kind": "question",
+      "content": "## Jak maszyna wirtualna łączy się ze światem?\n\n- **NAT** — maszyna wirtualna korzysta z adresu hosta jako 'pośrednika', niewidoczna bezpośrednio z sieci lokalnej (podobnie jak router domowy).\n- **Bridged** — maszyna wirtualna dostaje WŁASNY adres IP w tej samej sieci co host, widoczna jak osobne urządzenie fizyczne.\n\nSerwery produkcyjne najczęściej używają trybu bridged, gdy maszyna wirtualna ma świadczyć usługi dostępne z zewnątrz.",
+      "question": "Jakiego trybu sieciowego (jedno słowo po angielsku) użyjesz, aby maszyna wirtualna miała WŁASNY adres IP widoczny bezpośrednio w sieci lokalnej, tak jak osobny fizyczny komputer?",
+      "answer": "bridged",
+      "hint": "To NIE jest tryb 'NAT'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Migracja na żywo",
+      "kind": "question",
+      "content": "## Live migration\n\nZaawansowaną funkcją stosów wirtualizacji (KVM/libvirt, VMware) jest **migracja na żywo** (live migration) — przeniesienie działającej maszyny wirtualnej z jednego serwera fizycznego na drugi BEZ przerywania jej pracy, np. w celu konserwacji sprzętu hosta.",
+      "question": "Jak (dwa słowa po angielsku: 'live ...') nazywa się przeniesienie działającej maszyny wirtualnej między serwerami fizycznymi bez przestoju?",
+      "answer": "live migration",
+      "hint": "Pierwsze słowo oznacza 'na żywo'.",
+      "points": 15
+    }
+  ]
+}
