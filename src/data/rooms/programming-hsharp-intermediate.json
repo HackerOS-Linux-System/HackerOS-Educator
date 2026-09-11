@@ -1,0 +1,68 @@
+{
+  "id": "programming-hsharp-intermediate",
+  "title": "H#: struktury, enumy i dopasowanie wzorców",
+  "summary": "Modelowanie danych w H# za pomocą struct i enum oraz bezpieczne rozgałęzianie logiki przez match.",
+  "category": "Języki HackerOS",
+  "difficulty": "Trudny",
+  "track": "programming",
+  "language": "hsharp",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "programming-hsharp-basics"
+  ],
+  "tags": [
+    "hsharp",
+    "hackeros",
+    "struktury",
+    "enum"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Struktury (struct)",
+      "kind": "info",
+      "content": "## struct — własne typy danych\n\nH# pozwala definiować własne typy złożone przez `struct`:\n\n```h#\nstruct Vec2 is\n    pub x: f64\n    pub y: f64\nend\n\nfn vec2_dlugosc(v: Vec2) -> f64 is\n    return math::sqrt(v.x * v.x + v.y * v.y)\nend\n```\n\nSłowo `pub` oznacza pole publiczne (dostępne spoza modułu). Funkcje mogą zwracać wartość przez `-> Typ` i słowo kluczowe `return`.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Pola publiczne",
+      "kind": "question",
+      "content": "## pub — widoczność pola\n\nBez słowa `pub` pole struktury jest prywatne dla modułu, w którym zostało zdefiniowane — podobnie jak w Ruście.",
+      "question": "Jakiego słowa kluczowego H# używa się przed polem struktury, aby uczynić je publicznie dostępnym?",
+      "answer": "pub",
+      "hint": "To skrót od 'public'.",
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Enumy z danymi",
+      "kind": "question",
+      "content": "## enum — typ wyliczeniowy z wartościami\n\nEnumy w H# mogą przechowywać dodatkowe dane w wariantach:\n\n```h#\nenum Color is\n    Red\n    Green\n    Rgb(int, int, int)\nend\n```\n\nWariant `Rgb(int, int, int)` przechowuje trzy liczby całkowite — inaczej niż `Red` czy `Green`, które są 'puste'.",
+      "question": "Jakiego słowa kluczowego H# używa się do zdefiniowania typu wyliczeniowego (jak Color powyżej)?",
+      "answer": "enum",
+      "hint": "To ta sama nazwa co w wielu innych językach (Rust, TypeScript).",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Dopasowanie wzorców: match",
+      "kind": "question",
+      "content": "## match — bezpieczne rozgałęzienie\n\n`match` sprawdza wszystkie warianty enuma i pozwala 'wyciągnąć' dane z wariantu:\n\n```h#\nmatch c is\n    Color::Red          => \"#FF0000\"\n    Color::Rgb(r, g, b)  => \"#\" + to_hex(r) + to_hex(g) + to_hex(b)\nend\n```\n\nKompilator H# ostrzeże, jeśli zapomnisz obsłużyć jakiś wariant enuma — to chroni przed błędami przy rozbudowie kodu.",
+      "question": "Jakiego słowa kluczowego H# używa się do dopasowania wszystkich możliwych wariantów wartości (jak switch, ale bezpieczniejsze)?",
+      "answer": "match",
+      "hint": "To ta sama nazwa co w Ruście.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Generyki: Maybe<T>",
+      "kind": "question",
+      "content": "## Bezpieczna obsługa braku wartości\n\nH# pozwala na typy generyczne, np. wbudowany wzorzec `Maybe<T>` do bezpiecznej obsługi 'braku wartości' (zamiast null):\n\n```h#\nenum Maybe<T> is\n    Some(T)\n    None\nend\n\nfn safe_div(a: f64, b: f64) -> Maybe<f64> is\n    if b == 0.0 is\n        return Maybe::None\n    end\n    return Maybe::Some(a / b)\nend\n```\n\nDzięki temu funkcja jawnie komunikuje w typie zwracanym, że wynik może nie istnieć (np. dzielenie przez zero) — kompilator wymusza obsłużenie obu przypadków.",
+      "question": "Jaki wariant enuma Maybe<T> reprezentuje BRAK wartości (odpowiednik null w innych językach)?",
+      "answer": "None",
+      "hint": "To przeciwieństwo wariantu 'Some(T)'.",
+      "points": 15
+    }
+  ]
+}
