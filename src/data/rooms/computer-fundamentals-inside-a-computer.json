@@ -1,0 +1,120 @@
+{
+  "id": "computer-fundamentals-inside-a-computer",
+  "title": "Fundamenty komputera: wnętrze systemu komputerowego",
+  "summary": "Poznaj podstawowe podzespoły każdego komputera — CPU, RAM, dysk, płytę główną — i sprawdź je w praktyce na symulowanej maszynie.",
+  "category": "Podstawy komputerowe",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "intro-to-cybersecurity"
+  ],
+  "tags": [
+    "podstawy",
+    "sprzęt",
+    "cpu",
+    "ram"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Z czego składa się komputer?",
+      "kind": "info",
+      "content": "## Wnętrze systemu komputerowego\n\nZanim zaczniemy mówić o systemach operacyjnych, sieciach czy bezpieczeństwie, warto zrozumieć, z czego w ogóle składa się komputer. Każdy komputer — od smartfona po serwer w centrum danych — opiera się na tych samych kilku kluczowych podzespołach:\n\n- **CPU** (procesor) — 'mózg' komputera, wykonuje obliczenia i instrukcje.\n- **RAM** (pamięć operacyjna) — bardzo szybka, ale TYMCZASOWA pamięć robocza.\n- **Dysk (HDD/SSD)** — TRWAŁE przechowywanie danych, nawet po wyłączeniu zasilania.\n- **Płyta główna (motherboard)** — 'układ nerwowy', który łączy wszystkie podzespoły ze sobą.\n- **Zasilacz (PSU)** — dostarcza prąd do wszystkich komponentów.\n\nZrozumienie tych podstaw pomoże Ci później zrozumieć, DLACZEGO systemy działają tak, a nie inaczej — np. dlaczego restart komputera czyści pamięć RAM, ale nie usuwa plików z dysku.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "CPU — mózg komputera",
+      "kind": "question",
+      "content": "## Procesor (CPU)\n\n**CPU** (Central Processing Unit, jednostka centralna przetwarzania) wykonuje instrukcje programów — dosłownie miliardy operacji na sekundę. Nowoczesne procesory mają wiele **rdzeni** (cores), z których każdy może wykonywać obliczenia NIEZALEŻNIE — to jak posiadanie kilku 'mózgów' pracujących równolegle nad różnymi zadaniami zamiast jednego, który musi robić wszystko po kolei.",
+      "question": "Jak (pełna nazwa po angielsku, trzy słowa) rozwija się skrót CPU?",
+      "answer": "Central Processing Unit",
+      "hint": "Pierwsze słowo oznacza 'centralny'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "RAM vs dysk — pamięć tymcząsowa i trwała",
+      "kind": "question",
+      "content": "## Dlaczego restart czyści pewne rzeczy, a inne nie?\n\n**RAM** (pamięć operacyjna) jest **ulotna** (volatile) — przechowuje dane TYLKO gdy komputer ma zasilanie. Wyłączenie komputera = utrata wszystkiego, co było w RAM (dlatego niezapisany dokument znika po awarii prądu).\n\n**Dysk** (HDD lub SSD) jest **nieulotny** (non-volatile) — dane pozostają zapisane nawet po wyłączeniu zasilania, dlatego pliki wciąż tam są po ponownym uruchomieniu komputera.",
+      "question": "Który z tych dwóch rodzajów pamięci (RAM/dysk) TRACI swoją zawartość zaraz po odłączeniu zasilania?",
+      "answer": "RAM",
+      "hint": "To pamięć nazywana 'ulotną' (volatile).",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Płyta główna — łącznik wszystkiego",
+      "kind": "question",
+      "content": "## Motherboard\n\n**Płyta główna** (motherboard) to duża płytka drukowana, do której podłączone są WSZYSTKIE inne podzespoły: procesor, pamięć RAM, dyski, karta graficzna. To ona zapewnia fizyczne i elektryczne połączenia, dzięki którym te elementy mogą się ze sobą komunikować — bez niej pojedyncze podzespoły byłyby tylko stertą niepołączonych części.",
+      "question": "Jak (po angielsku, jedno słowo) nazywa się główna płytka łącząca wszystkie podzespoły komputera?",
+      "answer": "motherboard",
+      "hint": "Nazwa dosłownie oznacza 'płytę matkę'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "HDD vs SSD",
+      "kind": "question",
+      "content": "## Dwa rodzaje trwałego przechowywania danych\n\n**HDD** (Hard Disk Drive) przechowuje dane na WIRUJĄCYCH magnetycznych talerzach odczytywanych mechaniczną głowicą — wolniejszy, ale tańszy za GB. **SSD** (Solid State Drive) nie ma RUCHOMYCH części — przechowuje dane w układach pamięci flash, dzięki czemu jest znacznie SZYBSZY i bardziej odporny na wstrząsy.",
+      "question": "Który typ dysku (HDD/SSD) NIE MA żadnych ruchomych części mechanicznych?",
+      "answer": "SSD",
+      "hint": "To ten nowszy, szybszy typ dysku.",
+      "points": 15
+    },
+    {
+      "id": "task-6",
+      "title": "Praktyka: zbadaj sprzęt symulowanej maszyny",
+      "kind": "question",
+      "content": "## Polecenia diagnostyczne Linuksa\n\nSystem Linux (w tym HackerOS) oferuje polecenia pozwalające zbadać, JAKI dokładnie sprzęt kryje się pod maską danej maszyny — bez otwierania obudowy:\n\n- `lscpu` — informacje o procesorze (liczba rdzeni, model, cache),\n- `free -h` — ilość i wykorzystanie pamięci RAM,\n- `lsblk` — dyski i partycje,\n- `lspci` — urządzenia podłączone do magistrali PCI (karta graficzna, kontrolery).\n\nPołącz się z symulowaną maszyną szkoleniową poniżej i użyj tych poleceń, aby odpowiedzieć na pytanie: **Ile rdzeni (CPU) ma procesor tej maszyny według `lscpu`?**",
+      "question": "Podaj liczbę rdzeni CPU (pole 'CPU(s)' w wyniku lscpu).",
+      "answer": "4",
+      "hint": "Uruchom polecenie 'lscpu' w terminalu poniżej i poszukaj pola 'CPU(s):'.",
+      "walkthrough": "Po wpisaniu `lscpu` w symulowanym terminalu, w wyniku znajdziesz linię `CPU(s):                  4` — to liczba rdzeni/wątków widocznych dla systemu.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "simulatedMachine": {
+        "hostname": "poznaj-sprzet",
+        "user": "kursant",
+        "banner": "Połączono z symulowaną maszyną szkoleniową 'poznaj-sprzet'.\nUżyj poleceń lscpu, free -h, lsblk i lspci, aby zbadać jej sprzęt.\nWpisz 'help', aby zobaczyć listę dostępnych poleceń.",
+        "startPath": "/home/kursant",
+        "filesystem": {
+          "type": "dir",
+          "children": {
+            "home": {
+              "type": "dir",
+              "children": {
+                "kursant": {
+                  "type": "dir",
+                  "children": {
+                    "README.txt": {
+                      "type": "file",
+                      "content": "Ta symulowana maszyna posluzy Ci do poznania jej sprzetu.\nSprobuj polecen: lscpu, free -h, lsblk, lspci\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "cannedCommands": {
+          "lscpu": "Architecture:            x86_64\nCPU(s):                  4\nThread(s) per core:      2\nCore(s) per socket:      4\nModel name:              HackerOS Virtual CPU @ 3.20GHz\nL1d cache:               128 KiB\nL2 cache:                1 MiB\nL3 cache:                8 MiB",
+          "free -h": "               total        used        free      shared\nMem:            8.0Gi       2.1Gi       5.1Gi       0.2Gi\nSwap:           2.0Gi          0B       2.0Gi",
+          "lsblk": "NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT\nsda      8:0    0  512G  0 disk\n└─sda1   8:1    0  512G  0 part /",
+          "lspci": "00:00.0 Host bridge: HackerOS Virtual Chipset\n00:02.0 VGA compatible controller: HackerOS Virtual GPU\n00:1f.2 SATA controller: HackerOS Virtual Storage Controller"
+        }
+      },
+      "points": 25
+    },
+    {
+      "id": "task-7",
+      "title": "System operacyjny jako pomost",
+      "kind": "question",
+      "content": "## Kto łączy sprzęt z tym, co widzisz na ekranie?\n\nSam sprzęt (CPU, RAM, dysk) nie 'wie', jak wyświetlić okno przeglądarki czy odtworzyć muzykę. Rolę pośrednika między surowym sprzętem a aplikacjami, z których korzystasz, pełni **system operacyjny** (np. HackerOS, Windows, macOS) — zarządza on zasobami sprzętowymi i udostępnia je programom w zorganizowany, bezpieczny sposób.",
+      "question": "Jak (po polsku, dwa słowa) nazywa się oprogramowanie zarządzające sprzętem i udostępniające go aplikacjom (np. HackerOS)?",
+      "answer": "system operacyjny",
+      "hint": "To skrót, którego często używa się jako 'OS' po angielsku.",
+      "points": 15
+    }
+  ]
+}
