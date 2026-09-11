@@ -1,0 +1,67 @@
+{
+  "id": "programming-lua-intermediate",
+  "title": "Lua: tabele, metatabele i coroutines",
+  "summary": "Główna struktura danych Lua — tabele — oraz zaawansowane mechanizmy: metatabele i współprogramy (coroutines).",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Trudny",
+  "track": "programming",
+  "language": "lua",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "programming-lua-basics"
+  ],
+  "tags": [
+    "lua",
+    "tabele",
+    "metatabele"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Tabele — jedyna struktura danych Lua",
+      "kind": "info",
+      "content": "## Tablice, słowniki i obiekty w jednym\n\nLua ma tylko JEDNĄ złożoną strukturę danych — **tabelę** — która pełni rolę tablicy, słownika I obiektu jednocześnie:\n\n```lua\n-- jako tablica (indeksy numeryczne od 1)\nlocal owoce = {\"jablko\", \"gruszka\", \"sliwka\"}\nprint(owoce[1])  -- jablko\n\n-- jako słownik (klucze tekstowe)\nlocal osoba = {imie = \"Ala\", wiek = 25}\nprint(osoba.imie)  -- Ala\n```\n\nZauważ: indeksowanie tabel w Lua zaczyna się od **1**, nie od 0 (w przeciwieństwie do większości innych języków)!",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Indeksowanie od 1",
+      "kind": "question",
+      "content": "## Częsta pułapka dla programistów innych języków\n\nProgramiści przyzwyczajeni do C/Python/JavaScript (indeksowanie od 0) często popełniają błąd w Lua, próbując odczytać `tabela[0]`, co zwraca `nil` (brak wartości), bo pierwszy element to `tabela[1]`.",
+      "question": "Od jakiej liczby zaczyna się indeksowanie elementów tabeli w Lua (w przeciwieństwie do większości innych języków)?",
+      "answer": "1",
+      "hint": "To NIE jest 0.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Metatabele — dostosowywanie zachowania",
+      "kind": "question",
+      "content": "## setmetatable i __index\n\n**Metatabele** pozwalają dostosować, jak zachowuje się dana tabela, np. co się dzieje przy próbie dodania dwóch tabel operatorem `+`, lub co zwrócić, gdy odczytywany klucz nie istnieje:\n\n```lua\nlocal domyslne = {kolor = \"czerwony\"}\nlocal obiekt = setmetatable({}, {__index = domyslne})\nprint(obiekt.kolor)  -- \"czerwony\" (odziedziczone z metatabeli!)\n```\n\nTo mechanizm, na którym opiera się prosta forma programowania obiektowego w Lua (imitacja dziedziczenia).",
+      "question": "Jakiej funkcji Lua używa się, aby PRZYPISAĆ metatabelę do istniejącej tabeli?",
+      "answer": "setmetatable",
+      "hint": "Nazwa dosłownie mówi 'ustaw metatabelę'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Coroutines — współprogramy",
+      "kind": "question",
+      "content": "## Kooperatywna wielozadaniowość\n\n**Coroutines** pozwalają funkcji 'zawiesić' swoje wykonanie w dowolnym momencie (`coroutine.yield`) i wznowić je później dokładnie od tego miejsca (`coroutine.resume`) — w przeciwieństwie do wątków systemowych, przełączanie jest jawne i kontrolowane przez sam kod, nie przez system operacyjny.\n\n```lua\nlocal co = coroutine.create(function()\n    print(\"Krok 1\")\n    coroutine.yield()\n    print(\"Krok 2\")\nend)\n\ncoroutine.resume(co)  -- wypisze \"Krok 1\"\ncoroutine.resume(co)  -- wypisze \"Krok 2\"\n```",
+      "question": "Jakiej funkcji Lua używa się WEWNĄTRZ coroutine, aby ZAWIESIĆ jej wykonanie i oddać kontrolę z powrotem do kodu wywołującego?",
+      "answer": "coroutine.yield",
+      "hint": "Druga część nazwy to angielskie słowo 'ustąpić'/'oddać'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Dlaczego Lua jest popularna do osadzania",
+      "kind": "question",
+      "content": "## Lekki język skryptowy\n\nDzięki bardzo małemu rozmiarowi interpretera i prostej integracji z kodem C, Lua jest niezwykle popularna jako język OSADZANY wewnątrz innych aplikacji (gry komputerowe jak Roblox czy World of Warcraft, edytory, a nawet niektóre narzędzia sieciowe jak Nginx z modułem OpenResty) — pozwalając twórcom aplikacji udostępnić prosty język skryptowy 'na żądanie' użytkownikom, bez pisania całego własnego interpretera od zera.",
+      "question": "Jak (po polsku, jednym słowem) nazywa się praktyka WBUDOWYWANIA interpretera Lua wewnątrz innej większej aplikacji (np. gry)?",
+      "answer": "osadzanie",
+      "hint": "Po angielsku to 'embedding'.",
+      "points": 15
+    }
+  ]
+}
