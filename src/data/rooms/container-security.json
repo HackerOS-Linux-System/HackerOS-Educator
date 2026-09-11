@@ -1,0 +1,67 @@
+{
+  "id": "container-security",
+  "title": "Bezpieczeństwo kontenerów",
+  "summary": "Najczęstsze błędy konfiguracji Dockera: uprawnienia roota, publiczne obrazy i skanowanie podatności.",
+  "category": "Bezpieczeństwo chmury",
+  "difficulty": "Trudny",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "linux-containers-docker",
+    "linux-privilege-escalation-concepts"
+  ],
+  "tags": [
+    "docker",
+    "kontenery",
+    "bezpieczeństwo"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Kontener to nie sandbox absolutny",
+      "kind": "info",
+      "content": "## Współdzielone jądro = współdzielone ryzyko\n\nKontenery dzielą jądro systemu HOSTA — to co czyni je lekkimi, jest też ich ryzykiem: błędnie skonfigurowany lub podatny kontener może w pewnych warunkach pozwolić na 'ucieczkę' (container escape) i wpłynąć na cały system hosta, nie tylko na sam kontener.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Uruchamianie jako root",
+      "kind": "question",
+      "content": "## Domyślnie root w kontenerze\n\nWiele obrazów Dockera domyślnie uruchamia procesy jako `root` WEWNĄTRZ kontenera. Choć to inny 'root' niż root hosta, w połączeniu z błędną konfiguracją (np. montowaniem `/` hosta do kontenera) może to prowadzić do przejęcia uprawnień na hoście. Dobra praktyka: w Dockerfile jawnie definiować niewyprzywilejowanego użytkownika instrukcją `USER`.",
+      "question": "Jakiej instrukcji Dockerfile (wielkimi literami) używa się, aby WYMUSIĆ uruchomienie kontenera jako niewyprzywilejowany, konkretny użytkownik zamiast domyślnego roota?",
+      "answer": "USER",
+      "hint": "To krótkie, angielskie słowo oznaczające 'użytkownik'.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Flaga --privileged",
+      "kind": "question",
+      "content": "## Najbardziej niebezpieczna flaga Dockera\n\nUruchomienie kontenera z flagą `--privileged` praktycznie WYŁĄCZA większość izolacji bezpieczeństwa, dając kontenerowi niemal pełny dostęp do zasobów hosta (urządzenia, jądro). Powinno być stosowane WYŁĄCZNIE w wyjątkowych, w pełni świadomych przypadkach (np. narzędzia do zarządzania samym Dockerem), nigdy jako domyślne rozwiązanie problemu z uprawnieniami.",
+      "question": "Jakiej flagi `docker run` NALEŻY unikać, ponieważ niemal całkowicie wyłącza izolację bezpieczeństwa kontenera?",
+      "answer": "--privileged",
+      "hint": "Nazwa flagi dosłownie oznacza 'uprzywilejowany'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Skanowanie obrazów pod kątem podatności",
+      "kind": "question",
+      "content": "## Zaufanie, ale weryfikacja\n\nObrazy z publicznych rejestrów (np. Docker Hub) mogą zawierać PRZESTARZAŁE pakiety z odkrytymi lukami. Narzędzia jak `trivy` czy `docker scan` automatycznie skanują obraz i listują znane podatności (CVE) w jego warstwach, zanim trafi on na produkcję.",
+      "question": "Jakim skrótem (3 litery) określa się publiczny identyfikator znanej, udokumentowanej podatności bezpieczeństwa (np. w bibliotece użytej w obrazie)?",
+      "answer": "CVE",
+      "hint": "To skrót od Common Vulnerabilities and Exposures.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Minimalne obrazy bazowe",
+      "kind": "question",
+      "content": "## Mniej znaczy bezpieczniej\n\nUżywanie minimalnych obrazów bazowych (np. `alpine` zamiast pełnego `ubuntu`) zmniejsza tzw. **powierzchnię ataku** (attack surface) — mniej zainstalowanych pakietów oznacza mniej potencjalnych podatności do wykorzystania, nawet jeśli atakujący uzyska dostęp do powłoki wewnątrz kontenera.",
+      "question": "Jak (po angielsku, dwa słowa: 'attack ...') nazywa się suma wszystkich potencjalnych punktów, przez które system może zostać zaatakowany?",
+      "answer": "attack surface",
+      "hint": "Drugie słowo oznacza 'powierzchnia'.",
+      "points": 15
+    }
+  ]
+}
