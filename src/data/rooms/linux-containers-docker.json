@@ -1,0 +1,65 @@
+{
+  "id": "linux-containers-docker",
+  "title": "Kontenery: Docker z perspektywy administratora",
+  "summary": "Podstawy konteneryzacji: obrazy, kontenery, Dockerfile i różnice względem tradycyjnych maszyn wirtualnych.",
+  "category": "Konteneryzacja",
+  "difficulty": "Średni",
+  "track": "linux-admin",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "linux-package-management",
+    "linux-systemd-services"
+  ],
+  "tags": [
+    "linux",
+    "docker",
+    "konteneryzacja"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Kontenery vs maszyny wirtualne",
+      "kind": "info",
+      "content": "## Lżejsza izolacja\n\nMaszyna wirtualna (VM) wirtualizuje CAŁY sprzęt i uruchamia osobne jądro systemu operacyjnego — jest 'ciężka', ale w pełni izolowana. Kontener (np. Docker) dzieli jądro systemu HOSTA i izoluje jedynie procesy, sieć i system plików na poziomie jądra (przez cgroups i namespaces) — jest znacznie lżejszy i szybszy w starcie.\n\n```bash\ndocker --version\ndocker images\ndocker ps -a\n```",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Obraz vs kontener",
+      "kind": "question",
+      "content": "## Image i Container\n\n**Obraz** (image) to niezmienny szablon (jak klasa w programowaniu) — zawiera system plików aplikacji i jej zależności. **Kontener** (container) to URUCHOMIONA, żywa instancja obrazu (jak obiekt utworzony z klasy). Z jednego obrazu można uruchomić wiele niezależnych kontenerów.",
+      "question": "Jak nazywa się URUCHOMIONA, żywa instancja obrazu Dockera (analogia do 'obiektu' utworzonego z 'klasy')?",
+      "answer": "kontener",
+      "hint": "To słowo znajduje się w samej nazwie technologii.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Praktyka: pierwszy kontener",
+      "kind": "practical",
+      "content": "## Uruchom kontener\n\nJeśli Docker jest dostępny w Twoim środowisku, spróbuj:\n\n```bash\ndocker run --rm hello-world\ndocker run --rm -it ubuntu:latest echo \"Cześć z kontenera!\"\ndocker ps -a\n```\n\nFlaga `--rm` automatycznie usuwa kontener po zakończeniu działania — dobra praktyka przy krótkich testach, by nie zaśmiecać systemu martwymi kontenerami.",
+      "hasTerminal": true,
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Dockerfile — przepis na obraz",
+      "kind": "question",
+      "content": "## Budowanie własnych obrazów\n\n`Dockerfile` to plik tekstowy opisujący krok po kroku, jak zbudować obraz:\n\n```dockerfile\nFROM ubuntu:22.04\nRUN apt update && apt install -y curl\nCOPY app.sh /app.sh\nCMD [\"/app.sh\"]\n```\n\n`FROM` wskazuje obraz bazowy, `RUN` wykonuje polecenie PODCZAS budowania obrazu, a `CMD` definiuje domyślne polecenie URUCHAMIANE przy starcie kontenera.",
+      "question": "Jakiej instrukcji Dockerfile (jedno słowo, wielkimi literami) używa się do wskazania OBRAZU BAZOWEGO, na którym buduje się nowy obraz?",
+      "answer": "FROM",
+      "hint": "To pierwsza instrukcja w niemal każdym Dockerfile.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Persystencja danych: woluminy",
+      "kind": "question",
+      "content": "## Dane przeżywające kontener\n\nKontenery są domyślnie **efemeryczne** — dane zapisane wewnątrz znikają po usunięciu kontenera. Aby dane przetrwały (np. baza danych), montuje się **wolumin** (volume) — katalog hosta lub zarządzany przez Dockera obszar, niezależny od cyklu życia kontenera.\n\n```bash\ndocker run -v /dane/na/hoscie:/dane/w/kontenerze moj-obraz\n```",
+      "question": "Jak nazywa się mechanizm Dockera pozwalający na TRWAŁE przechowywanie danych niezależnie od cyklu życia kontenera?",
+      "answer": "wolumin",
+      "hint": "Po angielsku to 'volume'.",
+      "points": 15
+    }
+  ]
+}
