@@ -1,0 +1,66 @@
+{
+  "id": "secure-coding-practices",
+  "title": "Bezpieczne programowanie",
+  "summary": "Zasady pisania kodu odpornego na najczęstsze błędy: walidacja danych wejściowych, zasada least privilege i bezpieczne zależności.",
+  "category": "Bezpieczeństwo aplikacji",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "web-security-fundamentals"
+  ],
+  "tags": [
+    "secure-coding",
+    "programowanie",
+    "owasp"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Nigdy nie ufaj danym wejściowym",
+      "kind": "info",
+      "content": "## Input validation jako fundament\n\nZasada numer jeden bezpiecznego programowania: KAŻDE dane pochodzące spoza kontrolowanego systemu (formularz użytkownika, nagłówek HTTP, parametr URL, plik konfiguracyjny z zewnątrz) należy traktować jako potencjalnie WROGIE i zwalidować przed użyciem. Walidacja powinna następować po stronie SERWERA — walidacja tylko w przeglądarce (client-side) jest jedynie wygodą dla użytkownika, NIE zabezpieczeniem (atakujący łatwo ją omija).",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Whitelisting vs blacklisting",
+      "kind": "question",
+      "content": "## Dwie strategie walidacji\n\n**Blacklisting** (czarna lista) — blokujesz ZNANE złe wzorce. Problem: zawsze można wymyślić nowy sposób obejścia listy.\n\n**Whitelisting** (biała lista) — dopuszczasz TYLKO znane dobre wzorce, wszystko inne odrzucasz domyślnie. Znacznie bezpieczniejsze podejście, bo nie trzeba przewidywać wszystkich możliwych ataków.",
+      "question": "Która strategia walidacji (whitelisting/blacklisting) jest uznawana za BEZPIECZNIEJSZĄ, bo domyślnie odrzuca wszystko poza znaną, dopuszczalną listą?",
+      "answer": "whitelisting",
+      "hint": "To ta strategia oparta na 'białej liście'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Zarządzanie zależnościami",
+      "kind": "question",
+      "content": "## Twój kod jest tak bezpieczny, jak jego zależności\n\nWiększość nowoczesnych aplikacji opiera się na dziesiątkach/setkach zewnętrznych bibliotek (npm, pip, cargo). Nieaktualizowana zależność ze znaną podatnością (CVE) staje się luką w CAŁEJ aplikacji, nawet jeśli własny kod jest napisany bezbłędnie. Narzędzia jak `npm audit`, `pip-audit` czy Dependabot automatycznie wykrywają takie przypadki.",
+      "question": "Jakiego polecenia npm (dwa słowa) używa się do sprawdzenia znanych podatności w zainstalowanych zależnościach projektu JavaScript?",
+      "answer": "npm audit",
+      "hint": "Drugie słowo oznacza 'audyt'.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Sekrety poza kodem źródłowym",
+      "kind": "question",
+      "content": "## Klucze API nie należą do repozytorium\n\nHardkodowanie haseł, kluczy API czy tokenów bezpośrednio w kodzie źródłowym (i wrzucanie ich do repozytorium Git) to jeden z najczęstszych i najbardziej kosztownych błędów — nawet po usunięciu z najnowszej wersji, sekret pozostaje w HISTORII commitów. Sekrety powinny trafiać do zmiennych środowiskowych lub dedykowanych narzędzi (Vault, AWS Secrets Manager).",
+      "question": "Jakiego pliku (nazwa zaczynająca się od kropki) używa się powszechnie do wskazania Gitowi plików, które NIGDY nie powinny trafić do repozytorium (np. plik z sekretami)?",
+      "answer": ".gitignore",
+      "hint": "Nazwa dosłownie mówi 'ignoruj w Git'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Defense in depth",
+      "kind": "question",
+      "content": "## Warstwy obrony\n\nBezpieczny kod nie polega na JEDNYM zabezpieczeniu. Zasada **defense in depth** (obrona warstwowa) mówi, że należy stosować WIELE niezależnych warstw ochrony (walidacja wejścia, zapytania parametryzowane, właściwe uprawnienia bazy danych, monitoring) — tak, by awaria JEDNEJ warstwy nie oznaczała całkowitej kompromitacji systemu.",
+      "question": "Jak (po angielsku, trzy słowa: 'defense in ...') nazywa się zasada stosowania wielu niezależnych warstw zabezpieczeń zamiast polegania na jednej?",
+      "answer": "defense in depth",
+      "hint": "Ostatnie słowo oznacza 'głębokość'.",
+      "points": 20
+    }
+  ]
+}
