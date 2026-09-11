@@ -1,0 +1,65 @@
+{
+  "id": "linux-admin-intro",
+  "title": "Wprowadzenie do administracji Linuksem",
+  "summary": "Filozofia administrowania Linuksem: hierarchia plików (FHS), poziomy uprawnień, dystrybucje i miejsce HackerOS wśród nich.",
+  "category": "Podstawy administracji",
+  "difficulty": "Łatwy",
+  "track": "linux-admin",
+  "estimatedMinutes": 25,
+  "prerequisites": [],
+  "tags": [
+    "linux",
+    "administracja",
+    "fhs",
+    "hackeros"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym różni się administrator od zwykłego użytkownika?",
+      "kind": "info",
+      "content": "## Administracja systemem\n\nW trybie „Cyberbezpieczeństwo” uczysz się *używać* Linuksa jako narzędzia. W trybie **Administracja Linuksem** uczysz się *utrzymywać* system: instalować usługi, zarządzać użytkownikami, monitorować zasoby i reagować na awarie.\n\nAdministrator systemu (sysadmin) odpowiada za:\n\n- dostępność usług (uptime),\n- bezpieczeństwo konfiguracji,\n- zarządzanie kontami i uprawnieniami,\n- aktualizacje i kopie zapasowe,\n- automatyzację powtarzalnych zadań.\n\nW HackerOS większość codziennej administracji odbywa się z terminala — GUI to dodatek, nie konieczność.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Hierarchia systemu plików (FHS)",
+      "kind": "question",
+      "content": "## Filesystem Hierarchy Standard\n\nKażda dystrybucja linuksowa (w tym HackerOS) trzyma się w dużej mierze standardu FHS:\n\n| Katalog | Przeznaczenie |\n|---|---|\n| `/etc` | pliki konfiguracyjne systemu i usług |\n| `/var` | dane zmienne: logi, cache, kolejki |\n| `/home` | katalogi domowe użytkowników |\n| `/usr/bin` | programy dostępne dla wszystkich użytkowników |\n| `/opt` | oprogramowanie instalowane ręcznie, poza menedżerem pakietów |\n| `/proc` | wirtualny wgląd w procesy i jądro systemu |\n\nZnajomość tej mapy to pierwszy krok do sprawnej administracji — wiedząc, gdzie szukać, rozwiązujesz problem dwa razy szybciej.",
+      "question": "W którym katalogu administrator znajdzie pliki konfiguracyjne usług systemowych (np. serwera SSH)?",
+      "answer": "/etc",
+      "hint": "To ten sam katalog, w którym leży plik /etc/passwd.",
+      "walkthrough": "Konfiguracja usług systemowych w Linuksie znajduje się w `/etc`, np. `/etc/ssh/sshd_config` dla SSH czy `/etc/nginx/nginx.conf` dla Nginksa.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 10
+    },
+    {
+      "id": "task-3",
+      "title": "Dane zmienne: logi i cache",
+      "kind": "question",
+      "content": "## /var — dane, które się zmieniają\n\nKatalog `/var` (variable) przechowuje dane, które rosną i zmieniają się w czasie działania systemu: logi (`/var/log`), kolejki wydruku, cache pakietów czy dane baz danych.",
+      "question": "Podaj pełną ścieżkę katalogu, w którym standardowo znajdują się logi systemowe.",
+      "answer": "/var/log",
+      "hint": "To podkatalog /var.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Superużytkownik i sudo",
+      "kind": "practical",
+      "content": "## root vs sudo\n\nKonto `root` ma pełne uprawnienia w systemie. Zamiast logować się bezpośrednio jako `root` (ryzykowne — łatwo o pomyłkę), administratorzy używają `sudo`, które pozwala tymczasowo wykonać jedno polecenie z podniesionymi uprawnieniami, zostawiając ślad w logach (`/var/log/auth.log` lub `journalctl`).\n\nSpróbuj w terminalu obok:\n\n```bash\nwhoami\nsudo whoami\nid\n```\n\n`whoami` pokaże Twojego bieżącego użytkownika, a `sudo whoami` (jeśli masz uprawnienia) pokaże `root`.",
+      "hasTerminal": true,
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Sprawdzian: filozofia sysadmina",
+      "kind": "question",
+      "content": "## Podsumowanie\n\nDobry administrator zawsze wybiera najmniej inwazyjne, odwracalne rozwiązanie i loguje swoje działania.",
+      "question": "Jakiego polecenia używa się, aby wykonać JEDNO polecenie z uprawnieniami roota, zamiast logować się bezpośrednio jako root?",
+      "answer": "sudo",
+      "hint": "To skrót od „superuser do” / „substitute user do”.",
+      "points": 10
+    }
+  ]
+}
