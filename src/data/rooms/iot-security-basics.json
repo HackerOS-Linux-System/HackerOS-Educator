@@ -1,0 +1,66 @@
+{
+  "id": "iot-security-basics",
+  "title": "Bezpieczeństwo Internetu Rzeczy (IoT)",
+  "summary": "Dlaczego urządzenia IoT są częstym celem: domyślne hasła, brak aktualizacji i botnety typu Mirai.",
+  "category": "Bezpieczeństwo systemów",
+  "difficulty": "Łatwy",
+  "track": "cybersecurity",
+  "estimatedMinutes": 25,
+  "prerequisites": [
+    "network-basics"
+  ],
+  "tags": [
+    "iot",
+    "botnet",
+    "urządzenia"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Dlaczego IoT to łatwy cel?",
+      "kind": "info",
+      "content": "## Miliardy słabo zabezpieczonych urządzeń\n\nUrządzenia IoT (kamery, routery, inteligentne żarówki, czujniki) często cierpią na te same, powtarzające się problemy: **domyślne, niezmieniane hasła** (np. admin/admin), **brak mechanizmu aktualizacji oprogramowania** oraz **niepotrzebnie otwarte usługi sieciowe**. Ich ogromna liczba i słabe zabezpieczenia czynią je atrakcyjnym celem do budowy dużych sieci przejętych urządzeń.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Botnet Mirai — lekcja z historii",
+      "kind": "question",
+      "content": "## Armia kamer i routerów\n\nBotnet **Mirai** (2016) przejął setki tysięcy słabo zabezpieczonych urządzeń IoT (głównie kamer i routerów) wykorzystując WYŁĄCZNIE listę popularnych, DOMYŚLNYCH par login:hasło — bez żadnych zaawansowanych exploitów. Powstała z tego sieć posłużyła do jednego z największych ataków DDoS w historii internetu, pokazując, że nawet 'proste' urządzenia w dużej skali stanowią poważne zagrożenie.",
+      "question": "Jaki BARDZO PROSTY błąd konfiguracji (nie zaawansowana luka) umożliwił botnetowi Mirai przejęcie setek tysięcy urządzeń IoT?",
+      "answer": "domyślne hasła",
+      "hint": "Chodzi o hasła, których nikt nie zmienił po zakupie urządzenia.",
+      "points": 20
+    },
+    {
+      "id": "task-3",
+      "title": "Cykl życia aktualizacji IoT",
+      "kind": "question",
+      "content": "## Kto aktualizuje żarówkę?\n\nWiele producentów urządzeń IoT przestaje wypuszczać aktualizacje bezpieczeństwa po zaledwie kilku latach (lub wcale), podczas gdy urządzenie fizycznie działa znacznie dłużej. Powstają w ten sposób miliony urządzeń z ZNANYMI, nigdy niezałatanymi lukami, wciąż podłączonych do internetu.",
+      "question": "Jakim terminem (po angielsku, dwa słowa: 'end of ...') określa się moment, w którym producent PRZESTAJE wspierać/aktualizować dany produkt?",
+      "answer": "end of life",
+      "hint": "Skrót od tego terminu to EOL.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Segmentacja sieci domowej",
+      "kind": "question",
+      "content": "## Osobna sieć dla 'niepewnych' urządzeń\n\nDobrą praktyką (dostępną w wielu domowych routerach) jest umieszczenie urządzeń IoT w OSOBNEJ sieci (np. na osobnym VLAN-ie lub sieci gościnnej), izolowanej od komputerów i telefonów, na których przechowujemy wrażliwe dane. Jeśli przejęta zostanie inteligentna żarówka, atakujący NIE powinien mieć bezpośredniego dostępu do laptopa z dokumentami firmowymi.",
+      "question": "Jak (po polsku, jednym słowem, poznanym w pokoju o sieci) nazywa się praktyka izolowania urządzeń IoT w osobnej sieci?",
+      "answer": "segmentacja",
+      "hint": "To ten sam termin z pokoju 'VPN i zaawansowana sieć'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Odpowiedzialność producenta vs użytkownika",
+      "kind": "question",
+      "content": "## Dzielona odpowiedzialność\n\nUnia Europejska (np. w ramach Cyber Resilience Act) coraz częściej wymaga od PRODUCENTÓW urządzeń IoT domyślnie bezpiecznej konfiguracji (unikalne hasła fabryczne zamiast wspólnych dla wszystkich egzemplarzy, obowiązek dostarczania aktualizacji przez określony czas) — nie polegając wyłącznie na świadomości końcowego użytkownika.",
+      "question": "Jak (po angielsku, dwa słowa: 'secure by ...') nazywa się zasada projektowania produktów jako bezpiecznych JUŻ OD FABRYKI, domyślnie, bez konieczności ręcznej konfiguracji przez użytkownika?",
+      "answer": "secure by default",
+      "hint": "Ostatnie słowo oznacza 'domyślnie'.",
+      "points": 20
+    }
+  ]
+}
