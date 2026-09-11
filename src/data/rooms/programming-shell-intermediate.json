@@ -1,0 +1,65 @@
+{
+  "id": "programming-shell-intermediate",
+  "title": "Shell: funkcje, tablice i obsługa sygnałów",
+  "summary": "Zaawansowany bash: własne funkcje powłoki, tablice, podstawianie procesów oraz przechwytywanie sygnałów przez trap.",
+  "category": "Języki ogólnego przeznaczenia",
+  "difficulty": "Trudny",
+  "track": "programming",
+  "language": "shell",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "programming-shell-basics"
+  ],
+  "tags": [
+    "bash",
+    "shell",
+    "skrypty"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Funkcje powłoki",
+      "kind": "info",
+      "content": "## function / nazwa()\n\n```bash\npowitaj() {\n    local imie=\"$1\"\n    echo \"Cześć, $imie!\"\n}\n\npowitaj \"Kursancie\"\n```\n\n`local` ogranicza widoczność zmiennej do wnętrza funkcji — bez tego zmienna byłaby GLOBALNA dla całego skryptu, co łatwo prowadzi do trudnych do znalezienia błędów przy większych skryptach.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Argumenty pozycyjne w funkcji",
+      "kind": "question",
+      "content": "## $1, $2, $@\n\nWewnątrz funkcji bash, `$1` to pierwszy argument, `$2` drugi, a `$@` reprezentuje WSZYSTKIE argumenty naraz.",
+      "question": "Jakiej zmiennej specjalnej bash (dwuznakowej) używa się wewnątrz funkcji do odniesienia się do PIERWSZEGO przekazanego argumentu?",
+      "answer": "$1",
+      "hint": "To znak dolara plus cyfra jeden.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Tablice w bash",
+      "kind": "question",
+      "content": "## Zwykłe i asocjacyjne\n\n```bash\nowoce=(\"jablko\" \"gruszka\" \"sliwka\")\necho \"${owoce[0]}\"        # jablko\necho \"${owoce[@]}\"        # wszystkie elementy\necho \"${#owoce[@]}\"       # liczba elementów (3)\n\ndeclare -A wiek\nwiek[\"Ala\"]=25\nwiek[\"Tom\"]=30\n```\n\n`declare -A` tworzy tablicę ASOCJACYJNĄ (słownik) — indeksowaną tekstowymi kluczami zamiast liczb.",
+      "question": "Jakiego symbolu (znaku #) używa się w bash, aby uzyskać LICZBĘ elementów tablicy (np. `${#owoce[@]}`)?",
+      "answer": "#",
+      "hint": "To znak krzyżyka/hasha.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "trap — przechwytywanie sygnałów",
+      "kind": "question",
+      "content": "## Reagowanie na przerwanie skryptu\n\n`trap` pozwala wykonać określoną akcję, gdy skrypt otrzyma SYGNAŁ systemowy, np. Ctrl+C (SIGINT):\n\n```bash\nsprzataj() {\n    echo \"Sprzątam tymczasowe pliki przed wyjściem...\"\n    rm -f /tmp/moj_tymczasowy_plik\n}\n\ntrap sprzataj EXIT\n```\n\nDzięki temu, nawet jeśli użytkownik przerwie skrypt w połowie (Ctrl+C) lub skrypt zakończy się błędem, funkcja `sprzataj` i tak ZOSTANIE wykonana — zapobiegając pozostawieniu 'śmieci' (plików tymczasowych, blokad).",
+      "question": "Jakiego polecenia bash używa się do zdefiniowania akcji wykonywanej przy otrzymaniu określonego sygnału (np. wyjścia ze skryptu)?",
+      "answer": "trap",
+      "hint": "Po angielsku to dosłownie 'pułapka'.",
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: skrypt z funkcją i tablicą",
+      "kind": "practical",
+      "content": "## Połącz poznane elementy\n\nSpróbuj w terminalu:\n\n```bash\ncat > raport.sh << 'EOF'\n#!/usr/bin/env bash\nset -euo pipefail\n\nserwery=(\"web1\" \"web2\" \"db1\")\n\nsprawdz() {\n    local nazwa=\"$1\"\n    echo \"Sprawdzam serwer: $nazwa\"\n}\n\nfor s in \"${serwery[@]}\"; do\n    sprawdz \"$s\"\ndone\n\necho \"Łącznie serwerów: ${#serwery[@]}\"\nEOF\nchmod +x raport.sh\n./raport.sh\n```",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
