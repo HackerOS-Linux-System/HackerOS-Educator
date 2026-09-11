@@ -1,0 +1,68 @@
+{
+  "id": "programming-hsharp-advanced",
+  "title": "H#: generyki, traity i moduły",
+  "summary": "Programowanie generyczne, definiowanie wspólnych zachowań przez traity oraz organizacja większego projektu w moduły.",
+  "category": "Języki HackerOS",
+  "difficulty": "Ekspert",
+  "track": "programming",
+  "language": "hsharp",
+  "estimatedMinutes": 40,
+  "prerequisites": [
+    "programming-hsharp-intermediate"
+  ],
+  "tags": [
+    "hsharp",
+    "hackeros",
+    "generyki",
+    "traity"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Funkcje generyczne",
+      "kind": "info",
+      "content": "## <T> — kod działający dla wielu typów\n\nH# pozwala pisać funkcje działające na WIELU typach danych bez duplikowania kodu:\n\n```h#\nfn wiekszy<T>(a: T, b: T) -> T is\n    if a > b is\n        return a\n    end\n    return b\nend\n\nlet x: int = wiekszy(3, 7)\nlet y: f64 = wiekszy(2.5, 1.1)\n```\n\n`<T>` to parametr typu — kompilator wygeneruje osobną, w pełni typowaną wersję funkcji dla każdego konkretnego typu użytego przy wywołaniu.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Składnia parametru typu",
+      "kind": "question",
+      "content": "## Jak oznaczyć, że funkcja jest generyczna?\n\nParametr typu umieszcza się w nawiasach kątowych zaraz po nazwie funkcji, przed nawiasem z argumentami — jak w przykładzie `wiekszy<T>(a: T, b: T)`.",
+      "question": "Jakiego znaku (litery umownej) używa się najczęściej jako nazwy parametru typu w funkcjach generycznych H# (i wielu innych językach)?",
+      "answer": "T",
+      "hint": "To pojedyncza wielka litera, od słowa 'Type'.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Traity — wspólne zachowania",
+      "kind": "question",
+      "content": "## trait — kontrakt zachowania\n\n`trait` definiuje ZBIÓR metod, które typ MUSI zaimplementować, aby 'spełniać' dany trait — podobnie do interfejsów w innych językach:\n\n```h#\ntrait Drukowalny is\n    fn opisz(self) -> string\nend\n\nstruct Uzytkownik is\n    pub imie: string\nend\n\nimpl Drukowalny for Uzytkownik is\n    fn opisz(self) -> string is\n        return \"Uzytkownik: \" + self.imie\n    end\nend\n```\n\nDzięki traitom można pisać funkcje generyczne, które działają na KAŻDYM typie implementującym dany trait, niezależnie od jego konkretnej struktury.",
+      "question": "Jakiego słowa kluczowego H# używa się do ZAIMPLEMENTOWANIA danego traitu dla konkretnej struktury (jak w `impl Drukowalny for Uzytkownik`)?",
+      "answer": "impl",
+      "hint": "To skrót od 'implement'.",
+      "points": 20
+    },
+    {
+      "id": "task-4",
+      "title": "Moduły i organizacja kodu",
+      "kind": "question",
+      "content": "## module i use\n\nWiększe projekty H# dzieli się na moduły, importowane słowem `use`:\n\n```h#\nmodule matematyka is\n    pub fn kwadrat(x: f64) -> f64 is\n        return x * x\n    end\nend\n\nuse matematyka::kwadrat\n\nfn main() is\n    write(to_string(kwadrat(4.0)))\nend\n```",
+      "question": "Jakiego słowa kluczowego H# używa się do ZAIMPORTOWANIA funkcji z innego modułu (jak w `use matematyka::kwadrat`)?",
+      "answer": "use",
+      "hint": "To krótkie, angielskie słowo oznaczające 'użyj'.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Dlaczego traity są bezpieczniejsze niż dziedziczenie?",
+      "kind": "question",
+      "content": "## Kompozycja zamiast hierarchii\n\nW przeciwieństwie do klasycznego dziedziczenia (jedna sztywna hierarchia klas), traity pozwalają jednemu typowi implementować WIELE niezależnych traitów jednocześnie (np. `Drukowalny` i `Porownywalny`) — to podejście nazywane 'kompozycją' jest elastyczniejsze i unika problemów klasycznego dziedziczenia wielokrotnego.",
+      "question": "Ile RÓŻNYCH traitów może zaimplementować JEDEN typ w H#: jeden, kilka, czy zero? (podaj słowo: 'kilka')",
+      "answer": "kilka",
+      "hint": "To fundamentalna zaleta traitów nad klasycznym dziedziczeniem.",
+      "points": 15
+    }
+  ]
+}
