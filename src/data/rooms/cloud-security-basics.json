@@ -1,0 +1,67 @@
+{
+  "id": "cloud-security-basics",
+  "title": "Podstawy bezpieczeństwa chmury",
+  "summary": "Model odpowiedzialności współdzielonej, typy chmur i najczęstsze błędy konfiguracji w AWS/Azure/GCP.",
+  "category": "Bezpieczeństwo chmury",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "intro-to-cybersecurity",
+    "network-basics"
+  ],
+  "tags": [
+    "chmura",
+    "aws",
+    "cloud-security"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Model odpowiedzialności współdzielonej",
+      "kind": "info",
+      "content": "## Shared Responsibility Model\n\nW chmurze (AWS, Azure, GCP) bezpieczeństwo dzieli się między dostawcę a klienta:\n\n- **Dostawca** odpowiada za bezpieczeństwo 'CHMURY' — fizyczne centra danych, infrastruktura sieciowa, wirtualizacja.\n- **Klient** odpowiada za bezpieczeństwo 'W CHMURZE' — konfigurację uprawnień, szyfrowanie danych, poprawki systemów operacyjnych na swoich maszynach wirtualnych, kontrolę dostępu.\n\nWiększość głośnych wycieków danych z chmury wynika z błędów PO STRONIE KLIENTA (np. źle skonfigurowany, publicznie dostępny bucket S3), a nie luk u dostawcy.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Publicznie dostępne zasobniki danych",
+      "kind": "question",
+      "content": "## Najczęstszy błąd konfiguracyjny\n\nJednym z najczęstszych incydentów bezpieczeństwa chmury jest pozostawienie zasobnika przechowywania danych (np. AWS S3 bucket) z uprawnieniami PUBLICZNEGO odczytu, ujawniając wrażliwe dane wszystkim w internecie — bez żadnego 'włamania' w tradycyjnym sensie, wystarczy znać/odgadnąć adres.",
+      "question": "Jak nazywa się usługa przechowywania obiektów w AWS, której błędnie skonfigurowane publiczne 'kubełki' danych bywają przyczyną głośnych wycieków? (skrót, 2 litery + cyfra)",
+      "answer": "S3",
+      "hint": "To skrót od Simple Storage Service.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "IAM — zarządzanie tożsamością i dostępem",
+      "kind": "question",
+      "content": "## Kto może co zrobić w chmurze\n\n**IAM** (Identity and Access Management) to system definiowania, które konta/role mogą wykonywać jakie akcje na jakich zasobach chmurowych. Zasada najmniejszych uprawnień jest tu KLUCZOWA — nadanie roli uprawnień szerszych niż potrzebne (np. `*` na wszystkie zasoby) to jeden z najczęstszych błędów prowadzących do eskalacji uprawnień w chmurze.",
+      "question": "Jakim skrótem (3 litery) określa się system zarządzania tożsamością i uprawnieniami w środowiskach chmurowych?",
+      "answer": "IAM",
+      "hint": "To skrót od Identity and Access Management.",
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Infrastructure as Code i skanowanie konfiguracji",
+      "kind": "question",
+      "content": "## Bezpieczeństwo od samego początku\n\nNowoczesne zespoły definiują infrastrukturę chmurową jako kod (np. Terraform) i skanują go automatycznie NARZĘDZIAMI wykrywającymi błędy konfiguracji (np. publiczny bucket) ZANIM trafi on na produkcję — to podejście 'shift left' (przesunięcie bezpieczeństwa jak najwcześniej w cyklu wytwarzania).",
+      "question": "Jak (trzy litery, skrót po angielsku) nazywa się podejście do zarządzania infrastrukturą chmurową poprzez zdefiniowanie jej jako kodu?",
+      "answer": "IaC",
+      "hint": "To skrót od Infrastructure as Code.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Szyfrowanie danych w spoczynku i w tranzycie",
+      "kind": "question",
+      "content": "## Dwa stany danych do ochrony\n\n**Dane w spoczynku** (at rest) — przechowywane na dysku/w bazie — powinny być szyfrowane (np. AES-256). **Dane w tranzycie** (in transit) — przesyłane przez sieć — powinny być chronione przez TLS. Zapomnienie o którymkolwiek z tych dwóch stanów tworzy lukę w ochronie danych.",
+      "question": "Jak (po angielsku, dwa słowa: '... at rest') nazywa się stan danych przechowywanych np. na dysku lub w bazie danych (w przeciwieństwie do przesyłanych przez sieć)?",
+      "answer": "data at rest",
+      "hint": "Pierwsze słowo to 'dane'.",
+      "points": 15
+    }
+  ]
+}
