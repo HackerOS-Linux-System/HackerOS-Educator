@@ -1,0 +1,71 @@
+{
+  "id": "web-security-fundamentals",
+  "title": "Podstawy bezpieczeństwa aplikacji webowych",
+  "summary": "Wprowadzenie do OWASP Top 10: XSS, wstrzyknięcia, błędna kontrola dostępu i jak się przed nimi bronić.",
+  "category": "Bezpieczeństwo aplikacji",
+  "difficulty": "Średni",
+  "track": "cybersecurity",
+  "estimatedMinutes": 35,
+  "prerequisites": [
+    "intro-to-cybersecurity",
+    "network-basics"
+  ],
+  "tags": [
+    "web",
+    "owasp",
+    "xss",
+    "sqli"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Czym jest OWASP Top 10?",
+      "kind": "info",
+      "content": "## OWASP Top 10\n\nOWASP (Open Worldwide Application Security Project) publikuje cyklicznie listę dziesięciu najpoważniejszych kategorii ryzyk bezpieczeństwa aplikacji webowych. To punkt odniesienia dla programistów, pentesterów i audytorów na całym świecie.\n\nNajważniejsze kategorie obejmują m.in.:\n\n- **Broken Access Control** — błędna kontrola dostępu (np. użytkownik A widzi dane użytkownika B),\n- **Injection** — wstrzyknięcia (SQL, komendy systemowe),\n- **Cryptographic Failures** — błędy kryptograficzne (np. hasła w plaintext),\n- **Cross-Site Scripting (XSS)** — wstrzyknięcie złośliwego skryptu wykonywanego w przeglądarce ofiary.\n\nCelem tego pokoju jest zrozumienie *koncepcji* tych zagrożeń i sposobów obrony — nie tworzenie narzędzi ofensywnych.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Cross-Site Scripting (XSS)",
+      "kind": "question",
+      "content": "## XSS w skrócie\n\nXSS występuje, gdy aplikacja wyświetla dane wprowadzone przez użytkownika bez odpowiedniej sanityzacji, co pozwala wstrzyknąć skrypt wykonywany w przeglądarce OFIARY (np. innego użytkownika serwisu). Klasyczny przykład testowy to wstrzyknięcie znacznika `<script>alert(1)</script>` w pole formularza.\n\nObrona: *escapowanie* danych wyjściowych (output encoding), nagłówek `Content-Security-Policy`, oraz flaga `HttpOnly` na ciasteczkach sesyjnych.",
+      "question": "Jak nazywa się technika obronna polegająca na przekształceniu znaków specjalnych (np. `<`, `>`) tak, by przeglądarka wyświetliła je jako tekst, a nie wykonała jako kod? (jedno słowo po angielsku)",
+      "answer": "escaping",
+      "hint": "To proces 'ucieczki' znaków specjalnych — po angielsku zaczyna się na 'esc'.",
+      "walkthrough": "Escaping (kodowanie wyjścia) zamienia np. `<` na `&lt;`, dzięki czemu przeglądarka renderuje tekst dosłownie zamiast interpretować go jako znacznik HTML/JS.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "SQL Injection — koncepcja",
+      "kind": "question",
+      "content": "## Wstrzyknięcia SQL\n\nSQL Injection występuje, gdy dane od użytkownika są bezpośrednio sklejane w zapytanie SQL zamiast być przekazywane jako sparametryzowane wartości. Klasyczny (edukacyjny) przykład podatnego kodu:\n\n```sql\nSELECT * FROM users WHERE login = '\" + input + \"'\n```\n\nJeśli `input` nie jest oczyszczony, atakujący może zmienić logikę zapytania. Obrona to **zapytania parametryzowane** (prepared statements), które oddzielają kod SQL od danych.",
+      "question": "Jak nazywa się technika obronna, w której dane użytkownika przekazywane są do bazy jako osobne parametry, a nie sklejane bezpośrednio z tekstem zapytania SQL? (dwa słowa po angielsku, drugie to 'statements')",
+      "answer": "prepared statements",
+      "hint": "To standardowa praktyka we wszystkich nowoczesnych bibliotekach baz danych.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 15
+    },
+    {
+      "id": "task-4",
+      "title": "Broken Access Control",
+      "kind": "question",
+      "content": "## Błędna kontrola dostępu\n\nTo najczęstsza kategoria w aktualnym OWASP Top 10. Przykład: zmiana `id=123` na `id=124` w adresie URL pozwala zobaczyć fakturę innego klienta, bo serwer nie sprawdza, czy zalogowany użytkownik faktycznie jest właścicielem zasobu o danym ID. Nazywa się to **Insecure Direct Object Reference (IDOR)**.",
+      "question": "Jak nazywa się (skrótowiec, 4 litery) podatność polegająca na dostępie do cudzych zasobów przez zmianę identyfikatora w adresie URL?",
+      "answer": "IDOR",
+      "hint": "To skrót od Insecure Direct Object Reference.",
+      "points": 15
+    },
+    {
+      "id": "task-5",
+      "title": "Nagłówki bezpieczeństwa",
+      "kind": "question",
+      "content": "## HttpOnly i Secure\n\nCiasteczka sesyjne powinny mieć ustawione flagi:\n\n- `HttpOnly` — niedostępne dla JavaScriptu (chroni przed kradzieżą przez XSS),\n- `Secure` — wysyłane tylko przez HTTPS,\n- `SameSite` — ogranicza wysyłanie ciasteczka w żądaniach z innych witryn (obrona przed CSRF).",
+      "question": "Jaką flagę ciasteczka sesyjnego ustawia się, aby JavaScript w przeglądarce NIE mógł go odczytać (ochrona przed kradzieżą sesji przez XSS)?",
+      "answer": "HttpOnly",
+      "hint": "Nazwa flagi dosłownie mówi 'tylko HTTP'.",
+      "points": 15
+    }
+  ]
+}
