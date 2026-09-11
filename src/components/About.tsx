@@ -53,9 +53,21 @@ const About: Component = () => {
       <ul>
         <li>Tauri v2 (Rust) — natywna powłoka aplikacji, lokalny terminal PTY, wieloprofilowość</li>
         <li>Solid.js + TypeScript — reaktywny interfejs użytkownika</li>
-        <li>xterm.js — emulacja terminala w zadaniach praktycznych</li>
+        <li>xterm.js — emulacja terminala zarówno w prawdziwym terminalu lokalnym, jak i w symulowanych maszynach docelowych</li>
         <li>Treść pokoi w plikach JSON + Markdown — łatwa do rozszerzania przez społeczność</li>
       </ul>
+      <h2>Dwa rodzaje terminala</h2>
+      <p>
+        Niektóre zadania praktyczne dają dostęp do <strong>prawdziwego terminala lokalnego</strong> (uruchamia
+        rzeczywistą powłokę Twojego systemu HackerOS przez Tauri) — używanego tam, gdzie faktycznie
+        administrujesz własnym systemem. Inne zadania korzystają z{" "}
+        <strong>symulowanej maszyny docelowej</strong> — bezpiecznego, w pełni przewidywalnego
+        „udawacza" terminala (podobnie jak we wprowadzających pokojach TryHackMe), który działa na
+        z góry zdefiniowanym, fikcyjnym systemie plików. Nie dotyka on Twojego prawdziwego komputera
+        i zawsze daje ten sam wynik — idealne do prowadzonych krok po kroku ćwiczeń typu „znajdź
+        dowód" czy „przeanalizuj log". Terminal symulowany jest zawsze wyraźnie oznaczony ikoną 🎯
+        i etykietą „maszyna docelowa (symulacja)".
+      </p>
       <h2>Zasady</h2>
       <p>
         Cała nauka odbywa się na treściach teoretycznych i lokalnych ćwiczeniach kontrolowanych
