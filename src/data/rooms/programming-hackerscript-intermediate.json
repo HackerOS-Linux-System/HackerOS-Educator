@@ -1,0 +1,67 @@
+{
+  "id": "programming-hackerscript-intermediate",
+  "title": "HackerScript: moduły i biblioteka standardowa",
+  "summary": "System importu modułów HackerScript (get/import) oraz korzystanie z bibliotek libs/core i libs/std.",
+  "category": "Języki HackerOS",
+  "difficulty": "Trudny",
+  "track": "programming",
+  "language": "hackerscript",
+  "estimatedMinutes": 30,
+  "prerequisites": [
+    "programming-hackerscript-basics"
+  ],
+  "tags": [
+    "hackerscript",
+    "hackeros",
+    "moduły"
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "System modułów",
+      "kind": "info",
+      "content": "## get ... import ...\n\nHackerScript pozwala importować konkretne funkcje z modułów biblioteki standardowej za pomocą składni `get <ścieżka> import <funkcja1::funkcja2::...>`:\n\n```hcs\nget <core:memory::arena> import <arena_new::arena_alloc::arena_get>\n\nfun main() [\n    let a = arena_new(4)\n    let i1 = arena_alloc(a, \"hello\")\n    log(arena_get(a, i1))\n    end\n]\n```\n\nDwukropek `::` w ścieżce modułu (`core:memory::arena`) oddziela kolejne poziomy zagnieżdżenia biblioteki.",
+      "points": 0
+    },
+    {
+      "id": "task-2",
+      "title": "Import wielu funkcji naraz",
+      "kind": "question",
+      "content": "## Separator :: w liście importu\n\nGdy chcesz zaimportować kilka funkcji z tego samego modułu jednocześnie, oddzielasz je konkretnym separatorem, jak w przykładzie: `<arena_new::arena_alloc::arena_get>`.",
+      "question": "Jakiego dwuznakowego separatora HackerScript używa się do rozdzielenia wielu importowanych funkcji w jednej instrukcji `get...import`?",
+      "answer": "::",
+      "hint": "To podwójny dwukropek.",
+      "points": 15
+    },
+    {
+      "id": "task-3",
+      "title": "Słowo kluczowe get",
+      "kind": "question",
+      "content": "## Skąd bierzemy moduł?\n\nInstrukcja importu w HackerScript zaczyna się od słowa oznaczającego 'pobierz [moduł]', a kończy słowem 'zaimportuj [funkcje]'.",
+      "question": "Jakiego słowa kluczowego (pierwszego w instrukcji importu) używa się do wskazania, SKĄD pochodzi importowany moduł?",
+      "answer": "get",
+      "hint": "To krótkie angielskie słowo, dosłownie 'weź'/'pobierz'.",
+      "points": 10
+    },
+    {
+      "id": "task-4",
+      "title": "Rekurencja w HackerScript",
+      "kind": "question",
+      "content": "## Funkcja wywołująca samą siebie\n\nHackerScript wspiera rekurencję tak jak większość języków:\n\n```hcs\nfun fib(n: Int) -> Int [\n    if n <= 1 [\n        end n\n    ]\n    end fib(n - 1) + fib(n - 2)\n]\n```\n\nTo klasyczna, (celowo nieoptymalna, ale czytelna) implementacja ciągu Fibonacciego.",
+      "question": "Ile wynosi fib(5) według powyższej definicji rekurencyjnej? (fib(0)=0, fib(1)=1)",
+      "answer": "5",
+      "hint": "Ciąg Fibonacciego: 0, 1, 1, 2, 3, 5...",
+      "walkthrough": "fib(5) = fib(4) + fib(3) = (fib(3)+fib(2)) + (fib(2)+fib(1)) = ... = 5. Standardowy ciąg Fibonacciego: 0,1,1,2,3,5.",
+      "walkthroughUnlockAfterAttempts": 2,
+      "points": 20
+    },
+    {
+      "id": "task-5",
+      "title": "Praktyka: import z libs/core",
+      "kind": "practical",
+      "content": "## Zbadaj rzeczywisty moduł\n\nW oficjalnym repozytorium HackerScript, katalog `libs/core` zawiera gotowe moduły biblioteki standardowej (np. `memory::arena` do zarządzania pamięcią w tzw. arenach). Spróbuj przejrzeć strukturę takiego projektu w terminalu:\n\n```bash\nmkdir -p projekt-modulowy/cmd\ncat > projekt-modulowy/cmd/main.hcs << 'EOF'\nusing <1.2>\nget <core:memory::arena> import <arena_new::arena_alloc::arena_get>\n\nfun main() [\n    let a = arena_new(4)\n    let idx = arena_alloc(a, 42)\n    log(\"Wartosc z areny:\", arena_get(a, idx))\n    end\n]\nEOF\ncat projekt-modulowy/cmd/main.hcs\n```\n\nAreny pamięci to zaawansowana technika zarządzania pamięcią — alokujesz duży blok naraz, a potem 'wydzielasz' z niego mniejsze kawałki, co jest szybsze niż wielokrotne osobne alokacje.",
+      "hasTerminal": true,
+      "points": 20
+    }
+  ]
+}
